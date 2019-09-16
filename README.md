@@ -15,3 +15,6 @@
   * Removes impediments to the team
 * Development Team (Everybody)
   * Decides which backlog items go into the sprint
+
+## SCRUM Flow
+![](/flow.png)
