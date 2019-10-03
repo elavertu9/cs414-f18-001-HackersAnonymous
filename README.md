@@ -3,7 +3,7 @@
 * Board Game: Banqi
   * https://en.wikipedia.org/wiki/Banqi
   * https://en.wikipedia.org/wiki/Banqi
-  
+
 ## Roles
 * Product Owner (TA & Instructor)
   * Represents the client
@@ -27,4 +27,4 @@
   * Tasks that you would have finished during the sprint (least priority)
 
 ## SCRUM Flow
-![](/flow.png)
+![](team/images/flow.png)
