@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>{{title}}</h1>
+  <div class="home">
+    <h1 id="title">{{title}}</h1>
   </div>
 </template>
 
@@ -14,3 +14,7 @@
     }
   }
 </script>
+
+<style scoped>
+
+</style>
