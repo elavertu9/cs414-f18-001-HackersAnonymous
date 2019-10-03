@@ -9,13 +9,16 @@
 
 # Generated client files, including dependencies (node_modules), bundled
 # files (generated in dist), and log files.
-client/node_modules/
-client/dist
-client/*.log
+Banqi/node_modules/
+Banqi/dist
+Banqi/*.log
 
 # package-lock.json. It is recommended that this be checked in, but does not 
 # create very nice commits in practice
-client/package-lock.json
+Banqi/package-lock.json
+
+# Client Jest coverage reports
+Banqi/coverage/
 
 # Generated Java files, created by a "mvn package"
 target/
