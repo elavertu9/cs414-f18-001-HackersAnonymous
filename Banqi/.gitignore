@@ -1,15 +1,23 @@
-.DS_Store
-node_modules/
-/dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-/test/unit/coverage/
+# This is a gitignore file. Any items in this file will be "ignored" by git.
+# Individual items can be placed here, or entire directories. All paths are
+# relative to the "root" directory of the project. That is, this file is
+# located at /.gitignore
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# IntelliJ items: the .idea directory and all project files.
+.idea/
+*.iml
+
+# Generated client files, including dependencies (node_modules), bundled
+# files (generated in dist), and log files.
+Banqi/frontend/node_modules/
+Banqi/dist
+Banqi/*.log
+
+# package-lock.json. It is recommended that this be checked in, but does not
+# create very nice commits in practice
+Banqi/frontend/package-lock.json
+
+# Generated Java files, created by a "mvn package"
+target/
+Banqi/frontend/target
+Banqi/backend/target
