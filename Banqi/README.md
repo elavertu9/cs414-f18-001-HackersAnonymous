@@ -1,27 +1,30 @@
-# banqi
+# HackersAnonymous
+## About Project
+* Board Game: Banqi
+  * https://en.wikipedia.org/wiki/Banqi
+  * https://en.wikipedia.org/wiki/Banqi
 
-> Banqi Board Game
+## Roles
+* Product Owner (TA & Instructor)
+  * Represents the client
+  * Prioritize product backlog items
+  * Makes executive decisions
+* Scrum Master (Evan)
+  * Manages the process
+  * Ensures team has what it needs to deliver value
+  * Removes impediments to the team
+* Development Team (Everybody)
+  * Decides which backlog items go into the sprint
 
-## Build Setup
+## MSCW By Priority
+* Must Have
+  * Tasks that need to be completed during the sprint
+* Should Have
+  * Tasks that should be completed during the sprint (but may not be)
+* Could Have
+  * Tasks that you could have finished during the sprint (less priority than Should Have)
+* Would Have
+  * Tasks that you would have finished during the sprint (least priority)
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## SCRUM Flow
+![](team/images/flow.png)
