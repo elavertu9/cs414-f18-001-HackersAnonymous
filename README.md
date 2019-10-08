@@ -46,4 +46,4 @@
   * Tasks that you would have finished during the sprint (least priority)
 
 ## SCRUM Flow
-![](team/images/flow.png)
+![](Banqi/team/images/flow.png)
