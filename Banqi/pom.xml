@@ -1,63 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<groupId>com.hackersanon.banqi</groupId>
-	<artifactId>spring-boot-vuejs</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
 
-	<name>spring-boot-vuejs</name>
-	<description>Demo project for Spring Boot</description>
+    <groupId>com.hackersanon.banqi</groupId>
+    <artifactId>HackersAnon</artifactId>
+    <version>0.1</version>
+    <packaging>pom</packaging>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-
-  <properties>
-    <main.basedir>${project.basedir}</main.basedir>
-
-		<!-- Analysis Tools for CI -->
-
-  </properties>
-
-	<modules>
-    <module>frontend</module>
-    <module>backend</module>
-  </modules>
-
-  <build>
-    <plugins>
-      <plugin>
-      <artifactId>maven-resources-plugin</artifactId>
-      <executions>
-        <execution>
-          <id>copy Vue.js frontend content</id>
-          <phase>generate-resources</phase>
-          <goals>
-            <goal>copy-resources</goal>
-          </goals>
-          <configuration>
-            <outputDirectory>src/main/resources/public</outputDirectory>
-            <overwrite>true</overwrite>
-            <resources>
-              <resource>
-                <directory>${project.parent.basedir}/frontend/target/dist</directory>
-                <includes>
-                  <include>static/</include>
-                  <include>index.html</include>
-                </includes>
-              </resource>
-            </resources>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-    </plugins>
-  </build>
+    <modules>
+        <module>backend</module>
+    </modules>
 
 </project>
