@@ -5,23 +5,20 @@
   * https://en.wikipedia.org/wiki/Banqi
 
 ## Build
-### Just Client
-* This is a good option for development
-* Navigate to Banqi/clientside/
-* Execute ```npm run dev```
-* This will host just the clientside code on localhost:8081
+### build.sh
+```Usage: ./build.sh```
+* Installs the frontend dependencies (npm install)
+* Installs the backend dependencies (mvn clean install)
+* After building the project you will need to run host_frontend.sh and host_backend.sh
 
-### Just Server
-* This is a good option for development
-* In progress...
+### host_frontend.sh
+```Usage: ./host_frontend.sh```
+* Hosts the frontend code using webpack and npm (npm run dev)
 
-### Client and Server
-* This is a good option for presentations of the current application
-* Navigate into Banqi/
-* Execute ```mvn clean install```
-* When the command completes, navigate to Banqi/backend/target/
-* Execute ```java -jar backend-<version>.jar```
-* This will display the client and server in a single jar file on localhost:8080
+### host_backend.sh
+```Usage: ./host_backend.sh <Version>```
+* Hosts the backend code using java jar (java -jar backend-<Version>.jar)
+* For version look in backend/pom.xml or backend/target after building the project
 
 ## Roles
 * Product Owner (TA & Instructor)
