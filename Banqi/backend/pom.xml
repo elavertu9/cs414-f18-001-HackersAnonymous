@@ -24,14 +24,6 @@
 
 	<build>
 		<directory>target</directory>
-		<resources>
-			<resource>
-				<directory>../frontend/dist</directory>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>

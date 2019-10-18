@@ -10,6 +10,7 @@
 * Installs the frontend dependencies (npm install)
 * Installs the backend dependencies (mvn clean install)
 * After building the project you will need to run host_frontend.sh and host_backend.sh
+    * You will need 2 terminal tabs open to do this
 
 ### host_frontend.sh
 ```Usage: ./host_frontend.sh```
