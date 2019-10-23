@@ -11,10 +11,13 @@
 
 <script>
 import Home from './components/Home'
+import Game from './components/Game'
+
 export default {
   name: 'app',
   components: {
-    Home
+    Home,
+    Game
   }
 }
 </script>
