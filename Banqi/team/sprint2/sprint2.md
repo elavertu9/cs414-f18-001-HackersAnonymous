@@ -1,6 +1,7 @@
 # Sprint # - *your team number* - *your team name*
 
 ## Goal
+* Have a functional, basic state, playable Banqi game.
 
 ### Sprint Leader: *firstname lastname*
 
@@ -21,8 +22,8 @@
 
 Epics planned for this release.
 
-* *## title*
-*
+* *#41: Create playable game.*
+* *#24: I would like to be able to distinguish between the 7 different types of pieces.*
 
 
 ## Review

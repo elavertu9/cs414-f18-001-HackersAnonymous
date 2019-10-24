@@ -14,7 +14,7 @@
       return {
         msg: "HowTo call REST-Services",
         backendResponse: [],
-        errors: []
+        errors: [],
       }
     },
     methods: {
