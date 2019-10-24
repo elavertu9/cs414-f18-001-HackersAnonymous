@@ -1,8 +1,20 @@
 <template>
   <div class="home">
-    <h1 id="title">Banqi</h1>
-    <button @click="callHelloApi()">CALL Spring Boot REST backend service</button>
-    <h4>Backend response: {{ backendResponse }}</h4>
+    <b-container class="homePageContent">
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <b-card title="Banqi" style="max-width: 20rem;" class="mb-2">
+            <b-card-text>
+              Press the button below to check your configuration!
+            </b-card-text>
+            <b-card-text>Backend response: {{ backendResponse }}</b-card-text>
+            <b-button @click="callHelloApi()" variant="primary">Call Backend</b-button>
+          </b-card>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
