@@ -13,6 +13,7 @@ import Home from './components/Home'
 import Game from './components/Game'
 import AppHeader from './components/AppHeader'
 import AppFooter from './components/AppFooter'
+import About from './components/About'
 
 export default {
   name: 'app',
@@ -20,6 +21,7 @@ export default {
     AppFooter,
     Home,
     Game,
+    About,
     AppHeader
   }
 }
