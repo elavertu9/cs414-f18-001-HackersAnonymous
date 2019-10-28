@@ -13,10 +13,14 @@ class CoordinateTest {
 
     @Test
     void getRow() {
+        Coordinate coordinate = new Coordinate(3,3);
+        assertEquals(3, coordinate.getRow());
     }
 
     @Test
     void getColumn() {
+        Coordinate coordinate = new Coordinate(2,7);
+        assertEquals(7, coordinate.getColumn());
     }
 
     @Test
