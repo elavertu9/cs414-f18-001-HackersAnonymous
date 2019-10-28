@@ -1,7 +1,5 @@
 package com.hackersanon.banqi.main.board;
 
-import java.util.regex.Pattern;
-
 public class Coordinate {
     private int row;
     private int column;
@@ -20,11 +18,21 @@ public class Coordinate {
     }
 
     public boolean setColumn(int column){
-        return false;
+        if(isColumnValid(column)){
+            this.column = column;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean setRow(int row){
-        return false;
+        if(isRowValid(row)){
+            this.row = row;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean isCoordinateValid(int row, int column){
