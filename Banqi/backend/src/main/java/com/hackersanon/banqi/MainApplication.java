@@ -1,4 +1,4 @@
-package com.hackersanon.banqi.main;
+package com.hackersanon.banqi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

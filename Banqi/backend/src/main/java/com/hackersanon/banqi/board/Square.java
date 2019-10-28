@@ -1,6 +1,6 @@
-package com.hackersanon.banqi.main.board;
+package com.hackersanon.banqi.board;
 
-import com.hackersanon.banqi.main.piece.Piece;
+import com.hackersanon.banqi.piece.Piece;
 
 public class Square {
     private Piece storedPiece;

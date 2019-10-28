@@ -31,7 +31,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.hackersanon.banqi.main.MainApplication</mainClass>
+							<mainClass>com.hackersanon.banqi.MainApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

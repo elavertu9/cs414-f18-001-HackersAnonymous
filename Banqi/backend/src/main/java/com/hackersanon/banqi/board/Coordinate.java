@@ -1,4 +1,4 @@
-package com.hackersanon.banqi.main.board;
+package com.hackersanon.banqi.board;
 
 import java.util.HashMap;
 import java.util.Map;

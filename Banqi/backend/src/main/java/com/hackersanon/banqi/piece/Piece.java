@@ -1,6 +1,6 @@
-package com.hackersanon.banqi.main.piece;
+package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.main.board.Coordinate;
+import com.hackersanon.banqi.board.Coordinate;
 
 import java.util.ArrayList;
 

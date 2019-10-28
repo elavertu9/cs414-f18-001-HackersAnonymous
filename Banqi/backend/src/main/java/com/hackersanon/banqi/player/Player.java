@@ -1,6 +1,6 @@
-package com.hackersanon.banqi.main.player;
+package com.hackersanon.banqi.player;
 
-import com.hackersanon.banqi.main.piece.TeamColor;
+import com.hackersanon.banqi.piece.TeamColor;
 
 public class Player {
     private TeamColor team;

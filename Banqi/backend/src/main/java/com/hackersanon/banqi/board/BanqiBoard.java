@@ -1,6 +1,8 @@
-package com.hackersanon.banqi.main.board;
+package com.hackersanon.banqi.board;
 
-import java.util.Arrays;
+import com.hackersanon.banqi.piece.Piece;
+
+import java.util.ArrayList;
 
 public class BanqiBoard {
     private Square[][] board;
@@ -25,9 +27,11 @@ public class BanqiBoard {
         }
     }
 
-    private void initPieces(){
-
+    private ArrayList<Piece> initPieces(){
+        return null;
     }
+
+
 
 
 }
