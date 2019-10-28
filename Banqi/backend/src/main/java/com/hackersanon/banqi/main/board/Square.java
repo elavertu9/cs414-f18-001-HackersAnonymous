@@ -10,11 +10,11 @@ public class Square {
     protected Square(Coordinate coordinate, Piece piece){
         this.coordinate = coordinate;
         this.storedPiece = piece;
-        this.occupied = true;
+        this.occupied = (storedPiece != null);
     }
 
     protected Square(Coordinate coordinate){
-        this.coordinate = coordinate;
+        this(coordinate,null);
     }
 
     public Piece getStoredPiece(){
