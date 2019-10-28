@@ -38,7 +38,7 @@ public enum Piece {
         return teamColor;
     }
 
-    public String getName(){
+    public String toString(){
         return this.getTeam().name() + this.name();
     }
 
