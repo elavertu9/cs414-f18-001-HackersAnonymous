@@ -1,25 +1,29 @@
 package com.hackersanon.banqi.main.board;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Coordinate {
-    private int row;
-    private int column;
+
+    private Map<String, Integer> coordinate;
 
     public Coordinate(int row, int column){
-        this.row = row;
-        this.column = column;
+        coordinate = new HashMap<>();
+        coordinate.put("row", row);
+        coordinate.put("column", column);
     }
 
     public int getRow(){
-        return row;
+        return coordinate.get("row");
     }
 
     public int getColumn(){
-        return column;
+        return coordinate.get("column");
     }
 
     public boolean setColumn(int column){
         if(isColumnValid(column)){
-            this.column = column;
+            this.coordinate.replace("column", column);
             return true;
         }else{
             return false;
@@ -28,22 +32,32 @@ public class Coordinate {
 
     public boolean setRow(int row){
         if(isRowValid(row)){
-            this.row = row;
+            coordinate.replace("row",row);
             return true;
         }else{
             return false;
         }
     }
 
-    public boolean isCoordinateValid(int row, int column){
+    public static boolean isCoordinateValid(int row, int column){
         return isRowValid(row) && isColumnValid(column);
     }
 
-    public boolean isRowValid(int row){
+    private static boolean isRowValid(int row){
         return (row<4)&&(row>=0);
     }
 
-    public boolean isColumnValid(int column){
+    private static boolean isColumnValid(int column){
         return (column<8)&&(column>=0);
     }
+
+    public String getStringPosition(){
+        return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
+    }
+
+    public enum columnLetters{
+        a,b,c,d,e,f,g,h
+    }
+
+
 }
