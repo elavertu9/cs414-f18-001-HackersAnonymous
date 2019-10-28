@@ -2,14 +2,23 @@ package com.hackersanon.banqi.main.piece;
 
 public abstract class Piece {
     boolean faceUp;
-    private int row;
-    private int column;
+    private PieceRank rank;
+    private TeamColor team;
 
-    public Piece(){
-
+    public Piece(TeamColor color){
+        this.team = color;
     }
 
-    
+    public boolean flipPiece(){
+        return false;
+    }
+
+    public TeamColor getTeam(){
+        return team;
+    }
+
+
+
 
 
 }
