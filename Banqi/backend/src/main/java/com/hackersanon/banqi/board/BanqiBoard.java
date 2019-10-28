@@ -22,13 +22,12 @@ public class BanqiBoard {
 
     public void initialize(){
         initSquares(initAllPieces());
-        //TODO Initialize and Randomize all piece locations on the board.
     }
 
-    private void initSquares(ArrayList<Piece> allPieces){//TODO Don't like this. Should initialize all squares with pieces to reduce code duplication and unnecessary for loops.
+    private void initSquares(ArrayList<Piece> allPieces){
         for (int i = 0; i<board.length;++i){
             for(int j = 0; j<board[i].length;++j){
-                board[i][j] = new Square(new Coordinate(i,j));
+                board[i][j] = new Square(new Coordinate(i,j), allPieces.remove(0));
             }
         }
     }
@@ -37,10 +36,7 @@ public class BanqiBoard {
         ArrayList<Piece> allPieces = new ArrayList<>(initTeamPieces(TeamColor.RED));
         allPieces.addAll(initTeamPieces(TeamColor.BLACK));
         Collections.shuffle(allPieces);
-        for(Piece piece: allPieces){
-            System.out.println(piece.toString());
-        }
-       return allPieces;
+        return allPieces;
     }
 
     private ArrayList<Piece> initTeamPieces(TeamColor color){
@@ -52,6 +48,17 @@ public class BanqiBoard {
                 new Piece(MINSTER, color), new Piece(MINSTER, color),
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
+    }
+
+    public String toString(){
+        StringBuilder boardString = new StringBuilder();
+        for(Square[] row: board){
+            for(Square square: row){
+                boardString.append(" ").append(square.toString()).append(" " );
+            }
+            boardString.append('\n');
+        }
+        return boardString.toString();
     }
 
 
