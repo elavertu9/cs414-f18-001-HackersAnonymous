@@ -6,25 +6,18 @@ import java.util.ArrayList;
 
 public enum Piece {
     GENERAL(){
-
     },
     CHARIOT(){
-
     },
     HORSE(){
-
     },
     CANNON(){
-
     },
     ADVISOR(){
-
     },
     MINSTER(){
-
     },
     SOLDIER(){
-
     };
 
     boolean faceUp = false;
@@ -44,6 +37,11 @@ public enum Piece {
     public TeamColor getTeam(){
         return teamColor;
     }
+
+    public String getName(){
+        return this.getTeam().name() + this.name();
+    }
+
 
     public void setTeamColor(TeamColor teamColor) {
         if(this.teamColor == null){
