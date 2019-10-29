@@ -1,9 +1,9 @@
 <template>
-  <footer class="bottom-footer">
-    <div class="footerFormat">
-      <p>Developed by ___ Hackers Anonymous</p>
-    </div>
-  </footer>
+    <footer class="bottom-footer">
+      <div class="footerFormat">
+        <p>Developed by ___ Hackers Anonymous</p>
+      </div>
+    </footer>
 </template>
 
 <script>
@@ -18,12 +18,10 @@
     color: white;
   }
   .bottom-footer {
-    background-color: #1E4D2B;
-    position: absolute;
+    position: relative;
     left: 0;
     bottom: 0;
-    height: 100px;
     width: 100%;
-    padding: 70px 0;
+    background-color: #1E4D2B;
   }
 </style>
