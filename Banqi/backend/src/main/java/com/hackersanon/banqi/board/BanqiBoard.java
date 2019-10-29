@@ -13,6 +13,7 @@ public class BanqiBoard {
     private Square[][] board;
     private int colDimension = 8;
     private int rowDimension = 4;
+    private boolean gameOver;
 
 
     public BanqiBoard(){
@@ -51,11 +52,28 @@ public class BanqiBoard {
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
     }
 
+
+    public Square[][] getBoard() {
+        return board;
+    }
+
+    public Square getSquare(Coordinate coordinate){
+        if(coordinate.isValid()){
+            return board[coordinate.getRow()][coordinate.getColumn()];
+        }else{
+            return null; //TODO throw new exception?
+        }
+    }
+
+    public Piece getPieceAt(Coordinate coordinate){
+        return this.getSquare(coordinate).getStoredPiece();
+    }
+
     public String toString(){
         StringBuilder boardString = new StringBuilder();
         for(Square[] row: board){
             for(Square square: row){
-                boardString.append(" ").append(square.toString()).append(" " );
+                boardString.append(" ").append(square.toString()).append(" " ); // TODO format to print actual sized board with squares
             }
             boardString.append('\n');
         }
