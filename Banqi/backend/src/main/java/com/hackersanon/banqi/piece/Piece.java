@@ -2,6 +2,8 @@ package com.hackersanon.banqi.piece;
 
 import com.hackersanon.banqi.board.Coordinate;
 
+import java.util.ArrayList;
+
 public class Piece {
     private final PieceAttributes pieceType;
     private final TeamColor team;
@@ -12,8 +14,8 @@ public class Piece {
         this.team = color;
     }
 
-    public String getPieceType() {
-        return pieceType.toString();
+    public PieceAttributes getPieceType() {
+        return pieceType;
     }
 
     public TeamColor getTeam() {
@@ -30,6 +32,10 @@ public class Piece {
 
     public boolean isValidMove(Coordinate origin, Coordinate destination){
         return pieceType.isValidMove(origin, destination);
+    }
+
+    public ArrayList<Coordinate> getValidMoveList(Coordinate origin){
+        return pieceType.legalMoves(origin);
     }
 
 
