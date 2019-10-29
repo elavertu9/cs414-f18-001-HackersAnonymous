@@ -5,7 +5,7 @@ if [[ $# -ne 1 ]]; then
     echo "Example: host_backend.sh 0.1"
 else
     jarFile="backend-"$1".jar"
-    output=`ls backend/target | grep $jarFile  | wc -l`
+  output=$(ls backend/target | grep "$jarFile"  | wc -l)
     if [[ $output == 0 ]]; then
         echo "Error: Version number supplied is not the current build version..."
     else

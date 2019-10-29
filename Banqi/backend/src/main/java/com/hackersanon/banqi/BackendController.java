@@ -1,4 +1,4 @@
-package com.hackersanon.banqi.main;
+package com.hackersanon.banqi;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
