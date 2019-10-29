@@ -16,7 +16,7 @@ public class BanqiBoard {
     private int rowDimension = 4;
 
 
-    public BanqiBoard(ArrayList<Player> playerList){
+    public BanqiBoard(){
         this.board = new Square[rowDimension][colDimension];
     }
 
@@ -35,7 +35,9 @@ public class BanqiBoard {
     private ArrayList<Piece> initAllPieces(){
         ArrayList<Piece> allPieces = new ArrayList<>(initTeamPieces(TeamColor.RED));
         allPieces.addAll(initTeamPieces(TeamColor.BLACK));
-        Collections.shuffle(allPieces);
+        for(int i=0;i<5;++i){
+            Collections.shuffle(allPieces);
+        }
         return allPieces;
     }
 

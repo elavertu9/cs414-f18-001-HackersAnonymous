@@ -5,9 +5,9 @@ import com.hackersanon.banqi.piece.Piece;
 public class Square {
     private Piece storedPiece;
     private Coordinate coordinate;
-    private boolean occupied = false;
+    private boolean occupied;
 
-    protected Square(Coordinate coordinate, Piece piece){
+    Square(Coordinate coordinate, Piece piece){
         this.coordinate = coordinate;
         this.storedPiece = piece;
         this.occupied = (storedPiece != null);
@@ -30,10 +30,13 @@ public class Square {
             this.storedPiece = newPiece;
             toggleOccupied();
         }
-        //TODO should square check for occupying piece team and check validity of capture of friendly piece? need to come back. I don't think square should be responsible.
     }
 
     private void toggleOccupied(){
         occupied = !occupied;
+    }
+
+    public String toString(){
+        return storedPiece.toString();
     }
 }
