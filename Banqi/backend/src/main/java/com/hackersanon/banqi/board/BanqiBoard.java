@@ -2,7 +2,6 @@ package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.TeamColor;
-import com.hackersanon.banqi.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
