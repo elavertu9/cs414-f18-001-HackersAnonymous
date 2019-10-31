@@ -53,6 +53,7 @@ class PieceTest {
 
     @Test
     void toStringTest() {
-
+        assertEquals("REDGENERAL", redGeneral.toString());
+        assertEquals("BLACKHORSE", blackHorse.toString());
     }
 }
