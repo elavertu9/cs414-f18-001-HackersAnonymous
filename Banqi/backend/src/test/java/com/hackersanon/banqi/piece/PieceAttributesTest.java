@@ -4,6 +4,8 @@ import com.hackersanon.banqi.board.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PieceAttributesTest {
@@ -14,6 +16,10 @@ class PieceAttributesTest {
 
     @Test
     void toStringTest() {
+        String[] pieceTypes = {"GENERAL", "CHARIOT", "HORSE", "CANNON", "ADVISOR", "MINSTER", "SOLDIER"};
+        for(PieceAttributes pieceType : PieceAttributes.values()) {
+            assertTrue(Arrays.asList(pieceTypes).contains(pieceType.name()));
+        }
     }
 
     @Test
@@ -24,8 +30,7 @@ class PieceAttributesTest {
         Coordinate destLeft = new Coordinate(2, 1);
         Coordinate destRight = new Coordinate(2, 3);
 
-        for(PieceAttributes pieceType : PieceAttributes.values())
-        {
+        for(PieceAttributes pieceType : PieceAttributes.values()) {
             assertTrue(pieceType.isValidMove(origin, destUp));
             assertTrue(pieceType.isValidMove(origin, destDown));
             assertTrue(pieceType.isValidMove(origin, destLeft));
