@@ -1,5 +1,6 @@
 package com.hackersanon.banqi.piece;
 
+import com.hackersanon.banqi.board.Coordinate;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,18 @@ class PieceTest {
 
     @Test
     void isValidMove() {
+        Coordinate origin = new Coordinate(3, 4);
+        Coordinate destination = new Coordinate(3, 5);
+
+        assertTrue(redGeneral.isValidMove(origin, destination));
+    }
+
+    @Test
+    void isInvalidMove() {
+        Coordinate origin = new Coordinate(3, 4);
+        Coordinate destination = new Coordinate(4, 4);
+
+        assertFalse(blackHorse.isValidMove(origin, destination));
     }
 
     @Test
