@@ -32,6 +32,11 @@ class SquareTest {
     }
 
     @Test
+    void toStringTest() {
+        assertEquals("BLACKCANNON", square.toString());
+    }
+
+    @Test
     void setStoredPiece() {
     }
 }
