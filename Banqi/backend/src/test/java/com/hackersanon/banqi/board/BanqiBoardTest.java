@@ -13,6 +13,5 @@ class BanqiBoardTest {
 
     @Test
     void initialize() {
-
     }
 }
