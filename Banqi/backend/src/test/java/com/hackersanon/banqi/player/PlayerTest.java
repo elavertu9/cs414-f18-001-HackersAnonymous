@@ -25,6 +25,8 @@ class PlayerTest {
 
     @Test
     void toggleTurn() {
+        redPlayer.toggleTurn();
+        assertTrue(redPlayer.isTurn());
     }
 
     @Test
