@@ -25,10 +25,14 @@ public class Square {
         return coordinate;
     }
 
-    public void setStoredPiece(Piece newPiece){
+    public boolean setStoredPiece(Piece newPiece){
         if(!occupied) {
             this.storedPiece = newPiece;
             toggleOccupied();
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
