@@ -23,6 +23,7 @@ class SquareTest {
 
     @Test
     void getStoredPiece() {
+        assertEquals(blackCannon, square.getStoredPiece());
     }
 
     @Test
