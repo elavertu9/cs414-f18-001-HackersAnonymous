@@ -18,6 +18,8 @@ class PieceTest {
 
     @Test
     void flipPiece() {
+        assertTrue(redGeneral.flipPiece());
+        assertTrue(blackGeneral.flipPiece());
     }
 
     @Test
