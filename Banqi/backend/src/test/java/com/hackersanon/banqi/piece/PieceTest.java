@@ -1,14 +1,19 @@
 package com.hackersanon.banqi.piece;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PieceTest {
 
-    @BeforeEach
-    void setUp() {
+    private static Piece redGeneral;
+    private static Piece blackGeneral;
+
+    @BeforeAll
+    static void setUp() {
+        redGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.RED);
+        blackGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.BLACK);
     }
 
     @Test
