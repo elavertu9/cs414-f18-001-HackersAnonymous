@@ -38,5 +38,14 @@ class SquareTest {
 
     @Test
     void setStoredPiece() {
+        Piece redChariot = new Piece(PieceAttributes.CHARIOT, TeamColor.RED);
+        assertTrue(emptySquare.setStoredPiece(redChariot));
     }
+
+    @Test
+    void setStoredPieceOccupied() {
+        Piece redSoldier = new Piece(PieceAttributes.SOLDIER, TeamColor.RED);
+        assertFalse(square.setStoredPiece(redSoldier));
+    }
+
 }
