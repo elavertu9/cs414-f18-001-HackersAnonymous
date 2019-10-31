@@ -28,6 +28,7 @@ class SquareTest {
 
     @Test
     void getCoordinate() {
+        assertEquals(new Coordinate(0, 0), square.getCoordinate());
     }
 
     @Test
