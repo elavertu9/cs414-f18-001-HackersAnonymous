@@ -31,5 +31,7 @@ class PlayerTest {
 
     @Test
     void getPlayerTeam() {
+        assertEquals(TeamColor.RED, redPlayer.getPlayerTeam());
+        assertEquals(TeamColor.BLACK, blackPlayer.getPlayerTeam());
     }
 }
