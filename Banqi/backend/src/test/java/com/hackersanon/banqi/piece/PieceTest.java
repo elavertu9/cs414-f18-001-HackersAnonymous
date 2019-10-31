@@ -24,6 +24,8 @@ class PieceTest {
 
     @Test
     void getTeam() {
+        assertEquals(TeamColor.RED, redGeneral.getTeam());
+        assertEquals(TeamColor.BLACK, blackGeneral.getTeam());
     }
 
     @Test
