@@ -8,35 +8,38 @@ import static org.junit.jupiter.api.Assertions.*;
 class PieceTest {
 
     private static Piece redGeneral;
-    private static Piece blackGeneral;
+    private static Piece blackHorse;
 
     @BeforeAll
     static void setUp() {
         redGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.RED);
-        blackGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.BLACK);
+        blackHorse = new Piece(PieceAttributes.HORSE, TeamColor.BLACK);
     }
 
     @Test
-    void flipPiece() {
-        assertTrue(redGeneral.flipPiece());
-        assertTrue(blackGeneral.flipPiece());
+    void getPieceType() {
+        assertEquals("GENERAL", redGeneral.getPieceType());
+        assertEquals("HORSE", blackHorse.getPieceType());
     }
 
     @Test
     void getTeam() {
         assertEquals(TeamColor.RED, redGeneral.getTeam());
-        assertEquals(TeamColor.BLACK, blackGeneral.getTeam());
+        assertEquals(TeamColor.BLACK, blackHorse.getTeam());
     }
 
     @Test
-    void toStringTest() {
-    }
-
-    @Test
-    void setTeamColor() {
+    void flipPiece() {
+        assertTrue(redGeneral.flipPiece());
+        assertTrue(blackHorse.flipPiece());
     }
 
     @Test
     void isValidMove() {
+    }
+
+    @Test
+    void toStringTest() {
+
     }
 }
