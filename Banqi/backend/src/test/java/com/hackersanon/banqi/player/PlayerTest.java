@@ -19,6 +19,8 @@ class PlayerTest {
 
     @Test
     void isTurn() {
+        assertFalse(redPlayer.isTurn());
+        assertFalse(blackPlayer.isTurn());
     }
 
     @Test
