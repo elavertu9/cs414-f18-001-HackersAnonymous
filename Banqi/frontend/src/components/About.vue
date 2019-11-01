@@ -51,7 +51,8 @@
                     class="mb-2">
               <img src="../images/kareem.jpg" class="restrict-size"/>
               <b-card-text>
-                Comp sci senior
+                Kareem is a senior computer science Major, he's interested in Virtual/augmented reality tech and their use cases.
+                In his free time he likes playing video games, going on hikes, camping or just doing anything outside.
               </b-card-text>
             </b-card>
           </b-col>
