@@ -19,8 +19,8 @@ class PieceTest {
 
     @Test
     void getPieceType() {
-        assertEquals("GENERAL", redGeneral.getPieceType());
-        assertEquals("HORSE", blackHorse.getPieceType());
+        assertEquals(PieceAttributes.GENERAL, redGeneral.getPieceType());
+        assertEquals(PieceAttributes.HORSE, blackHorse.getPieceType());
     }
 
     @Test
