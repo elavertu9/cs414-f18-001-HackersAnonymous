@@ -3,19 +3,19 @@ package com.hackersanon.banqi.board;
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.PieceAttributes;
 import com.hackersanon.banqi.piece.TeamColor;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SquareTest {
 
-    private static Square square;
-    private static Square emptySquare;
-    private static Piece blackCannon;
+    private Square square;
+    private Square emptySquare;
+    private Piece blackCannon;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         blackCannon = new Piece(PieceAttributes.CANNON, TeamColor.BLACK);
         square = new Square(new Coordinate(0, 0), blackCannon);
         emptySquare = new Square(new Coordinate(0, 0), null);
@@ -37,15 +37,15 @@ class SquareTest {
     }
 
     @Test
-    void setStoredPiece() {
+    void occupySquare() {
         Piece redChariot = new Piece(PieceAttributes.CHARIOT, TeamColor.RED);
-        assertTrue(emptySquare.setStoredPiece(redChariot));
+        assertNull(emptySquare.occupySquare(redChariot));
     }
 
     @Test
-    void setStoredPieceOccupied() {
+    void occupiedSquare() {
         Piece redSoldier = new Piece(PieceAttributes.SOLDIER, TeamColor.RED);
-        assertFalse(square.setStoredPiece(redSoldier));
+        assertEquals(blackCannon, square.occupySquare(redSoldier));
     }
 
 }
