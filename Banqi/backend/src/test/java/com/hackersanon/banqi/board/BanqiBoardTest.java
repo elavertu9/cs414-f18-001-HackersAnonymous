@@ -21,7 +21,8 @@ class BanqiBoardTest {
     }
 
     @Test
-    void getSquare() {
+    void getNullSquare() {
+        assertNull(banqiBoard.getSquare(new Coordinate(0, 0)));
     }
 
     @Test
