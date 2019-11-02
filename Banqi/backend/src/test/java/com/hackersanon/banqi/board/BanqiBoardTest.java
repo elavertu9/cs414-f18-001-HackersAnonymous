@@ -15,6 +15,9 @@ class BanqiBoardTest {
 
     @Test
     void getBoard() {
+        Square[][] board = banqiBoard.getBoard();
+        assertEquals(board.length, banqiBoard.getRowDimension());
+        assertEquals(board[0].length, banqiBoard.getColDimension());
     }
 
     @Test
