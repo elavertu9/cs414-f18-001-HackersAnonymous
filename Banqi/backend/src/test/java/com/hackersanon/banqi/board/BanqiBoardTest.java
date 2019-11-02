@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BanqiBoardTest {
+    private BanqiBoard banqiBoard;
 
     @BeforeEach
     void setUp() {
+        banqiBoard = new BanqiBoard();
     }
 
     @Test
