@@ -57,6 +57,14 @@ public class BanqiBoard {
         return board;
     }
 
+    public int getColDimension() {
+        return colDimension;
+    }
+
+    public int getRowDimension() {
+        return rowDimension;
+    }
+
     public Square getSquare(Coordinate coordinate){
         if(coordinate.isValid()){
             return board[coordinate.getRow()][coordinate.getColumn()];
