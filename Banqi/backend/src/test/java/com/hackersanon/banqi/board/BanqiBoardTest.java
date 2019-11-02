@@ -12,6 +12,22 @@ class BanqiBoardTest {
     }
 
     @Test
+    void getBoard() {
+    }
+
+    @Test
+    void getSquare() {
+    }
+
+    @Test
+    void getPieceAt() {
+    }
+
+    @Test
     void initialize() {
+    }
+
+    @Test
+    void toStringTest() {
     }
 }
