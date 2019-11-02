@@ -74,7 +74,12 @@ public class BanqiBoard {
     }
 
     public Piece getPieceAt(Coordinate coordinate){
-        return this.getSquare(coordinate).getStoredPiece();
+        if (this.getSquare(coordinate) != null) {
+            return this.getSquare(coordinate).getStoredPiece();
+        }
+        else {
+            return null;
+        }
     }
 
     public String toString(){
