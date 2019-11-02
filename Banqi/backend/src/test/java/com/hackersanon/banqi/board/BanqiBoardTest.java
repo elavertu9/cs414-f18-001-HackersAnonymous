@@ -26,7 +26,8 @@ class BanqiBoardTest {
     }
 
     @Test
-    void getPieceAt() {
+    void getNullPieceAt() {
+        assertNull(banqiBoard.getPieceAt(new Coordinate(0, 0)));
     }
 
     @Test
