@@ -62,7 +62,9 @@
                     class="mb-2">
               <img src="../images/jack.jpeg" class="restrict-size"/>
               <b-card-text>
-                Jack is a senior at CSU studying Computer Science. He enjoys programming and playing video games.
+                Jack is a senior at CSU studying Computer Science, his current interests are in AI, networking and cyber security.
+                Jack has recently attended his first CTF event with the members of this team, as well as a virtual reality hackathon.
+                He also enjoys snowboarding and playing video games when he gets the chance.
               </b-card-text>
             </b-card>
           </b-col>
