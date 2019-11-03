@@ -43,5 +43,9 @@
 * Would Have
   * Tasks that you would have finished during the sprint (least priority)
 
+## Acceptance criteria 
+* Acceptance criteria is defined for each user story inside of the comment.  
+
+
 ## SCRUM Flow
 ![](Banqi/team/images/flow.png)
