@@ -49,5 +49,7 @@
 ## Kanban board
 * To view our kanban screenshots navigate to /Banqi/team/sprint2/ and the images will be saved there.
 
+## Traceability Link Matrix
+* To view our traceability link matrix navigate to /Banqi/team/sprint2/. The files are named sprint2_TLM.csv and sprint2_TLM.pdf.
 ## SCRUM Flow
 ![](Banqi/team/images/flow.png)
