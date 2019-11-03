@@ -6,7 +6,7 @@
             <b-card title="Evan Lavertu"
                     style="max-width: 20rem;"
                     class="mb-2">
-              <img src="../images/lavertu.png" class="restrict-size"/>
+              <img src="../images/Lavertu.png" class="restrict-size"/>
               <b-card-text>
                 Evan Lavertu is currently pursuing a degree in Computer Science at Colorado State University (CSU).
                 He currently works for Engineering Technology Services at CSU providing technical support to the College of Engineering.
