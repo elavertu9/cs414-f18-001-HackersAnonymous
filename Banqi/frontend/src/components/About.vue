@@ -6,7 +6,7 @@
             <b-card title="Evan Lavertu"
                     style="max-width: 20rem;"
                     class="mb-2">
-              <img src="../images/lavertu.png" class="restrict-size"/>
+              <img src="../images/Lavertu.png" class="restrict-size"/>
               <b-card-text>
                 Evan Lavertu is currently pursuing a degree in Computer Science at Colorado State University (CSU).
                 He currently works for Engineering Technology Services at CSU providing technical support to the College of Engineering.
@@ -62,7 +62,9 @@
                     class="mb-2">
               <img src="../images/jack.jpeg" class="restrict-size"/>
               <b-card-text>
-                Jack is a senior at CSU studying Computer Science. He enjoys programming and playing video games.
+                Jack is a senior at CSU studying Computer Science, his current interests are in AI, networking and cyber security.
+                Jack has recently attended his first CTF event with the members of this team, as well as a virtual reality hackathon.
+                He also enjoys snowboarding and playing video games when he gets the chance.
               </b-card-text>
             </b-card>
           </b-col>
