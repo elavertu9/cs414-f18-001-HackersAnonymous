@@ -46,6 +46,8 @@
 ## Acceptance criteria 
 * Acceptance criteria is defined for each user story inside of the comment.  
 
+## Kanban board
+* To view our kanban screenshots navigate to /Banqi/team/sprint2/ and the images will be saved there.
 
 ## SCRUM Flow
 ![](Banqi/team/images/flow.png)
