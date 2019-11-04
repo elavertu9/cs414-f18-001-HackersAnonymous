@@ -59,6 +59,14 @@ public class BanqiBoard {
         return board;
     }
 
+    public int getColDimension() {
+        return colDimension;
+    }
+
+    public int getRowDimension() {
+        return rowDimension;
+    }
+
     public Square getSquare(Coordinate coordinate){
         if(coordinate.isValid()){
             return board[coordinate.getRow()][coordinate.getColumn()];
@@ -68,7 +76,12 @@ public class BanqiBoard {
     }
 
     public Piece getPieceAt(Coordinate coordinate){
-        return this.getSquare(coordinate).getStoredPiece();
+        if (this.getSquare(coordinate) != null) {
+            return this.getSquare(coordinate).getStoredPiece();
+        }
+        else {
+            return null;
+        }
     }
 
     public String toString(){
