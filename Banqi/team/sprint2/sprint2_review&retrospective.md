@@ -1,22 +1,9 @@
-# Sprint # - *your team number* - *your team name*
+# Sprint 2 - *Hackers Anonymous*
 
 ## Goal
 * Have a functional, basic state, playable Banqi game.
 
-### Sprint Leader: *firstname lastname*
-
-## Definition of Done
-
-* Web application deployed on the production server (black-bottle.cs.colostate.edu).
-* Version in server/pom.xml should be `<version>1.0</version>`.
-* Product Increment release `v1.0` created on GitHub.
-* Sprint Review and Restrospectives completed (team/sprint#.md).
-
-## Policies
-
-* All commits include a task/issue number.
-* Someone else approves and merges commits, you may not merge your own changes.
-* No commits to master
+### Sprint Leader: *Evan Lavertu*
 
 ## Plan
 
@@ -29,25 +16,29 @@ Epics planned for this release.
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *epic number and name*:  comments
-* 
+* *#61: Prepare for sprint2 release*:  prepared all deliverables for P2
 
 #### Incomplete epics in Sprint Backlog 
-* *epic number and name*: explanation
-*
+* *#41: Creating a playable game*: Game is almost in a playable state
+* *#28: User: I would like to be able to capture enemy pieces*: Foundation is setup for capturing pieces
+* *#27: User: I would like to be able to move my game pieces*: Foundation is setup for moving game pieces
+* *#24: User: I would like to be able to distinguish the 7 types of pieces*: Enum is used to distinguish pieces on the backend
+* *#22: User: I would like to play the game on a board with 8x4 squares*: BanqiBoard class contains Square[][]
 
 #### What went well
-* 
-*
+* Getting the frontend and backend setup
+* Better documentation
 
 #### Problems encountered and resolutions
-* 
-*
+* Created Maven wrapper for those who don't have it setup
 
 ## Retrospective
 
 #### What went well
+* Team worked together more often
 
 #### Potential improvements
+* Meet more often and discuss whats been done and what needs to be done
 
 #### What we will change next time
+* Improve team communication
