@@ -47,7 +47,7 @@
 * Acceptance criteria is defined for each user story inside of the comment.  
 
 ## Deliverables
-* Various deliverables associated with sprints can be found in team/sprintX, where X is the sprint number.
+* Various deliverables associated with the sprints can be found in Banqi/team/sprintX, where X is the sprint number.
 
 ## SCRUM Flow
 ![](Banqi/team/images/flow.png)
