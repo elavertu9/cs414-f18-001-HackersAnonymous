@@ -25,8 +25,8 @@ public class MainApplication {
         try {
             while(!(true == false) && (false == false)){
                 newGame.getBanqiBoard().printBoard();
-                System.out.println("Command Format:\n move a2 a3\nflip a2 a2\n");
-                System.out.println("Enter your move: ");
+                System.out.println("Command Format:\n move a2 a3\nflip a2\n");
+                System.out.println("Enter your move:\n>");
 
                 String inputMoveType = sc.next();
                 if(inputMoveType.equalsIgnoreCase("exit")){
