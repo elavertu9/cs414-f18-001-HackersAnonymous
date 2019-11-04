@@ -47,13 +47,13 @@ class CoordinateTest {
     }
 
     @Test
-    void isCoordinateValid() {
-        assertTrue(Coordinate.isCoordinateValid(3, 7));
+    void isValid() {
+        assertTrue(Coordinate.isValid(3, 7));
     }
 
     @Test
-    void isCoordinateInvalid() {
-        assertFalse(Coordinate.isCoordinateValid(8, -4));
+    void isInvalid() {
+        assertFalse(Coordinate.isValid(8, -4));
     }
 
     @Test

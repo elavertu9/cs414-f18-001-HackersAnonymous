@@ -1,7 +1,9 @@
 package com.hackersanon.banqi.board;
 
+import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Coordinate {
 
@@ -13,6 +15,18 @@ public class Coordinate {
         coordinate.put("column", column);
     }
 
+    public boolean isValid(){
+        return isRowValid(this.getRow())&&isColumnValid(this.getColumn());
+    }
+
+    public static boolean isValid(int row, int column){
+        return isRowValid(row) && isColumnValid(column);
+    }
+
+    public static boolean isValid(Coordinate coordinate){
+        return isRowValid(coordinate.getRow())&&isColumnValid(coordinate.getColumn());
+    }
+
     public int getRow(){
         return coordinate.get("row");
     }
@@ -22,25 +36,36 @@ public class Coordinate {
     }
 
     public boolean setColumn(int column){
-        if(isColumnValid(column)){
+        boolean validity = isColumnValid(column);
+        if(validity){
             this.coordinate.replace("column", column);
-            return true;
-        }else{
-            return false;
         }
+        return validity;
     }
 
     public boolean setRow(int row){
-        if(isRowValid(row)){
+        boolean validity = isRowValid(row);
+        if(validity){
             coordinate.replace("row",row);
-            return true;
+        }
+        return validity;
+    }
+
+    public String getStringPosition(){
+        return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
+    }
+
+    public static Coordinate convertANtoCoord(String origin){
+        if(Pattern.matches("[a-h][1-4]", origin)){
+           return new Coordinate(Integer.parseInt(origin.substring(1,2))-1, columnLetters.valueOf(origin.substring(0,1)).ordinal());
         }else{
-            return false;
+            throw new IndexOutOfBoundsException();
         }
     }
 
-    public static boolean isCoordinateValid(int row, int column){
-        return isRowValid(row) && isColumnValid(column);
+    public enum columnLetters{
+        a,b,c,d,e,f,g,h
+
     }
 
     private static boolean isRowValid(int row){
@@ -49,14 +74,6 @@ public class Coordinate {
 
     private static boolean isColumnValid(int column){
         return (column<8)&&(column>=0);
-    }
-
-    public String getStringPosition(){
-        return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
-    }
-
-    public enum columnLetters{
-        a,b,c,d,e,f,g,h
     }
 
     @Override

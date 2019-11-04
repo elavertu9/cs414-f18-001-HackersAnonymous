@@ -18,6 +18,8 @@ public enum PieceAttributes {
     MINSTER(){
     },
     SOLDIER(){
+    },
+    EMPTY(){
     };
 
     public String toString(){
@@ -28,7 +30,7 @@ public enum PieceAttributes {
         return legalMoves(origin).contains(destination);
     }
 
-    private ArrayList<Coordinate> legalMoves(Coordinate origin){
+    public ArrayList<Coordinate> legalMoves(Coordinate origin){
         ArrayList<Coordinate> legalMoves = new ArrayList<>();
         addLegalMove(new Coordinate(origin.getRow()+1,origin.getColumn()), legalMoves);
         addLegalMove(new Coordinate(origin.getRow()-1,origin.getColumn()), legalMoves);
@@ -38,7 +40,7 @@ public enum PieceAttributes {
     }
 
     private static void addLegalMove(Coordinate destination, ArrayList<Coordinate> legalMoves){
-        if(Coordinate.isCoordinateValid(destination.getRow(), destination.getColumn())){
+        if(destination.isValid()){
             legalMoves.add(destination);
         }
     }

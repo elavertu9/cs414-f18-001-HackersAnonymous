@@ -2,6 +2,7 @@ package com.hackersanon.banqi.piece;
 
 import com.hackersanon.banqi.board.Coordinate;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,16 +12,16 @@ class PieceTest {
     private static Piece redGeneral;
     private static Piece blackHorse;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         redGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.RED);
         blackHorse = new Piece(PieceAttributes.HORSE, TeamColor.BLACK);
     }
 
     @Test
     void getPieceType() {
-        assertEquals("GENERAL", redGeneral.getPieceType());
-        assertEquals("HORSE", blackHorse.getPieceType());
+        assertEquals(PieceAttributes.GENERAL, redGeneral.getPieceType());
+        assertEquals(PieceAttributes.HORSE, blackHorse.getPieceType());
     }
 
     @Test
@@ -53,6 +54,8 @@ class PieceTest {
 
     @Test
     void toStringTest() {
+        redGeneral.flipPiece();
+        blackHorse.flipPiece();
         assertEquals("REDGENERAL", redGeneral.toString());
         assertEquals("BLACKHORSE", blackHorse.toString());
     }

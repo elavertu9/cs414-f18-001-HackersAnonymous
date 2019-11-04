@@ -1,16 +1,19 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
+import com.hackersanon.banqi.piece.PieceAttributes;
+import com.hackersanon.banqi.piece.TeamColor;
+
+import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
+import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 
 public class Square {
     private Piece storedPiece;
     private Coordinate coordinate;
-    private boolean occupied;
 
     Square(Coordinate coordinate, Piece piece){
         this.coordinate = coordinate;
         this.storedPiece = piece;
-        this.occupied = (storedPiece != null);
     }
 
     protected Square(Coordinate coordinate){
@@ -25,20 +28,22 @@ public class Square {
         return coordinate;
     }
 
-    public boolean setStoredPiece(Piece newPiece){
-        if(!occupied) {
-            this.storedPiece = newPiece;
-            toggleOccupied();
-            return true;
+    public Piece occupySquare(Piece newPiece){
+        Piece captured = null;
+        if(isOccupied()) {
+            captured = this.storedPiece;
         }
-        else {
-            return false;
-        }
+        this.storedPiece = newPiece;
+        return captured;
     }
 
-    private void toggleOccupied(){
-        occupied = !occupied;
+    public void vacateSquare(){
+        this.storedPiece = new Piece(EMPTY, NEUTRAL);
     }
+
+   public boolean isOccupied(){
+        return (storedPiece.getPieceType() != EMPTY);
+   }
 
     public String toString(){
         return storedPiece.toString();

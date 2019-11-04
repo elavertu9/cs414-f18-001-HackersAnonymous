@@ -16,7 +16,7 @@ class PieceAttributesTest {
 
     @Test
     void toStringTest() {
-        String[] pieceTypes = {"GENERAL", "CHARIOT", "HORSE", "CANNON", "ADVISOR", "MINSTER", "SOLDIER"};
+        String[] pieceTypes = {"GENERAL", "CHARIOT", "HORSE", "CANNON", "ADVISOR", "MINSTER", "SOLDIER", "EMPTY"};
         for(PieceAttributes pieceType : PieceAttributes.values()) {
             assertTrue(Arrays.asList(pieceTypes).contains(pieceType.name()));
         }
