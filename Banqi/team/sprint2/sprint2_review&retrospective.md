@@ -36,9 +36,11 @@ Epics planned for this release.
 
 #### What went well
 * Team worked together more often
+* Better documentation compared to sprint 1
+* More frequent meetings
 
 #### Potential improvements
 * Meet more often and discuss whats been done and what needs to be done
 
 #### What we will change next time
-* Improve team communication
+* Continue to improve documentation/communication skills
