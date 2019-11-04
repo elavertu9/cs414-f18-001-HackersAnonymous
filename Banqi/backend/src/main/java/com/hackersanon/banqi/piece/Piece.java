@@ -9,6 +9,7 @@ public class Piece {
     private final TeamColor team;
     private boolean faceUp = false;
 
+
     public Piece(PieceAttributes pieceType, TeamColor color){
         this.pieceType = pieceType;
         this.team = color;
@@ -30,6 +31,10 @@ public class Piece {
         }
     }
 
+    public boolean isFaceUp(){
+        return faceUp;
+    }
+
     public boolean isValidMove(Coordinate origin, Coordinate destination){
         return pieceType.isValidMove(origin, destination);
     }
@@ -38,7 +43,9 @@ public class Piece {
         return pieceType.legalMoves(origin);
     }
 
-
+    public boolean canCapture(Piece enemy){
+        return this.pieceType.ordinal() <= enemy.getPieceType().ordinal();//TODO implement exception for general and soldier
+    }
 
     public String toString(){
         return team.toString()+pieceType.toString();

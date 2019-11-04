@@ -47,6 +47,9 @@ public class Game {
         return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
     }
 
+    public void attemptMove(Move newMove){
+        moveHistory.add(banqiBoard.makeMove(newMove));
+    }
 
 
 

@@ -18,6 +18,8 @@ public enum PieceAttributes {
     MINSTER(){
     },
     SOLDIER(){
+    },
+    EMPTY(){
     };
 
     public String toString(){

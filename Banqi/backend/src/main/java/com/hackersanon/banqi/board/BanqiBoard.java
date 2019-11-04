@@ -1,5 +1,6 @@
 package com.hackersanon.banqi.board;
 
+import com.hackersanon.banqi.game.Move;
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.TeamColor;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static com.hackersanon.banqi.game.Move.Actions.*;
 import static com.hackersanon.banqi.piece.PieceAttributes.*;
 
 public class BanqiBoard {
@@ -73,12 +75,35 @@ public class BanqiBoard {
         StringBuilder boardString = new StringBuilder();
         for(Square[] row: board){
             for(Square square: row){
-                boardString.append(" ").append(square.toString()).append(" " ); // TODO format to print actual sized board with squares
+                boardString.append(" ").append(square.toString()).append(" "); // TODO format to print actual sized board with squares
             }
             boardString.append('\n');
         }
         return boardString.toString();
     }
+
+
+
+    public Move makeMove(Move newMove){
+        newMove.getActionType();
+        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
+    }
+
+    public Move makeMove(Square origin, Square destination){
+        Piece originPiece = origin.getStoredPiece();
+        Piece destinationPiece = destination.getStoredPiece();
+
+        Move newMove = new Move(this, origin,destination);
+        if(newMove.getActionType() == TRAVEL || newMove.getActionType() == CAPTURE){
+            newMove.executeMove(this);
+        }else if(newMove.getActionType() == FLIP){
+            newMove.flipPiece();
+        }
+
+        return newMove;
+    }
+
+
 
 
 

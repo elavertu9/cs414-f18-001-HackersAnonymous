@@ -1,6 +1,11 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
+import com.hackersanon.banqi.piece.PieceAttributes;
+import com.hackersanon.banqi.piece.TeamColor;
+
+import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
+import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 
 public class Square {
     private Piece storedPiece;
@@ -33,11 +38,11 @@ public class Square {
     }
 
     public void vacateSquare(){
-        this.storedPiece = null;
+        this.storedPiece = new Piece(EMPTY, NEUTRAL);
     }
 
    public boolean isOccupied(){
-        return (storedPiece != null);
+        return (storedPiece.getPieceType() != EMPTY);
    }
 
     public String toString(){
