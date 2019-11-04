@@ -47,7 +47,14 @@ public class Piece {
         return this.pieceType.ordinal() <= enemy.getPieceType().ordinal();//TODO implement exception for general and soldier
     }
 
-    public String toString(){
-        return team.toString()+pieceType.toString();
+    public String toString() {
+        if (isFaceUp() && !pieceType.name().equals(PieceAttributes.EMPTY.name())) {
+            return team.toString() + pieceType.toString();
+        }else if(pieceType.name().equals(PieceAttributes.EMPTY.name())){
+            return " ";
+        }else {
+            return "⯄";
+
+        }
     }
 }

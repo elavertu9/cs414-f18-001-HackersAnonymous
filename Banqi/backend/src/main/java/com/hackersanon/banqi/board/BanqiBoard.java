@@ -3,6 +3,8 @@ package com.hackersanon.banqi.board;
 import com.hackersanon.banqi.game.Move;
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.TeamColor;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +36,7 @@ public class BanqiBoard {
         }
     }
 
-    private ArrayList<Piece> initAllPieces(){
+    public ArrayList<Piece> initAllPieces(){
         ArrayList<Piece> allPieces = new ArrayList<>(initTeamPieces(TeamColor.RED));
         allPieces.addAll(initTeamPieces(TeamColor.BLACK));
         for(int i=0;i<5;++i){
@@ -53,7 +55,6 @@ public class BanqiBoard {
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
     }
-
 
     public Square[][] getBoard() {
         return board;
@@ -86,19 +87,28 @@ public class BanqiBoard {
 
     public String toString(){
         StringBuilder boardString = new StringBuilder();
-        for(Square[] row: board){
-            for(Square square: row){
-                boardString.append(" ").append(square.toString()).append(" "); // TODO format to print actual sized board with squares
+        for (int i = board.length-1; i>=0;--i) {
+            for (int j = 0; j<board[i].length; ++j) {
+                boardString.append("\t").append(board[i][j].toString()).append("\t"); // TODO format to print actual sized board with squares
             }
             boardString.append('\n');
         }
         return boardString.toString();
     }
 
+    public void printBoard(){
+        AsciiTable printBoard = new AsciiTable();
+        for(int i = board.length-1; i>=0;--i){
+            printBoard.addRule();
+            printBoard.addRow(Arrays.asList(board[i])).setTextAlignment(TextAlignment.CENTER).setPaddingLeftRight(1,2);
+        }
+        printBoard.addRule();
+        printBoard.getContext().setWidth(125);
+        System.out.println(printBoard.render());
+    }
 
 
     public Move makeMove(Move newMove){
-        newMove.getActionType();
         return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
     }
 

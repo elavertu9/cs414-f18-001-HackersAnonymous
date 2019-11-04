@@ -1,29 +1,19 @@
 package com.hackersanon.banqi.game;
 
-import com.google.common.collect.Multimaps;
 import com.hackersanon.banqi.board.BanqiBoard;
 import com.hackersanon.banqi.board.Coordinate;
-import com.hackersanon.banqi.piece.Piece;
-import com.hackersanon.banqi.piece.PieceAttributes;
 import com.hackersanon.banqi.player.Player;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class Game {
     private BanqiBoard banqiBoard;
     private ArrayList<Player> players;
-    private Multimap< PieceAttributes, Multimap<Coordinate,Coordinate> > validMoveArchive;
     private ArrayList<Move> moveHistory;
 
     public Game(){
         banqiBoard = new BanqiBoard();
         moveHistory = new ArrayList<>();
-        validMoveArchive = ArrayListMultimap.create(ArrayListMultimap.create());
         players = new ArrayList<>();
     }
 
@@ -40,18 +30,23 @@ public class Game {
     }
 
     public ArrayList<Coordinate> getValidMoves(Coordinate origin){
-        Piece pieceAtOrigin = banqiBoard.getPieceAt(origin);
-//        if(validMoveArchive.containsKey(pieceAtOrigin.getPieceType())&&validMoveArchive.get(pieceAtOrigin.getPieceType()).contains(origin)) {
-//            Multimap<Coordinate, Coordinate> tempMap = (Multimap<Coordinate, Coordinate>) validMoveArchive.get(pieceAtOrigin.getPieceType());
-//        }
         return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
     }
 
-    public void attemptMove(Move newMove){
+    public void attemptMove(Move newMove) throws GameOverException {
         moveHistory.add(banqiBoard.makeMove(newMove));
+        if(isGameOver()){
+            throw new GameOverException();
+        }
     }
 
-
+    public void attemptMove(String origin, String destination) throws GameOverException {
+        Move move = new Move(this.getBanqiBoard(), Coordinate.convertANtoCoord(origin), Coordinate.convertANtoCoord(destination));
+        moveHistory.add(banqiBoard.makeMove(move));
+        if (isGameOver()){
+            throw new GameOverException();
+        }
+    }
 
     public BanqiBoard getBanqiBoard() {
         return banqiBoard;

@@ -1,6 +1,8 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
+import com.hackersanon.banqi.piece.PieceAttributes;
+import com.hackersanon.banqi.piece.TeamColor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,20 +51,9 @@ class BanqiBoardTest {
             }
         }
 
-        assertEquals(1, pieceTotals.get("REDGENERAL"));
-        assertEquals(2, pieceTotals.get("REDCHARIOT"));
-        assertEquals(2, pieceTotals.get("REDHORSE"));
-        assertEquals(2, pieceTotals.get("REDCANNON"));
-        assertEquals(2, pieceTotals.get("REDADVISOR"));
-        assertEquals(2, pieceTotals.get("REDMINSTER"));
-        assertEquals(5, pieceTotals.get("REDSOLDIER"));
-        assertEquals(1, pieceTotals.get("BLACKGENERAL"));
-        assertEquals(2, pieceTotals.get("BLACKCHARIOT"));
-        assertEquals(2, pieceTotals.get("BLACKHORSE"));
-        assertEquals(2, pieceTotals.get("BLACKCANNON"));
-        assertEquals(2, pieceTotals.get("BLACKADVISOR"));
-        assertEquals(2, pieceTotals.get("BLACKMINSTER"));
-        assertEquals(5, pieceTotals.get("BLACKSOLDIER"));
+        for(PieceAttributes piece: PieceAttributes.values()){
+
+        }
 
     }
 
@@ -71,8 +62,8 @@ class BanqiBoardTest {
         String[] pieceNames = {"REDGENERAL", "REDCHARIOT", "REDHORSE", "REDCANNON", "REDADVISOR", "REDMINSTER", "REDSOLDIER",
                 "BLACKGENERAL", "BLACKCHARIOT", "BLACKHORSE", "BLACKCANNON", "BLACKADVISOR", "BLACKMINSTER", "BLACKSOLDIER"};
 
-        for (String pieceName : pieceNames) {
-            pieceTotals.put(pieceName, 0);
+        for (Piece piece : banqiBoard.initAllPieces()) {
+            pieceTotals.put(piece.toString(), 0);
         }
 
         return pieceTotals;

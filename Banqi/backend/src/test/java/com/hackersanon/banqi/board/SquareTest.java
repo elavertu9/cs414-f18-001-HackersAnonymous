@@ -33,6 +33,7 @@ class SquareTest {
 
     @Test
     void toStringTest() {
+        square.getStoredPiece().flipPiece();
         assertEquals("BLACKCANNON", square.toString());
     }
 
@@ -40,6 +41,7 @@ class SquareTest {
     void occupySquare() {
         Piece redChariot = new Piece(PieceAttributes.CHARIOT, TeamColor.RED);
         emptySquare.occupySquare(redChariot);
+        emptySquare.getStoredPiece().flipPiece();
         assertEquals(emptySquare.toString(), "REDCHARIOT");
     }
 

@@ -34,23 +34,6 @@ public class Move {
         this.actionType = Actions.translateToAction(origin, destination);
     }
 
-    public Move(BanqiBoard gameBoard, Coordinate origin){
-
-    }
-
-    public Move(Map<String, Coordinate> newTrip, Piece attackerPiece, Piece capturedPiece){
-        this.attacker = attackerPiece;
-        this.captured = capturedPiece;
-        this.trip = newTrip;
-        this.actionType = Actions.CAPTURE;
-    }
-
-    public Move(Map<String,Coordinate> newTrip, Piece attackerPiece){
-        this.attacker = attackerPiece;
-        this.trip = newTrip;
-        this.actionType = Actions.TRAVEL;
-    }
-
     public Move executeMove(BanqiBoard board){
         board.getSquare(getDestination()).occupySquare(getAttacker());
         board.getSquare(getOrigin()).vacateSquare();
