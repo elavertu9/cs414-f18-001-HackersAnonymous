@@ -18,7 +18,7 @@ class SquareTest {
     void setUp() {
         blackCannon = new Piece(PieceAttributes.CANNON, TeamColor.BLACK);
         square = new Square(new Coordinate(0, 0), blackCannon);
-        emptySquare = new Square(new Coordinate(0, 0), null);
+        emptySquare = new Square(new Coordinate(0, 0), new Piece(PieceAttributes.EMPTY,TeamColor.NEUTRAL));
     }
 
     @Test
@@ -39,7 +39,8 @@ class SquareTest {
     @Test
     void occupySquare() {
         Piece redChariot = new Piece(PieceAttributes.CHARIOT, TeamColor.RED);
-        assertNull(emptySquare.occupySquare(redChariot));
+        emptySquare.occupySquare(redChariot);
+        assertEquals(emptySquare.toString(), "REDCHARIOT");
     }
 
     @Test
