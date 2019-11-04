@@ -58,8 +58,8 @@ public class Move {
         return this;
     }
 
-    public Move flipPiece(){
-        attacker.flipPiece();
+    public Move executeFlip(BanqiBoard board){
+        board.getSquare(getOrigin()).getStoredPiece().flipPiece();
         this.setExecuted();
         return this;
     }

@@ -103,14 +103,12 @@ public class BanqiBoard {
     }
 
     public Move makeMove(Square origin, Square destination){
-        Piece originPiece = origin.getStoredPiece();
-        Piece destinationPiece = destination.getStoredPiece();
-
         Move newMove = new Move(this, origin,destination);
         if(newMove.getActionType() == TRAVEL || newMove.getActionType() == CAPTURE){
-            newMove.executeMove(this);
+            return newMove.executeMove(this);
         }else if(newMove.getActionType() == FLIP){
-            newMove.flipPiece();
+            return newMove.executeFlip(this);
+
         }
 
         return newMove;
