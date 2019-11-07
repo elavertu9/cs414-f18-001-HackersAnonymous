@@ -17,7 +17,7 @@ public class Move {
 
 
 
-    public Move(BanqiBoard gameBoard, Coordinate origin, Coordinate destination){
+    Move(BanqiBoard gameBoard, Coordinate origin, Coordinate destination){
         this.trip = new HashMap<>();
         this.trip.put("origin", origin);
         this.trip.put("destination", destination);
@@ -59,11 +59,11 @@ public class Move {
         return executed;
     }
 
-    public void setExecuted() {
+    private void setExecuted() {
         this.executed = true;
     }
 
-    public Piece getAttacker() {
+    private Piece getAttacker() {
         return attacker;
     }
 
@@ -90,12 +90,32 @@ public class Move {
                 return (origin.isOccupied() && origin.getStoredPiece().isFaceUp()) &&
                         (!destination.isOccupied());
             }
+    
+            @Override public Move executeMove(BanqiBoard banqiBoard, Move move)
+            {
+                banqiBoard.getSquare(move.getDestination()).occupySquare(move.getAttacker());
+                banqiBoard.getSquare(move.getOrigin()).vacateSquare();
+                move.setExecuted();
+                return move;
+            }
         },CAPTURE(){
             @Override
             public boolean calculateMoveType(Square origin, Square destination) {
                 return ((origin.isOccupied()&& origin.getStoredPiece().isFaceUp()) &&
                         (destination.isOccupied() && destination.getStoredPiece().isFaceUp()) &&
                         origin.getStoredPiece().canCapture(destination.getStoredPiece()));
+            }
+        
+            @Override public Move executeMove(BanqiBoard banqiBoard, Move move)
+            {
+                if(banqiBoard.getSquare(move.getOrigin()).getStoredPiece().canCapture(banqiBoard.getSquare(move.getDestination()).getStoredPiece())){
+                    banqiBoard.getSquare(move.getDestination()).occupySquare(move.getAttacker());
+                    banqiBoard.getSquare(move.getOrigin()).vacateSquare();
+                    move.setExecuted();
+                    return move;
+                }else{
+                    return null; //TODO replace null return
+                }
             }
         },FLIP(){
             @Override
@@ -104,11 +124,23 @@ public class Move {
                         ( destination.getCoordinate().equals(origin.getCoordinate()) &&
                                 !destination.getStoredPiece().isFaceUp() );
             }
+        
+            @Override public Move executeMove(BanqiBoard banqiBoard, Move move)
+            {
+                banqiBoard.getSquare(move.getOrigin()).getStoredPiece().flipPiece();
+                move.setExecuted();
+                return move;
+            }
         }, INVALID() {
             @Override
             public boolean calculateMoveType(Square origin, Square destination) {
                 return !TRAVEL.calculateMoveType(origin,destination) && !CAPTURE.calculateMoveType(origin,destination)
                         && !FLIP.calculateMoveType(origin,destination);
+            }
+        
+            @Override public Move executeMove(BanqiBoard banqiBoard, Move move)
+            {
+                return null;
             }
         };
         Actions(){}
@@ -123,5 +155,10 @@ public class Move {
         }
 
         abstract boolean calculateMoveType(Square origin, Square destination);
+        
+        public Move executeMove(BanqiBoard banqiBoard, Move move)
+        {
+            return null;
+        }
     }
 }

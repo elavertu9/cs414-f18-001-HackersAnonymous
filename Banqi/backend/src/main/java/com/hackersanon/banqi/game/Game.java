@@ -21,7 +21,7 @@ public class Game {
         banqiBoard.initialize();
     }
 
-    public boolean isGameOver(){
+    private boolean isGameOver(){
         return false; //TODO need to implement isGameOver()
     }
 
@@ -42,10 +42,7 @@ public class Game {
 
     public void attemptMove(String origin, String destination) throws GameOverException {
         Move move = new Move(this.getBanqiBoard(), Coordinate.convertANtoCoord(origin), Coordinate.convertANtoCoord(destination));
-        moveHistory.add(banqiBoard.makeMove(move));
-        if (isGameOver()){
-            throw new GameOverException();
-        }
+        attemptMove(move);
     }
 
     public BanqiBoard getBanqiBoard() {
