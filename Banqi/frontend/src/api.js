@@ -11,5 +11,8 @@ const AXIOS = axios.create({
 export default {
   hello() {
     return AXIOS.get(`/hello`);
+  },
+  getBoard() {
+    return AXIOS.get('/board');
   }
 }
