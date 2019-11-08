@@ -52,8 +52,31 @@
 </template>
 
 <script>
+    import API from '../api';
+
     export default {
-        name: "BanqiBoard"
+      beforeMount() {
+        console.log("Getting game board instance from backend");
+        this.getBoardApi();
+      },
+      name: "BanqiBoard",
+      data() {
+        return {
+          board: [[]],
+          errors: []
+        }
+      },
+      methods: {
+        getBoardApi() {
+          API.getBoard().then(response => {
+            this.board = response.data;
+            console.log(response.data);
+          })
+          .catch(error => {
+            this.errors.push(error);
+          })
+        }
+      }
     }
 </script>
 
