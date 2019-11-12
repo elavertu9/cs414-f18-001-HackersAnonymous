@@ -2,6 +2,7 @@ package com.hackersanon.banqi.game;
 
 import com.hackersanon.banqi.board.BanqiBoard;
 import com.hackersanon.banqi.board.Coordinate;
+import com.hackersanon.banqi.board.Square;
 import com.hackersanon.banqi.player.Player;
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class Game {
         attemptMove(move);
     }
 
-    public BanqiBoard getBanqiBoard() {
+    protected BanqiBoard getBanqiBoard() {
         return banqiBoard;
     }
 
@@ -57,5 +58,8 @@ public class Game {
         return moveHistory;
     }
 
+    public ArrayList<Square> getClientBoard(){
+        return banqiBoard.getClientBoard();
+    }
 
 }

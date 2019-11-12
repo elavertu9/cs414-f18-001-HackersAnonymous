@@ -18,7 +18,7 @@ public class MainApplication {
         Scanner sc = new Scanner(System.in).useDelimiter("\\s");
         try {
             while(!(true == false) && (false == false)){
-                newGame.getBanqiBoard().printBoard();
+//                newGame.getBanqiBoard().printBoard();
                 System.out.println("Command Format:\n move a2 a3\nflip a2\n");
                 System.out.print("Enter your move:\n>");
 

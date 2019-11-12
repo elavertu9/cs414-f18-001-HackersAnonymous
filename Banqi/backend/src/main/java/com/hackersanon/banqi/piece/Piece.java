@@ -19,7 +19,7 @@ public class Piece {
         return pieceType;
     }
 
-    TeamColor getTeam() {
+    public TeamColor getTeam() {
         return team;
     }
 
