@@ -1,16 +1,10 @@
 package com.hackersanon.banqi;
 
-import com.hackersanon.banqi.board.BanqiBoard;
-import com.hackersanon.banqi.board.Coordinate;
 import com.hackersanon.banqi.game.Game;
 import com.hackersanon.banqi.game.GameOverException;
-import com.hackersanon.banqi.game.Move;
-import com.hackersanon.banqi.player.Player;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 @SpringBootApplication

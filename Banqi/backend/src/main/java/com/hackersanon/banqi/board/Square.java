@@ -1,8 +1,6 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
-import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.TeamColor;
 
 import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
 import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
@@ -10,21 +8,45 @@ import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 public class Square {
     private Piece storedPiece;
     private Coordinate coordinate;
+    String piece;
+    String position;
+    String color;
 
     Square(Coordinate coordinate, Piece piece){
         this.coordinate = coordinate;
         this.storedPiece = piece;
+        updateValues();
     }
 
     protected Square(Coordinate coordinate){
         this(coordinate,null);
     }
 
-    public Piece getStoredPiece(){
+    void updateValues(){
+        this.color = storedPiece.getTeam().toString();
+        this.piece = storedPiece.getPieceType().toString();
+        this.position = coordinate.getStringPosition();
+    }
+
+    public String getPiece(){
+        return piece;
+    }
+
+    public String getPosition(){
+        return position;
+    }
+
+    public String getColor(){
+        return color;
+    }
+
+    Piece getStoredPiece(){
         return storedPiece;
     }
 
-    public Coordinate getCoordinate(){
+
+
+    protected Coordinate getCoordinate(){
         return coordinate;
     }
 
@@ -34,11 +56,13 @@ public class Square {
             captured = this.storedPiece;
         }
         this.storedPiece = newPiece;
+        updateValues();
         return captured;
     }
 
     public void vacateSquare(){
         this.storedPiece = new Piece(EMPTY, NEUTRAL);
+        updateValues();
     }
 
    public boolean isOccupied(){
