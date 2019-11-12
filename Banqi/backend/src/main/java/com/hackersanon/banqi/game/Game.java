@@ -29,9 +29,9 @@ public class Game {
         return false; //TODO implement undoMove()
     }
 
-    public ArrayList<Coordinate> getValidMoves(Coordinate origin){
-        return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
-    }
+//    public ArrayList<Coordinate> getValidMoves(Coordinate origin){
+//        return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
+//    }
 
     public void attemptMove(Move newMove) throws GameOverException {
         moveHistory.add(banqiBoard.makeMove(newMove));

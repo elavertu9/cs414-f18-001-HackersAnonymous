@@ -125,8 +125,13 @@ public class BanqiBoard {
     }
 
 
-
-
-
-
+//    public String[][] getStringBoard() {
+//        String[][] stringBoard = new String[rowDimension][colDimension];
+//        int i=0,j = 0;
+//        for(Square[] row: board){
+//            for(Square square: row){
+//                stringBoard[i++][j++] = square.;
+//            }
+//        }
+//    }
 }
