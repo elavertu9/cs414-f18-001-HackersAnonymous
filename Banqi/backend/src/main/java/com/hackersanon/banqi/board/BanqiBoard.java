@@ -17,6 +17,7 @@ public class BanqiBoard {
     private int colDimension = 8;
     private int rowDimension = 4;
     private boolean gameOver;
+    ArrayList<Square> clientBoard;
 
 
     public BanqiBoard(){
@@ -25,6 +26,19 @@ public class BanqiBoard {
 
     public void initialize(){
         initSquares(initAllPieces());
+        clientBoard = getClientBoard();
+    }
+
+    public ArrayList<Square> getClientBoard(){
+        return clientBoard;
+    }
+
+    private ArrayList<Square> produceClientBoard() {
+        ArrayList<Square> tempList = new ArrayList<>();
+        for (Square[] row:board){
+            tempList.addAll(Arrays.asList(row));
+        }
+        return tempList;
     }
 
     private void initSquares(ArrayList<Piece> allPieces){

@@ -40,13 +40,13 @@ public class Square {
         return color;
     }
 
-    Piece getStoredPiece(){
+    public Piece getStoredPiece(){
         return storedPiece;
     }
 
 
 
-    protected Coordinate getCoordinate(){
+    public Coordinate getCoordinate(){
         return coordinate;
     }
 

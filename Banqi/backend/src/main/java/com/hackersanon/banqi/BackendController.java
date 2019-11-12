@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BackendController {
-
+    ObjectMapper mapper = new ObjectMapper();
     @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/hello")
     public String sayHello() {
@@ -19,7 +19,7 @@ public class BackendController {
     @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/create")
     public String startGame() {
-        ObjectMapper mapper = new ObjectMapper();
+
         try {
             String jsonString = mapper.writeValueAsString(new Game());
             return jsonString;
@@ -34,8 +34,16 @@ public class BackendController {
     @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/board")
     public String getBoard() {
-        return null;
-     }
+        Game game = new Game();
+        game.start();
+
+        try {
+            return mapper.writeValueAsString(game.getClientBoard());
+        } catch (JsonProcessingException e) {
+            System.out.println("Java to JSON conversion fail.");
+        }
+        return "";
+    }
 
      @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
