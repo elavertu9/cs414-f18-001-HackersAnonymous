@@ -1,6 +1,5 @@
 package com.hackersanon.banqi.board;
 
-import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -19,7 +18,7 @@ public class Coordinate {
         return isRowValid(this.getRow())&&isColumnValid(this.getColumn());
     }
 
-    public static boolean isValid(int row, int column){
+    static boolean isValid(int row, int column){
         return isRowValid(row) && isColumnValid(column);
     }
 
@@ -35,7 +34,7 @@ public class Coordinate {
         return coordinate.get("column");
     }
 
-    public boolean setColumn(int column){
+    boolean setColumn(int column){
         boolean validity = isColumnValid(column);
         if(validity){
             this.coordinate.replace("column", column);
@@ -43,7 +42,7 @@ public class Coordinate {
         return validity;
     }
 
-    public boolean setRow(int row){
+    boolean setRow(int row){
         boolean validity = isRowValid(row);
         if(validity){
             coordinate.replace("row",row);
@@ -51,7 +50,7 @@ public class Coordinate {
         return validity;
     }
 
-    public String getStringPosition(){
+    String getStringPosition(){
         return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
     }
 

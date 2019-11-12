@@ -19,7 +19,7 @@ public class Piece {
         return pieceType;
     }
 
-    public TeamColor getTeam() {
+    TeamColor getTeam() {
         return team;
     }
 
@@ -35,7 +35,7 @@ public class Piece {
         return faceUp;
     }
 
-    public boolean isValidMove(Coordinate origin, Coordinate destination){
+    boolean isValidMove(Coordinate origin, Coordinate destination){
         return pieceType.isValidMove(origin, destination);
     }
 

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.hackersanon.banqi.game.Move.Actions.*;
 import static com.hackersanon.banqi.piece.PieceAttributes.*;
 
 public class BanqiBoard {
@@ -36,7 +35,7 @@ public class BanqiBoard {
         }
     }
 
-    public ArrayList<Piece> initAllPieces(){
+    ArrayList<Piece> initAllPieces(){
         ArrayList<Piece> allPieces = new ArrayList<>(initTeamPieces(TeamColor.RED));
         allPieces.addAll(initTeamPieces(TeamColor.BLACK));
         for(int i=0;i<5;++i){
@@ -60,11 +59,11 @@ public class BanqiBoard {
         return board;
     }
 
-    public int getColDimension() {
+    int getColDimension() {
         return colDimension;
     }
 
-    public int getRowDimension() {
+    int getRowDimension() {
         return rowDimension;
     }
 
@@ -112,16 +111,9 @@ public class BanqiBoard {
         return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
     }
 
-    public Move makeMove(Square origin, Square destination){
+    private Move makeMove(Square origin, Square destination){
         Move newMove = new Move(this, origin,destination);
-        if(newMove.getActionType() == TRAVEL || newMove.getActionType() == CAPTURE){
-            return newMove.executeMove(this);
-        }else if(newMove.getActionType() == FLIP){
-            return newMove.executeFlip(this);
-
-        }
-
-        return newMove;
+        return newMove.getActionType().executeMove(this, new Move(this, origin, destination));
     }
 
 
