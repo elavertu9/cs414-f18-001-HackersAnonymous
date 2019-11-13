@@ -14,10 +14,11 @@ public class Move {
     private Piece captured;
     private Actions actionType;
     private boolean executed;
+    private String gameID;
 
 
 
-    Move(BanqiBoard gameBoard, Coordinate origin, Coordinate destination){
+    Move(BanqiBoard gameBoard, Coordinate origin, Coordinate destination, String gameID){
         this.trip = new HashMap<>();
         this.trip.put("origin", origin);
         this.trip.put("destination", destination);
@@ -25,10 +26,11 @@ public class Move {
         this.captured = gameBoard.getPieceAt(destination);
         this.actionType = Actions.translateToAction(gameBoard.getSquare(origin),
                                                             gameBoard.getSquare(destination));
+        this.gameID = gameID;
     }
 
-    public Move(BanqiBoard gameBoard, Square origin, Square destination){
-        this(gameBoard,origin.getCoordinate(),destination.getCoordinate());
+    public Move(BanqiBoard gameBoard, Square origin, Square destination, String gameID){
+        this(gameBoard,origin.getCoordinate(),destination.getCoordinate(), gameID);
         this.attacker = origin.getStoredPiece();
         this.captured = destination.getStoredPiece();
         this.actionType = Actions.translateToAction(origin, destination);
@@ -45,6 +47,10 @@ public class Move {
         board.getSquare(getOrigin()).getStoredPiece().flipPiece();
         this.setExecuted();
         return this;
+    }
+    
+    public String getGameID(){
+        return gameID;
     }
 
     public Actions getActionType() {

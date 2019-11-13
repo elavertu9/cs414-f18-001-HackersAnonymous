@@ -2,6 +2,7 @@ package com.hackersanon.banqi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hackersanon.banqi.database.Database;
 import com.hackersanon.banqi.game.Game;
 import com.hackersanon.banqi.game.Move;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class BackendController {
     
     @RequestMapping("/api/move")
     public Move receiveMove(@RequestParam("move") Move move){
+        Game currentGame = Database.getGame(move.getGameID());
         return move;
     }
     
@@ -50,7 +52,7 @@ public class BackendController {
 
      @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
-    public String executeMove() {//TODO JSON converter: Move Object to JSON?
+    public String executeMove() {
         
         return null;
     }
