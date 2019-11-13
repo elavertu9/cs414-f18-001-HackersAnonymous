@@ -17,26 +17,10 @@ public class BackendController {
     }
     
     @CrossOrigin(origins = {"http://localhost:8081"})
-    @GetMapping("/api/create")
-    public String startGame() {
-
-        try {
-            String jsonString = mapper.writeValueAsString(new Game());
-            return jsonString;
-        }
-        catch (JsonProcessingException e) {
-            System.out.println("Java to JSON conversion fail.");
-        }
-        return "";
-        
-    }
-    
-    @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/board")
     public String getBoard() {
         Game game = new Game();
         game.start();
-
         try {
             return mapper.writeValueAsString(game.getClientBoard());
         } catch (JsonProcessingException e) {

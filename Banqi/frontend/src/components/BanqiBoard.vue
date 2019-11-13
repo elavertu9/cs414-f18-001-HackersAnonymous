@@ -55,26 +55,52 @@
     import API from '../api';
 
     export default {
-      beforeMount() {
+      created() {
         console.log("Getting game board instance from backend");
         this.getBoardApi();
       },
+      updated() {
+        //console.log(console.log(this.board[0]));
+        for(let i in this.board) {
+          console.log(this.board[i].piece);
+          console.log(this.board[i].color);
+          console.log(this.board[i].coordinate.row);
+          console.log(this.board[i].coordinate.column);
+        }
+      },
+
       name: "BanqiBoard",
+
       data() {
         return {
-          board: [[]],
+          board: [
+            {
+             piece: "",
+             color: "",
+             coordinate: {
+               row: "",
+               column: ""
+             }
+            }
+          ],
+          fuck: [[]],
           errors: []
         }
       },
+
       methods: {
+
         getBoardApi() {
           API.getBoard().then(response => {
             this.board = response.data;
-            console.log(response.data);
           })
           .catch(error => {
             this.errors.push(error);
           })
+        },
+
+        getPiece(row, column) {
+         // TODO: implement getPiece
         }
       }
     }

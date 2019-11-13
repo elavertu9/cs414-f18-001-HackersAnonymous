@@ -30,6 +30,7 @@ public class BanqiBoard {
     }
 
     public ArrayList<Square> getClientBoard(){
+        clientBoard = produceClientBoard();
         return clientBoard;
     }
 

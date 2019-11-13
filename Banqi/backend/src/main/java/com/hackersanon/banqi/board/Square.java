@@ -9,7 +9,21 @@ public class Square {
     private Piece storedPiece;
     private Coordinate coordinate;
     String piece;
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setStoredPiece(Piece storedPiece) {
+        this.storedPiece = storedPiece;
+    }
+
     String position;
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     String color;
 
     Square(Coordinate coordinate, Piece piece){
