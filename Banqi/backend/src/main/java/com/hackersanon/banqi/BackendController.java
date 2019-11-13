@@ -3,13 +3,12 @@ package com.hackersanon.banqi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hackersanon.banqi.game.Game;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hackersanon.banqi.game.Move;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BackendController {
-    ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
     @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/hello")
     public String sayHello() {
@@ -21,14 +20,18 @@ public class BackendController {
     public String startGame() {
 
         try {
-            String jsonString = mapper.writeValueAsString(new Game());
-            return jsonString;
+            return mapper.writeValueAsString(new Game());
         }
         catch (JsonProcessingException e) {
             System.out.println("Java to JSON conversion fail.");
         }
         return "";
         
+    }
+    
+    @RequestMapping("/api/move")
+    public Move receiveMove(@RequestParam("move") Move move){
+        return move;
     }
     
     @CrossOrigin(origins = {"http://localhost:8081"})

@@ -2,14 +2,14 @@ package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.TeamColor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class BanqiBoardTest {
     private BanqiBoard banqiBoard;
@@ -52,7 +52,7 @@ class BanqiBoardTest {
         }
 
         for(PieceAttributes piece: PieceAttributes.values()){
-
+        
         }
 
     }
