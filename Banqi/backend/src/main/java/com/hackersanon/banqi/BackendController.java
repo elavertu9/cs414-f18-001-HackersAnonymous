@@ -4,8 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hackersanon.banqi.database.Database;
 import com.hackersanon.banqi.game.Game;
+import com.hackersanon.banqi.game.GameOverException;
 import com.hackersanon.banqi.game.Move;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class BackendController {
@@ -33,8 +36,25 @@ public class BackendController {
     @RequestMapping("/api/move")
     public Move receiveMove(@RequestParam("move") Move move){
         Game currentGame = Database.getGame(move.getGameID());
+        try {
+            assert currentGame != null;
+            currentGame.attemptMove(move);
+        }
+        catch (GameOverException e) {
+            System.out.println("Game OVER");
+        }
         return move;
     }
+    
+    @GetMapping("/api/move-history")
+    public ArrayList<Move> getMoveHistory(@RequestParam("gameID") String gameID){
+        Game currentGame = Database.getGame(gameID);
+    
+        assert currentGame != null;
+        return currentGame.getMoveHistory();
+    }
+    
+    
     
     @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/board")
