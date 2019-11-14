@@ -15,18 +15,21 @@
           <b-nav-item>
             <router-link class="normalLinks" to="/game">Game</router-link>
           </b-nav-item>
-          <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/myAccount">My Account</router-link>
-          </b-nav-item>
-          <b-nav-item v-else>
+          <b-nav-item v-if="!this.signedIn">
             <router-link class="normalLinks" to="/account">Account</router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link class="normalLinks" to="/about">About</router-link>
           </b-nav-item>
-          <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/logOut">Log Out</router-link>
-          </b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav v-if="this.signedIn" class="ml-auto">
+          <b-nav-item-dropdown right>
+            <template v-slot:button-content>
+              <em>{{this.username}}</em>
+            </template>
+            <b-dropdown-item href="/myAccount">Profile</b-dropdown-item>
+            <b-dropdown-item href="/logOut">Log Out</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

@@ -51,6 +51,7 @@
 </template>
 
 <script>
+    import API from '../api';
     export default {
       name: "Registration",
       data() {
@@ -64,7 +65,8 @@
           },
           confirmPassword: '',
           error: 'Passwords do not match',
-          showError: false
+          showError: false,
+          backendErrors: []
         }
       },
       methods: {
@@ -76,7 +78,16 @@
           } else {
             console.log(JSON.stringify(this.registrationForm));
             this.showError = false;
+            this.callApiRegister();
           }
+        },
+        callApiRegister() {
+          API.registerUser(this.registrationForm).then(response => {
+             console.log(response.data);
+          })
+          .catch(error => {
+              this.backendErrors.push(error);
+          });
         }
       }
     }

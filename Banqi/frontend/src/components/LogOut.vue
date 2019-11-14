@@ -21,7 +21,9 @@
         name: "LogOut",
         mounted() {
           localStorage.removeItem('username');
-          window.location.pathname = "/";
+          setTimeout(() => {
+              window.location.pathname = "/";
+          }, 2000);
         }
     }
 </script>
