@@ -23,12 +23,12 @@
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown class="normalLinks" right>
             <template v-slot:button-content>
-              <em>My Account</em>
+              <em class="normalLinks">{{username}}</em>
             </template>
-            <b-dropdown-item href="/myAccount">Profile</b-dropdown-item>
-            <b-dropdown-item href="/logOut">Log Out</b-dropdown-item>
+            <b-dropdown-item class="dropDownLinks" href="/myAccount">Profile</b-dropdown-item>
+            <b-dropdown-item class="dropDownLinks" href="/logOut">Log Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -72,6 +72,10 @@
     font-size: 24px;
     text-decoration: none;
     color: white;
+  }
+
+  .dropDownLinks {
+    font-size: 20px;
   }
 
   .normalLinks:hover {

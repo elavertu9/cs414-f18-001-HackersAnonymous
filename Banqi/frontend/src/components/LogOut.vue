@@ -23,7 +23,7 @@
           localStorage.removeItem('username');
           setTimeout(() => {
               window.location.pathname = "/";
-          }, 2000);
+          }, 1500);
         }
     }
 </script>
