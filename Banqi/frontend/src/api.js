@@ -11,5 +11,8 @@ const AXIOS = axios.create({
 export default {
   hello() {
     return AXIOS.get(`/hello`);
+  },
+  registerUser(userData) {
+    return AXIOS.post('/register', userData);
   }
 }

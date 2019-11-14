@@ -4,7 +4,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-card title="Banqi" style="max-width: 20rem;" class="mb-2">
+          <b-card title="Banqi" class="mb-2">
             <b-card-text>
               Press the button below to check your configuration!
             </b-card-text>
