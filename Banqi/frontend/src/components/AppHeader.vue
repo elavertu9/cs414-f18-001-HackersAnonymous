@@ -25,7 +25,7 @@
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
           <b-nav-item-dropdown right>
             <template v-slot:button-content>
-              <em>{{this.username}}</em>
+              <em>My Account</em>
             </template>
             <b-dropdown-item href="/myAccount">Profile</b-dropdown-item>
             <b-dropdown-item href="/logOut">Log Out</b-dropdown-item>
