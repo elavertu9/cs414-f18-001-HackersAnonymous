@@ -17,6 +17,7 @@ import About from './components/About'
 import Registration from './components/Registration'
 import Login from './components/Login'
 import Account from './components/Account'
+import MyAccount from './components/MyAccount'
 
 export default {
   name: 'app',
@@ -28,7 +29,8 @@ export default {
     AppHeader,
     Registration,
     Login,
-    Account
+    Account,
+    MyAccount
   }
 }
 </script>

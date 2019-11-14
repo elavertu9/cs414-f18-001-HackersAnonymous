@@ -15,11 +15,17 @@
           <b-nav-item>
             <router-link class="normalLinks" to="/game">Game</router-link>
           </b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-if="this.signedIn">
+            <router-link class="normalLinks" to="`/${this.username}`">My Account</router-link>
+          </b-nav-item>
+          <b-nav-item v-else>
             <router-link class="normalLinks" to="/account">Account</router-link>
           </b-nav-item>
           <b-nav-item>
             <router-link class="normalLinks" to="/about">About</router-link>
+          </b-nav-item>
+          <b-nav-item v-if="this.signedIn">
+            <router-link class="normalLinks" to="/about">Log Out</router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -29,7 +35,22 @@
 
 <script>
     export default {
-        name: "AppHeader"
+      name: "AppHeader",
+      data() {
+        return {
+          signedIn: false,
+          username: ''
+        }
+      },
+      mounted() {
+        if(localStorage.hasOwnProperty('username')) {
+          this.signedIn = true;
+          this.username = localStorage.getItem('username');
+        } else {
+          this.signedIn = false;
+          this.username = '';
+        }
+      }
     }
 </script>
 
