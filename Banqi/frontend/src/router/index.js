@@ -3,6 +3,11 @@ import Router from 'vue-router'
 import Home from '../components/Home'
 import Game from '../components/Game'
 import About from '../components/About'
+import Registration from '../components/Registration'
+import Login from '../components/Login'
+import Account from '../components/Account'
+import MyAccount from '../components/MyAccount'
+import LogOut from '../components/LogOut'
 
 Vue.use(Router);
 
@@ -23,6 +28,31 @@ export default new Router({
       path: '/about',
       name: 'About',
       component: About
+    },
+    {
+      path: '/register',
+      name: 'Registration',
+      component: Registration
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account
+    },
+    {
+      path: '/myAccount',
+      name: 'MyAccount',
+      component: MyAccount
+    },
+    {
+      path: '/logOut',
+      name: 'LogOut',
+      component: LogOut
     }
   ]
 })
