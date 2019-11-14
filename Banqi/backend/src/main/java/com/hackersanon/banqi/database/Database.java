@@ -1,11 +1,10 @@
 package com.hackersanon.banqi.database;
 
-import com.hackersanon.banqi.game.Game;
+import com.hackersanon.banqi.database.entities.UserEntity;
 
-public class Database
+public interface Database
 {
-	public static Game getGame(String gameID)
-	{
-		return null;
-	}
+	public void openConnection();
+	public void closeConnection();
+	public UserEntity saveProfile(UserEntity userProfile);
 }

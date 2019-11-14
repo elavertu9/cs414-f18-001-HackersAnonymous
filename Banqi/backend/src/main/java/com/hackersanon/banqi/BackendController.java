@@ -2,10 +2,13 @@ package com.hackersanon.banqi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hackersanon.banqi.database.Database;
+import com.hackersanon.banqi.database.DAO;
 import com.hackersanon.banqi.game.Game;
 import com.hackersanon.banqi.game.GameOverException;
 import com.hackersanon.banqi.game.Move;
+import com.hackersanon.banqi.user.UserEngine;
+import com.hackersanon.banqi.user.UserProfile;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class BackendController {
     
     @RequestMapping("/api/move")
     public Move receiveMove(@RequestParam("move") Move move){
-        Game currentGame = Database.getGame(move.getGameID());
+        Game currentGame = DAO.getGame(move.getGameID());
         try {
             assert currentGame != null;
             currentGame.attemptMove(move);
@@ -48,7 +51,7 @@ public class BackendController {
     
     @GetMapping("/api/move-history")
     public ArrayList<Move> getMoveHistory(@RequestParam("gameID") String gameID){
-        Game currentGame = Database.getGame(gameID);
+        Game currentGame = DAO.getGame(gameID);
     
         assert currentGame != null;
         return currentGame.getMoveHistory();
@@ -69,7 +72,27 @@ public class BackendController {
         }
         return "";
     }
-
+    
+    
+    @CrossOrigin(origins = {"http://localhost:8081"})
+    @RequestMapping("/api/register")
+    public UserProfile registerUser(UserProfile userProfile) {
+        UserProfile returnValue = null;
+        UserProfile tempProfile = new UserProfile();
+        BeanUtils.copyProperties(userProfile, tempProfile);
+        UserEngine userEngine = new UserEngine();
+        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
+        
+        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
+            returnValue = new UserProfile();
+            BeanUtils.copyProperties(storedCredentials, returnValue);
+            
+        }
+        
+        return userProfile;
+        
+    }
+    
      @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
     public String executeMove() {
