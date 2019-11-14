@@ -39,7 +39,7 @@
           </b-card>
         </b-col>
         <b-col>
-          <b-card style="max-width: 20rem; text-align:center;" class="mb-2">
+          <b-card class="mb-2">
             <b-card-text>Already have an account?</b-card-text>
             <b-button variant="primary"><router-link id="loginButton" to="/login">Login</router-link></b-button>
           </b-card>
@@ -84,6 +84,7 @@
         callApiRegister() {
           API.registerUser(this.registrationForm).then(response => {
              console.log(response.data);
+             window.location.pathname = "/login";
           })
           .catch(error => {
               this.backendErrors.push(error);

@@ -26,7 +26,7 @@ public class BackendController {
         return null;
      }
 
-     @CrossOrigin(origins = {"http://localhost:8081"})
+    @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
     public String executeMove() {//TODO JSON converter: Move Object to JSON?
 

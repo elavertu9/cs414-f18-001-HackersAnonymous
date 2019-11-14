@@ -4,7 +4,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-card title="Login" style="max-width: 20rem;" class="mb-2">
+          <b-card title="Login" class="mb-2">
             <b-card-text>
               <div>
                 <b-form @submit="onSubmit">
@@ -14,7 +14,7 @@
                   <b-form-group id="password" label="Password:" label-for="password">
                     <b-form-input id="password" type="password" v-model="loginForm.password" required></b-form-input>
                   </b-form-group>
-                  <b-button type="submit" variant="success" style="width:100%;">Submit</b-button>
+                  <b-button type="submit" variant="success">Submit</b-button>
                 </b-form>
               </div>
             </b-card-text>
