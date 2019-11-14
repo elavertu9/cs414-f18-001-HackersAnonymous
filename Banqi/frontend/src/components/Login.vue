@@ -44,6 +44,7 @@
           console.log(this.loginForm.username);
           console.log(this.loginForm.password);
           localStorage.setItem('username', this.loginForm.username);
+          window.location.pathname = '/myAccount';
         }
       }
     }

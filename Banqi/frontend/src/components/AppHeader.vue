@@ -16,7 +16,7 @@
             <router-link class="normalLinks" to="/game">Game</router-link>
           </b-nav-item>
           <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="`/${this.username}`">My Account</router-link>
+            <router-link class="normalLinks" to="/myAccount">My Account</router-link>
           </b-nav-item>
           <b-nav-item v-else>
             <router-link class="normalLinks" to="/account">Account</router-link>
@@ -25,7 +25,7 @@
             <router-link class="normalLinks" to="/about">About</router-link>
           </b-nav-item>
           <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/about">Log Out</router-link>
+            <router-link class="normalLinks" to="/logOut">Log Out</router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -34,12 +34,13 @@
 </template>
 
 <script>
+
     export default {
       name: "AppHeader",
       data() {
         return {
           signedIn: false,
-          username: ''
+          username: '',
         }
       },
       mounted() {

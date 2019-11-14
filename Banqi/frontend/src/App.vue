@@ -18,6 +18,7 @@ import Registration from './components/Registration'
 import Login from './components/Login'
 import Account from './components/Account'
 import MyAccount from './components/MyAccount'
+import LogOut from './components/LogOut'
 
 export default {
   name: 'app',
@@ -30,7 +31,8 @@ export default {
     Registration,
     Login,
     Account,
-    MyAccount
+    MyAccount,
+    LogOut
   }
 }
 </script>
