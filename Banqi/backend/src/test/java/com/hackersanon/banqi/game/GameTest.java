@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
@@ -34,6 +36,12 @@ class GameTest {
 
     @Test
     void getValidMoves() {
+        game.start();
+        Coordinate origin = new Coordinate(0, 0);
+        ArrayList<Coordinate> legalMoves = game.getValidMoves(origin);
+        assertEquals(2, legalMoves.size());
+        assertTrue(legalMoves.contains(new Coordinate(0, 1)));
+        assertTrue(legalMoves.contains(new Coordinate(1, 0)));
     }
 
     @Test
