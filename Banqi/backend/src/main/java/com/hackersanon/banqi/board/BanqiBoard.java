@@ -126,8 +126,8 @@ public class BanqiBoard {
     }
 
     private Move makeMove(Square origin, Square destination){
-        Move newMove = new Move(this, origin,destination);
-        return newMove.getActionType().executeMove(this, new Move(this, origin, destination));
+        Move newMove = new Move(this, origin,destination, "");
+        return newMove.getActionType().executeMove(this, new Move(this, origin, destination, ""));
     }
 
 

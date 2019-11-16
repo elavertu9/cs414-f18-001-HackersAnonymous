@@ -1,10 +1,12 @@
 package com.hackersanon.banqi.user;
 
+
 public class UserProfile
 {
 	private String firstName;
 	private String lastName;
 	private String userName;
+	
 	
 	public String getFirstName()
 	{

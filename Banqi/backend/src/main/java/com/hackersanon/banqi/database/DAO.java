@@ -1,12 +1,11 @@
 package com.hackersanon.banqi.database;
 
-import com.hackersanon.banqi.database.entities.UserEntity;
 import com.hackersanon.banqi.game.Game;
 import org.hibernate.Session;
 
 public class DAO implements Database
 {
-	Session session;
+	private Session session;
 	public static Game getGame(String gameID)
 	{
 		return null;
@@ -21,16 +20,20 @@ public class DAO implements Database
 	
 	public void closeConnection()
 	{
-		this.session.close();
+		try {
+			this.session.close();
+		}catch (Exception e){
+			System.out.println("No Connection");
+		}
 	}
-	
-	public UserEntity saveProfile(UserEntity userProfile)
-	{
-		this.session.beginTransaction();
-		this.session.save(userProfile);
-		this.session.getTransaction().commit();
-		return userProfile;
-	}
+//
+//	public UserEntity saveProfile(UserEntity userProfile)
+//	{
+//		this.session.beginTransaction();
+//		this.session.save(userProfile);
+//		this.session.getTransaction().commit();
+//		return userProfile;
+//	}
 	
 
 }

@@ -6,8 +6,8 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306</property>
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-      <mapping class="com.hackersanon.banqi.player.PlayersEntity"/>
-      <!-- <property name="connection.username"/> -->
+    <mapping class="com.hackersanon.banqi.database.entity.UsersEntity"/>
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

@@ -6,7 +6,6 @@ import com.hackersanon.banqi.database.DAO;
 import com.hackersanon.banqi.game.Game;
 import com.hackersanon.banqi.game.GameOverException;
 import com.hackersanon.banqi.game.Move;
-import com.hackersanon.banqi.user.UserEngine;
 import com.hackersanon.banqi.user.UserProfile;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -80,15 +79,15 @@ public class BackendController {
         UserProfile returnValue = null;
         UserProfile tempProfile = new UserProfile();
         BeanUtils.copyProperties(userProfile, tempProfile);
-        UserEngine userEngine = new UserEngine();
-        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
-        
-        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
-            returnValue = new UserProfile();
-            BeanUtils.copyProperties(storedCredentials, returnValue);
-            
-        }
-        
+//        UserEngine userEngine = new UserEngine();
+//        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
+//
+//        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
+//            returnValue = new UserProfile();
+//            BeanUtils.copyProperties(storedCredentials, returnValue);
+//
+//        }
+//
         return userProfile;
         
     }
