@@ -1,9 +1,8 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
-import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.TeamColor;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -46,30 +45,32 @@ class BanqiBoardTest {
             for (int j = 0; j < banqiBoard.getColDimension(); j++) {
                 Piece piece;
                 if ((piece = banqiBoard.getPieceAt(new Coordinate(i, j))) != null) {
-                    pieceTotals.merge(piece.toString(), 1, Integer::sum);
+                    pieceTotals.merge(piece.getPieceType().name(), 1, Integer::sum);
                 }
             }
         }
 
-        for(PieceAttributes piece: PieceAttributes.values()){
-
-        }
-
+        assertEquals(2, pieceTotals.get("GENERAL"));
+        assertEquals(4, pieceTotals.get("CHARIOT"));
+        assertEquals(4, pieceTotals.get("HORSE"));
+        assertEquals(4, pieceTotals.get("CANNON"));
+        assertEquals(4, pieceTotals.get("ADVISOR"));
+        assertEquals(4, pieceTotals.get("MINSTER"));
+        assertEquals(10, pieceTotals.get("SOLDIER"));
     }
 
     private Map<String, Integer> generatePieceTotalList() {
         Map<String, Integer> pieceTotals = new HashMap<>();
-        String[] pieceNames = {"REDGENERAL", "REDCHARIOT", "REDHORSE", "REDCANNON", "REDADVISOR", "REDMINSTER", "REDSOLDIER",
-                "BLACKGENERAL", "BLACKCHARIOT", "BLACKHORSE", "BLACKCANNON", "BLACKADVISOR", "BLACKMINSTER", "BLACKSOLDIER"};
 
         for (Piece piece : banqiBoard.initAllPieces()) {
-            pieceTotals.put(piece.toString(), 0);
+            pieceTotals.put(piece.getPieceType().name(), 0);
         }
 
         return pieceTotals;
     }
 
+    @Disabled("Wait until toString() is fully implemented")
     @Test
-    void toStringTest() {
+    void  toStringTest() {
     }
 }
