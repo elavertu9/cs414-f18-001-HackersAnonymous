@@ -35,13 +35,16 @@ class GameTest {
 
     @Test
     void getBanqiBoard() {
+        assertNotNull(game.getBanqiBoard());
     }
 
     @Test
     void getPlayers() {
+        assertNotNull(game.getPlayers());
     }
 
     @Test
     void getMoveHistory() {
+        assertNotNull(game.getMoveHistory());
     }
 }
