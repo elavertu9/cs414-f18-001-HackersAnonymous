@@ -14,5 +14,8 @@ export default {
   },
   getBoard() {
     return AXIOS.get('/board');
+  },
+  registerUser(userData) {
+    return AXIOS.post('/register', userData);
   }
 }

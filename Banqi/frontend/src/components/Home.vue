@@ -4,7 +4,24 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-card title="Banqi" style="max-width: 20rem;" class="mb-2">
+          <b-card v-if="this.userInfo.username != null" class="mb-2">
+            <b-card-title>Welcome Back, {{this.userInfo.username}}!</b-card-title>
+            <b-card-text>
+              Select "Game" above to play Banqi!
+            </b-card-text>
+          </b-card>
+          <b-card v-else title="Welcome" class="mb-2">
+            <b-card-text>
+              Select "Account" above to get started!
+            </b-card-text>
+          </b-card>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <b-card title="Banqi" class="mb-2">
             <b-card-text>
               Press the button below to check your configuration!
             </b-card-text>
@@ -22,10 +39,16 @@
   import API from '../api';
   export default {
     name: "Home",
+    mounted() {
+      this.userInfo.username = localStorage.getItem('username');
+    },
     data() {
       return {
         msg: "HowTo call REST-Services",
         backendResponse: [],
+        userInfo: {
+          username: ''
+        },
         errors: [],
       }
     },
@@ -38,6 +61,10 @@
         .catch(error => {
           this.errors.push(error);
         })
+      },
+
+      getCardTitle() {
+        return "Welcome Back, " + this.userInfo.username + "!";
       }
     }
   }
