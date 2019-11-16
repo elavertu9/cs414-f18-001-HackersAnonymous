@@ -49,5 +49,11 @@
 ## Deliverables
 * Various deliverables associated with the sprints can be found in Banqi/team/sprintX, where X is the sprint number.
 
+## Sprint Review 
+We met with the product owner after Sprint 2 to get some feedback regarding our performance and to determine what tasks/epics are to be prioritized for Sprint 3. 
+* We recieved good feedback regarding the presentation,points for improvement include: being more presentable/professional when presenting. 
+* The PO requested that we prioritize creating a playable game between 2 players on 2 different machines for the Sprint 3 demo.  
+
+
 ## SCRUM Flow
 ![](Banqi/team/images/flow.png)
