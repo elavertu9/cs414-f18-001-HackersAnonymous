@@ -10,6 +10,9 @@
 
 ### Sprint Leader: *Evan Lavertu*
 
+### Meetings with the Product Owner
+* First meeting of Sprint 3: Product owner wants registration and network epics prioritized. 
+
 ## Plan
 
 Epics planned for this release.
@@ -27,6 +30,7 @@ Epics planned for this release.
 * *#123: User: I would like to be able to play Banqi with friends*
 * *#124: User: I would like to be able to come back to my game*
 * *#125: User: I would like to be able to view my game statistics on my profile page*
+* *#137: Implement network features* 
 
 
 ## Review
