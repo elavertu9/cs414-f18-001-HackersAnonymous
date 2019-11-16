@@ -1,5 +1,6 @@
 package com.hackersanon.banqi.game;
 
+import com.hackersanon.banqi.board.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ class GameTest {
 
     @Test
     void start() {
+        game.start();
+        assertNotNull(game.getBanqiBoard().getPieceAt(new Coordinate(0, 0)));
     }
 
     @Disabled("Waiting for implementation")
