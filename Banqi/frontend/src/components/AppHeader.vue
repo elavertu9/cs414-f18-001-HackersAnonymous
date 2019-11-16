@@ -12,7 +12,7 @@
           <b-nav-item>
             <router-link class="normalLinks" to="/">Home</router-link>
           </b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-if="this.signedIn">
             <router-link class="normalLinks" to="/game">Game</router-link>
           </b-nav-item>
           <b-nav-item v-if="!this.signedIn">

@@ -38,7 +38,7 @@
             </b-card-text>
           </b-card>
         </b-col>
-        <b-col>
+        <b-col class="col-md-4 center">
           <b-card class="mb-2">
             <b-card-text>Already have an account?</b-card-text>
             <b-button variant="primary"><router-link id="loginButton" to="/login">Login</router-link></b-button>
@@ -98,6 +98,10 @@
   #loginButton {
     text-decoration: none;
     color: white;
+    text-align: center;
+  }
+
+  .center {
     text-align: center;
   }
 </style>
