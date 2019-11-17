@@ -12,6 +12,7 @@
         </b-col>
         <b-col></b-col>
       </b-row>
+      <div id="spacer"></div>
     </b-container>
   </div>
 </template>
@@ -29,5 +30,7 @@
 </script>
 
 <style scoped>
-
+  #spacer {
+    height: 500px;
+  }
 </style>

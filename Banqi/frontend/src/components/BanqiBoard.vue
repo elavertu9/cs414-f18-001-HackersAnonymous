@@ -7,7 +7,14 @@
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col class="center"><b-button @click="moveSubmit()" variant="primary">Submit Move</b-button></b-col>
+      <b-col class="center">
+        <b-button-group>
+          <b-button @click="moveSubmit()" variant="success" class="toolbar">Submit Move</b-button>
+          <b-button @click="clear()" variant="primary" class="toolbar">Clear Selection</b-button>
+          <b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>
+          <b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>
+        </b-button-group>
+      </b-col>
       <b-col></b-col>
     </b-row>
     <br/>
@@ -142,13 +149,40 @@
         </b-card>
       </b-col>
     </b-row>
+
+    <!-- LEGEND MODAL -->
+    <div>
+      <b-modal id="legend-modal" hide-footer>
+        <template v-slot:modal-title>
+          Legend
+        </template>
+        <Legend></Legend>
+        <b-button class="mt-3" variant="danger" block @click="$bvModal.hide('legend-modal')">Exit</b-button>
+      </b-modal>
+    </div>
+
+    <!-- RULES MODAL -->
+    <div>
+      <b-modal id="rules-modal" hide-footer>
+        <template v-slot:modal-title>
+          Rules
+        </template>
+        <BanqiRules></BanqiRules>
+        <b-button class="mt-3" variant="danger" block @click="$bvModal.hide('rules-modal')">Exit</b-button>
+      </b-modal>
+    </div>
   </div>
 </template>
 
 <script>
     import API from '../api';
+    import Legend from "./Legend";
+    import BanqiRules from "./BanqiRules";
 
     export default {
+      components: {
+        Legend, BanqiRules
+      },
       created() {
         console.log("Getting game board instance from backend");
         this.getBoardApi();
@@ -244,6 +278,14 @@
             col: col
           };
           this.selectedSquare = selected;
+        },
+
+        clear() {
+          let clear = {
+            row: 9,
+            col: 9
+          };
+          this.selectedSquare = clear;
         }
       },
 
@@ -283,7 +325,13 @@
   .selected_square {
     width: 75px;
     height: 75px;
-    background-color: gold;
+    background-color: #FFD700;
+  }
+
+  .valid_square {
+    width: 75px;
+    height: 75px;
+    background-color: #7FFF00;
   }
 
   .board-wrapper {
@@ -311,9 +359,17 @@
     height: 300px;
     background-color: #1E4D2B;
     color: white;
+    box-shadow: 10px 10px 5px grey;
   }
 
   .center {
     text-align: center;
+  }
+
+  .toolbar {
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 200px;
+    border-radius: 12px;
   }
 </style>

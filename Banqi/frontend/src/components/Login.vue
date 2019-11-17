@@ -4,7 +4,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-card title="Login" class="mb-2">
+          <b-card title="Login" class="mb-2 form">
             <b-card-text>
               <div>
                 <b-form @submit="onSubmit">
@@ -22,6 +22,7 @@
         </b-col>
         <b-col></b-col>
       </b-row>
+      <div id="spacer"></div>
     </b-container>
     <br/>
   </div>
@@ -51,5 +52,11 @@
 </script>
 
 <style scoped>
+  .form {
+    box-shadow: 10px 10px 5px grey;
+  }
 
+  #spacer {
+    height: 300px;
+  }
 </style>

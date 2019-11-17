@@ -3,7 +3,7 @@
     <b-container class="registrationPageContent">
       <b-row>
         <b-col>
-          <b-card title="Registration" class="mb-2">
+          <b-card title="Registration" class="mb-2 forms">
             <b-card-text>
               <div>
                 <b-form @submit="onSubmit">
@@ -39,7 +39,7 @@
           </b-card>
         </b-col>
         <b-col class="col-md-4 center">
-          <b-card class="mb-2">
+          <b-card class="mb-2 forms">
             <b-card-text>Already have an account?</b-card-text>
             <b-button variant="primary"><router-link id="loginButton" to="/login">Login</router-link></b-button>
           </b-card>
@@ -103,5 +103,9 @@
 
   .center {
     text-align: center;
+  }
+
+  .forms {
+    box-shadow: 10px 10px 5px grey;
   }
 </style>
