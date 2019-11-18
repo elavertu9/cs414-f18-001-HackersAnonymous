@@ -13,23 +13,25 @@
             <router-link class="normalLinks" to="/">Home</router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link class="normalLinks" to="/game">Game</router-link>
-          </b-nav-item>
-          <b-nav-item v-if="!this.signedIn">
-            <router-link class="normalLinks" to="/account">Account</router-link>
-          </b-nav-item>
-          <b-nav-item>
             <router-link class="normalLinks" to="/about">About</router-link>
+          </b-nav-item>
+          <b-nav-item v-if="this.signedIn">
+            <router-link class="normalLinks" to="/game">Game</router-link>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown  class="normalLinks" right>
             <template v-slot:button-content>
-              <em>My Account</em>
+              <em class="normalLinks">{{username}}</em>
             </template>
-            <b-dropdown-item href="/myAccount">Profile</b-dropdown-item>
-            <b-dropdown-item href="/logOut">Log Out</b-dropdown-item>
+            <b-dropdown-item class="dropDownLinks" href="/myAccount">Profile</b-dropdown-item>
+            <b-dropdown-item class="dropDownLinks" href="/logOut">Log Out</b-dropdown-item>
           </b-nav-item-dropdown>
+        </b-navbar-nav>
+        <b-navbar-nav v-else class="ml-auto">
+          <b-nav-item right>
+            <router-link class="normalLinks" to="/account">Account</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -72,6 +74,10 @@
     font-size: 24px;
     text-decoration: none;
     color: white;
+  }
+
+  .dropDownLinks {
+    font-size: 20px;
   }
 
   .normalLinks:hover {

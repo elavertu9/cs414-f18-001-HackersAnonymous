@@ -8,13 +8,38 @@ import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 public class Square {
     private Piece storedPiece;
     private Coordinate coordinate;
+
+    private boolean faceUp;
+
     String piece;
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setStoredPiece(Piece storedPiece) {
+        this.storedPiece = storedPiece;
+    }
+
     String position;
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public boolean isFaceUp() {
+        return faceUp;
+    }
+
+    public void setFaceUp(boolean faceUp) {
+        this.faceUp = faceUp;
+    }
+
     String color;
 
     Square(Coordinate coordinate, Piece piece){
         this.coordinate = coordinate;
         this.storedPiece = piece;
+        this.faceUp = this.storedPiece.isFaceUp();
         updateValues();
     }
 

@@ -1,7 +1,7 @@
 package com.hackersanon.banqi.database;
 
 import com.hackersanon.banqi.database.entity.UsersEntity;
-import com.hackersanon.banqi.user.UserProfile;
+import com.hackersanon.banqi.user.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -35,10 +35,10 @@ public class UserDAO implements UserDAOInterface
 		return userList;
 	}
 	
-	@Override public UserProfile getUser(int userID)
+	@Override public User getUser(int userID)
 	{
 		Session session = this.sessionFactory.getCurrentSession();
-		return session.load(UserProfile.class, userID);
+		return session.load(User.class, userID);
 	}
 	
 	@Override public void removeUser(int userID)

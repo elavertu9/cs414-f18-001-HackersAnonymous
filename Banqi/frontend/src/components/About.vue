@@ -1,11 +1,15 @@
 <template>
     <div name="about">
       <b-container class="aboutPageContent">
+        <b-row>
+          <b-col class="center"><h1>About Hackers Anonymous</h1></b-col>
+        </b-row>
+        <br/>
         <b-row class="text-center  justify-content-md-center">
           <b-col md="auto">
             <b-card title="Evan Lavertu"
                     style="max-width: 20rem;"
-                    class="mb-2">
+                    class="mb-2 aboutCards">
               <img src="../images/Lavertu.png" class="restrict-size"/>
               <b-card-text>
                 Evan Lavertu is currently pursuing a degree in Computer Science at Colorado State University (CSU).
@@ -19,7 +23,7 @@
           <b-col md="auto">
             <b-card title="Cody Coleman"
                     style="max-width: 20rem;"
-                    class="mb-2">
+                    class="mb-2 aboutCards">
               <img src="../images/cody.png" class="restrict-size"/>
               <b-card-text>
                 Cody Coleman is a Junior at Colorado State University and working on
@@ -32,11 +36,12 @@
             </b-card>
           </b-col>
         </b-row>
+        <br/>
         <b-row class="text-center">
           <b-col>
             <b-card title="Patrick Keleher"
                     style="max-width: 20rem;"
-                    class="mb-2">
+                    class="mb-2 aboutCards">
               <img src="../images/patrick.png" class="restrict-size"/>
               <b-card-text>
                 Patrick is a Senior in Computer Science. His interests are in cyber security and networking.
@@ -48,7 +53,7 @@
           <b-col>
             <b-card title="Kareem Yousseff"
                     style="max-width: 20rem;"
-                    class="mb-2">
+                    class="mb-2 aboutCards">
               <img src="../images/kareem.jpg" class="restrict-size"/>
               <b-card-text>
                 Kareem is a senior computer science Major, he's interested in Virtual/augmented reality tech and their use cases.
@@ -59,7 +64,7 @@
           <b-col>
             <b-card title="Jack Fitzgerald"
                     style="max-width: 20rem;"
-                    class="mb-2">
+                    class="mb-2 aboutCards">
               <img src="../images/jack.jpeg" class="restrict-size"/>
               <b-card-text>
                 Jack is a senior at CSU studying Computer Science, his current interests are in AI, networking and cyber security.
@@ -69,6 +74,7 @@
             </b-card>
           </b-col>
         </b-row>
+        <br/>
       </b-container>
     </div>
 </template>
@@ -83,6 +89,14 @@
   .restrict-size {
     width: 50%;
     height: 50%;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .aboutCards {
+    box-shadow: 10px 10px 5px grey;
   }
 
 </style>

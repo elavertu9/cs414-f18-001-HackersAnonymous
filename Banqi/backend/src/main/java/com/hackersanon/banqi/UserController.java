@@ -2,7 +2,7 @@ package com.hackersanon.banqi;
 
 import com.hackersanon.banqi.database.entity.UsersEntity;
 import com.hackersanon.banqi.services.UserService;
-import com.hackersanon.banqi.user.UserProfile;
+import com.hackersanon.banqi.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -25,7 +25,7 @@ public class UserController
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String listPersons(Model model){
-		model.addAttribute("user", new UserProfile());
+		model.addAttribute("user", new User());
 		model.addAttribute("listUsers", this.userService.listUsers());
 		return "user";
 	}

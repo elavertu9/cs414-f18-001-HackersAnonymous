@@ -12,6 +12,7 @@
         </b-col>
         <b-col></b-col>
       </b-row>
+      <div id="spacer"></div>
     </b-container>
   </div>
 </template>
@@ -23,11 +24,13 @@
           localStorage.removeItem('username');
           setTimeout(() => {
               window.location.pathname = "/";
-          }, 2000);
+          }, 1500);
         }
     }
 </script>
 
 <style scoped>
-
+  #spacer {
+    height: 500px;
+  }
 </style>

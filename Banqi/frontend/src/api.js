@@ -12,6 +12,9 @@ export default {
   hello() {
     return AXIOS.get(`/hello`);
   },
+  getBoard() {
+    return AXIOS.get('/board');
+  },
   registerUser(userData) {
     return AXIOS.post('/register', userData);
   }

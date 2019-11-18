@@ -3,7 +3,8 @@ package com.hackersanon.banqi.database.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity @Table(name = "Users", schema = "banqi") public class UsersEntity
+@Entity
+@Table(name = "User") public class UsersEntity
 {
 	private String firstName;
 	private String lastName;

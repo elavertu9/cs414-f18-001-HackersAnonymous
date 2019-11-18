@@ -4,7 +4,7 @@
       <b-row>
         <b-col></b-col>
         <b-col>
-          <b-card title="My Account" style="max-width: 20rem;" class="mb-2">
+          <b-card title="My Account" class="mb-2">
             <b-card-text>
               Welcome to your account, {{this.userInfo.username}}!
             </b-card-text>

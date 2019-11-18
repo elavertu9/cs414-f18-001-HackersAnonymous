@@ -2,7 +2,7 @@ package com.hackersanon.banqi.services;
 
 import com.hackersanon.banqi.database.UserDAO;
 import com.hackersanon.banqi.database.entity.UsersEntity;
-import com.hackersanon.banqi.user.UserProfile;
+import com.hackersanon.banqi.user.User;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,7 +39,7 @@ public class UserService implements UserServiceInterface
 	
 	@Override
 	@Transactional
-	public UserProfile getUser(int id)
+	public User getUser(int id)
 	{
 		return null;
 	}

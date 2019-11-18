@@ -1,16 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306</property>
-    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <mapping class="com.hackersanon.banqi.database.entity.UsersEntity"/>
-    <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
+    <session-factory>
+        <property name="hibernate.connection.datasource">java:</property>
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="connection.url">jdbc:mysql://cs414-f19-hackersanon.mysql.database.azure.com:3306";</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">hackersanon@cs414-f19-hackersanon</property>
+        <property name="connection.password">cs414BANQI</property>
 
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-  </session-factory>
+        <!-- DB schema will be updated if needed -->
+        <mapping class="com.hackersanon.banqi.database.entity.UsersEntity"/>
+    </session-factory>
 </hibernate-configuration>

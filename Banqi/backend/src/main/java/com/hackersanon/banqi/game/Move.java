@@ -69,7 +69,7 @@ public class Move {
         this.executed = true;
     }
 
-    private Piece getAttacker() {
+    public Piece getAttacker() {
         return attacker;
     }
 
