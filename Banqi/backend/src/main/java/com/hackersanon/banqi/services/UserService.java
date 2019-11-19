@@ -1,53 +1,57 @@
 package com.hackersanon.banqi.services;
 
-import com.hackersanon.banqi.database.UserDAO;
-import com.hackersanon.banqi.database.entity.UsersEntity;
-import com.hackersanon.banqi.user.User;
+import com.hackersanon.banqi.database.UserRepository;
+import com.hackersanon.banqi.database.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value="userService")
+@Transactional
 public class UserService implements UserServiceInterface
 {
-	private UserDAO userDAO;
-	
-	public void setUserDAO(UserDAO userDAO){
-		this.userDAO = userDAO;
+	private UserRepository userRepository;
+
+	public UserService() {
 	}
-	
-	@Transactional
-	public void addUser(UsersEntity user)
-	{
-			this.userDAO.addUser(user);
+
+	@Autowired
+	public UserService(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
 	}
-	
-	@Override
-	@Transactional
-	public void updateUser(UsersEntity usersEntity)
-	{
-		this.userDAO.updateUser(usersEntity);
+
+
+	public boolean saveUser(UserEntity usersEntity) {
+		try{
+			userRepository.save(usersEntity);
+			return true;
+		}catch (Exception e){
+			return false;
+		}
 	}
-	
-	@Override
-	@Transactional
-	public List<UsersEntity> listUsers()
-	{
-		return null;
+
+	public List getAllUsers() {
+		List list = new ArrayList();
+		userRepository.findAll().forEach(list::add);
+		return list;
 	}
-	
-	@Override
-	@Transactional
-	public User getUser(int id)
+
+	public UserEntity getUser(int id)
 	{
-		return null;
+		return this.userRepository.findById(id).get();
 	}
-	
-	@Override
-	@Transactional
-	public void removeUser(int id)
+
+	public boolean removeUser(int id)
 	{
-	
+		try{
+			this.userRepository.deleteById(id);
+			return true;
+		}catch (Exception e){
+			return false;
+		}
 	}
 }

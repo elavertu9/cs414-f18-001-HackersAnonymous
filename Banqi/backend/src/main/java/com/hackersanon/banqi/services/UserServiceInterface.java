@@ -1,17 +1,15 @@
 package com.hackersanon.banqi.services;
 
-import com.hackersanon.banqi.database.entity.UsersEntity;
-import com.hackersanon.banqi.user.User;
+import com.hackersanon.banqi.database.entity.UserEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface UserServiceInterface
 {
-	public void addUser(UsersEntity usersEntity);
-	
-	public void updateUser(UsersEntity usersEntity);
-	
-	public List<UsersEntity> listUsers();
-	public User getUser(int id);
-	public void removeUser(int id);
+	boolean saveUser(UserEntity usersEntity);
+	List getAllUsers();
+	UserEntity getUser(int id);
+	boolean removeUser(int id);
 }

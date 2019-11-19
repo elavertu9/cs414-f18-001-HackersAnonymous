@@ -3,8 +3,6 @@ package com.hackersanon.banqi.board;
 import com.hackersanon.banqi.game.Move;
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.TeamColor;
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,16 +108,16 @@ public class BanqiBoard {
         return boardString.toString();
     }
 
-    public void printBoard(){
-        AsciiTable printBoard = new AsciiTable();
-        for(int i = board.length-1; i>=0;--i){
-            printBoard.addRule();
-            printBoard.addRow(Arrays.asList(board[i])).setTextAlignment(TextAlignment.CENTER).setPaddingLeftRight(1,2);
-        }
-        printBoard.addRule();
-        printBoard.getContext().setWidth(125);
-        System.out.println(printBoard.render());
-    }
+//    public void printBoard(){
+//        AsciiTable printBoard = new AsciiTable();
+//        for(int i = board.length-1; i>=0;--i){
+//            printBoard.addRule();
+//            printBoard.addRow(Arrays.asList(board[i])).setTextAlignment(TextAlignment.CENTER).setPaddingLeftRight(1,2);
+//        }
+//        printBoard.addRule();
+//        printBoard.getContext().setWidth(125);
+//        System.out.println(printBoard.render());
+//    }
 
 
     public Move makeMove(Move newMove){

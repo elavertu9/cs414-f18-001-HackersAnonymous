@@ -1,14 +1,15 @@
 package com.hackersanon.banqi;
 
-import com.hackersanon.banqi.database.DaoSessionFactory;
-import com.hackersanon.banqi.database.entity.UsersEntity;
-import org.hibernate.Session;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SpringBootApplication
+@EnableCaching(proxyTargetClass = true)
+@ComponentScan({"com.hackersanon.banqi.*"})
 public class MainApplication {
 
     public static void main(String[] args) {
@@ -39,16 +40,15 @@ public class MainApplication {
 //        } catch (GameOverException e){
 //            System.out.println("Game Over!");
 //        }
-
-        UsersEntity user = new UsersEntity();
-        user.setFirstName("Cody");
-        user.setLastName("Coleman");
-        Session session = DaoSessionFactory.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        System.out.println("User ID: "+user.getId());
-
-        DaoSessionFactory.getSessionFactory().close();
+//
+//        UserEntity user = new UserEntity();
+//        user.setFirstName("Cody");
+//        user.setLastName("Coleman");
+//        UserDAO userDAO = new UserDAO();
+//        userDAO.setSessionFactory(DaoSessionFactory.getInstance().getSessionFactory());
+//        userDAO.addUser(user);
+//        System.out.println("User ID: "+user.getId());
+//
+//        DaoSessionFactory.getInstance().getSessionFactory().close();
     }
 }

@@ -1,55 +1,55 @@
 package com.hackersanon.banqi;
 
-import com.hackersanon.banqi.database.entity.UsersEntity;
+import com.hackersanon.banqi.database.entity.UserEntity;
 import com.hackersanon.banqi.services.UserService;
-import com.hackersanon.banqi.user.User;
+import com.hackersanon.banqi.services.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class UserController
 {
-	private UserService userService;
-	
-	@Autowired(required = true)
-	@Qualifier(value="userService")
-	public void setUserService(UserService userService){
+
+	private UserServiceInterface userService;
+
+	public UserController() {
+	}
+
+	@Autowired
+	public UserController(UserService userService){
 		this.userService = userService;
 	}
-	
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String listPersons(Model model){
-		model.addAttribute("user", new User());
-		model.addAttribute("listUsers", this.userService.listUsers());
+
+
+	@GetMapping(value = "/user/list", produces = "application/json")
+	public String listUsers(Model model){
+		model.addAttribute("user", new UserEntity());
+		model.addAttribute("listUsers", this.userService.getAllUsers());
 		return "user";
 	}
-	
-	public String addUser(@ModelAttribute("user") UsersEntity usersEntity){
-		if(usersEntity.getId() == 0){
-			this.userService.addUser(usersEntity);
-		}else{
-			this.userService.updateUser(usersEntity);
-		}
-		
-		return "redirect:/users";
+
+	@PostMapping(value = "/user/add", produces = "application/json")
+	public String addUser(@ModelAttribute("user")UserEntity userEntity){
+		this.userService.saveUser(userEntity);
+		return "redirect:/";
+	}
+
+	@ModelAttribute("user")
+	public UserEntity formBackingObject(){
+		return new UserEntity();
 	}
 	
 	@RequestMapping("/remove/{id}")
-	public String removePerson(@PathVariable("id") int id){
+	public String removeUser(@PathVariable("id") int id){
 		this.userService.removeUser(id);
 		return "redirect:/users";
 	}
 	
-	@RequestMapping("/edit/{id}")
-	public String editPerson(@PathVariable("id") int id, Model model){
+	@RequestMapping(value = "/edit/{id}", produces = "application/json")
+	public String editUser(@PathVariable("id") int id, Model model){
 		model.addAttribute("user", this.userService.getUser(id));
-		model.addAttribute("listUsers", this.userService.listUsers());
+		model.addAttribute("listUsers", this.userService.getAllUsers());
 		return "user";
 	}
 }

@@ -2,12 +2,8 @@ package com.hackersanon.banqi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hackersanon.banqi.database.DAO;
 import com.hackersanon.banqi.game.Game;
-import com.hackersanon.banqi.game.GameOverException;
 import com.hackersanon.banqi.game.Move;
-import com.hackersanon.banqi.user.User;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,23 +33,25 @@ public class BackendController {
 
     @RequestMapping("/api/move")
     public Move receiveMove(@RequestParam("move") Move move){
-        Game currentGame = DAO.getGame(move.getGameID());
-        try {
-            assert currentGame != null;
-            currentGame.attemptMove(move);
-        }
-        catch (GameOverException e) {
-            System.out.println("Game OVER");
-        }
-        return move;
+//        Game currentGame = DAO.getGame(move.getGameID());
+//        try {
+//            assert currentGame != null;
+//            currentGame.attemptMove(move);
+//        }
+//        catch (GameOverException e) {
+//            System.out.println("Game OVER");
+//        }
+//        return move;
+        return null;
     }
 
     @GetMapping("/api/move-history")
     public ArrayList<Move> getMoveHistory(@RequestParam("gameID") String gameID){
-        Game currentGame = DAO.getGame(gameID);
-
-        assert currentGame != null;
-        return currentGame.getMoveHistory();
+//        Game currentGame = DAO.getGame(gameID);
+//
+//        assert currentGame != null;
+//        return currentGame.getMoveHistory();
+        return null;
     }
 
 
@@ -72,24 +70,24 @@ public class BackendController {
     }
 
 
-    @CrossOrigin(origins = {"http://localhost:8081"})
-    @RequestMapping("/api/register")
-    public User registerUser(User user) {
-        User returnValue = null;
-        User tempProfile = new User();
-        BeanUtils.copyProperties(user, tempProfile);
-//        UserEngine userEngine = new UserEngine();
-//        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
+//    @CrossOrigin(origins = {"http://localhost:8081"})
+//    @RequestMapping("/api/register")
+//    public User registerUser(User user) {
+//        User returnValue = null;
+//        User tempProfile = new User();
+//        BeanUtils.copyProperties(user, tempProfile);
+////        UserEngine userEngine = new UserEngine();
+////        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
+////
+////        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
+////            returnValue = new UserProfile();
+////            BeanUtils.copyProperties(storedCredentials, returnValue);
+////
+////        }
+////
+//        return user;
 //
-//        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
-//            returnValue = new UserProfile();
-//            BeanUtils.copyProperties(storedCredentials, returnValue);
-//
-//        }
-//
-        return user;
-
-    }
+//    }
 
      @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
