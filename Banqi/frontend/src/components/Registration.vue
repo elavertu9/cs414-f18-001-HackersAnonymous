@@ -82,13 +82,28 @@
           }
         },
         callApiRegister() {
-          API.registerUser(this.registrationForm).then(response => {
-             console.log(response.data);
-             window.location.pathname = "/login";
+          this.callApiGetAllUsers();
+          let postUser = {
+            firstName:this.registrationForm.firstName,
+            lastName:this.registrationForm.lastName,
+            email:this.registrationForm.email,
+            username:this.registrationForm.username
+          };
+          API.registerUser(postUser).then(response => {
+            console.log(response.data);
+            this.callApiGetAllUsers();
           })
-          .catch(error => {
+            .catch(error => {
               this.backendErrors.push(error);
-          });
+            });
+        },
+        callApiGetAllUsers() {
+          API.getAllUsers().then(response => {
+            console.log(response.data);
+          })
+            .catch(error => {
+              this.backendErrors.push(error);
+            });
         }
       }
     }

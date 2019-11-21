@@ -15,13 +15,16 @@ public class UserController
 	private UserServiceInterface userService;
 
 
-	@GetMapping(value = "/user/list", produces = "application/json")
+	@CrossOrigin(origins = {"http://localhost:8081"})
+	@GetMapping(value = "/api/user/list", produces = "application/json")
 	public List listUsers(){
 		return this.userService.getAllUsers();
 	}
 
-	@PostMapping(value = "/user/add", produces = "application/json")
+	@CrossOrigin(origins = {"http://localhost:8081"})
+	@PostMapping(value = "/api/user/add", produces = "application/json")
 	public UserEntity addUser(@ModelAttribute("user")UserEntity userEntity){
+		System.out.println(userEntity.getFirstName());
 		this.userService.saveUser(userEntity);
 		return userEntity;
 	}
@@ -31,13 +34,13 @@ public class UserController
 		return new UserEntity();
 	}
 	
-	@RequestMapping("/remove/{id}")
+	@RequestMapping("/api/remove/{id}")
 	public String removeUser(@PathVariable("id") int id){
 		this.userService.removeUser(id);
 		return "redirect:/users";
 	}
 	
-	@RequestMapping(value = "/edit/{id}", produces = "application/json")
+	@RequestMapping(value = "/api/edit/{id}", produces = "application/json")
 	public String editUser(@PathVariable("id") int id, Model model){
 		model.addAttribute("user", this.userService.getUser(id));
 		model.addAttribute("listUsers", this.userService.getAllUsers());
