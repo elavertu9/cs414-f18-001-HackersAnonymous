@@ -15,10 +15,12 @@
 ### host_frontend.sh
 ```Usage: ./host_frontend.sh```
 * Hosts the frontend code using webpack and npm (npm run dev)
+* Configured to auto launch browser and defaults to localhost:8081
 
 ### host_backend.sh
 ```Usage: ./host_backend.sh <Version>```
 * Hosts the backend code using java jar (java -jar backend-<Version>.jar)
+* The jar file being hosted is located in Banqi/backend/target
 * For version look in backend/pom.xml or backend/target after building the project
 
 ## Roles
