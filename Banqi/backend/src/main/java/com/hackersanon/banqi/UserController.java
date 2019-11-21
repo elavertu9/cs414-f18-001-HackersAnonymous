@@ -1,7 +1,6 @@
 package com.hackersanon.banqi;
 
 import com.hackersanon.banqi.database.entity.UserEntity;
-import com.hackersanon.banqi.services.UserService;
 import com.hackersanon.banqi.services.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -10,16 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController
 {
-
-	private UserServiceInterface userService;
-
-	public UserController() {
-	}
-
 	@Autowired
-	public UserController(UserService userService){
-		this.userService = userService;
-	}
+	private UserServiceInterface userService;
 
 
 	@GetMapping(value = "/user/list", produces = "application/json")
