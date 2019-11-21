@@ -24,16 +24,22 @@ Epics planned for this release.
 * *#27: User: I would like to be able to move my game pieces*
 * *#24: User: I would like to be able to distinguish the 7 types of pieces*
 * *#28: User: I would like to be able to capture enemy pieces*
+* *#7: User: I would like to be able to register to the platform*
 
 ### Weeks 3 and 4
-* *#7: User: I would like to be able to register to the platform*
 * *#123: User: I would like to be able to play Banqi with friends*
 * *#124: User: I would like to be able to come back to my game*
 * *#125: User: I would like to be able to view my game statistics on my profile page*
 * *#137: Implement network features* 
 
+## Review 1 (Start of sprint)
+We met with the product owner after Sprint 2 to get some feedback regarding our performance and to determine what tasks/epics are to be prioritized for Sprint 3. 
+* We recieved good feedback regarding the presentation, points for improvement include: being more presentable/professional when presenting. 
+* We discussed with the PO how we broke up this sprint into 2 sub sprints. We received help on which epics to prioritize during both sub sprints. One of the changes requested to be made was that registration to the platform be bumped from weeks 3 and 4 to weeks 1 and 2.
+* Weeks 3 and 4 will now be focused on the networking aspect of the online game.
 
-## Review
+## Review 2 (end of 1st 2 weeks)
+## Review 3 (end of sprint)
 
 #### Completed epics in Sprint Backlog 
 
