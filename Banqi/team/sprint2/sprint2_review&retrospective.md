@@ -15,11 +15,6 @@ Epics planned for this release.
 
 ## Review
 
-#### Sprint Review 
-We met with the product owner after Sprint 2 to get some feedback regarding our performance and to determine what tasks/epics are to be prioritized for Sprint 3. 
-* We recieved good feedback regarding the presentation,points for improvement include: being more presentable/professional when presenting. 
-* The PO requested that we prioritize creating a playable game between 2 players on 2 different machines for the Sprint 3 demo.  
-
 #### Completed epics in Sprint Backlog 
 * *#61: Prepare for sprint2 release*:  prepared all deliverables for P2
 
