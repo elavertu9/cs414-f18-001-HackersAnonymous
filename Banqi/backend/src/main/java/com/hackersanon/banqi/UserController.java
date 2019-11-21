@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController
 {
@@ -14,16 +16,14 @@ public class UserController
 
 
 	@GetMapping(value = "/user/list", produces = "application/json")
-	public String listUsers(Model model){
-		model.addAttribute("user", new UserEntity());
-		model.addAttribute("listUsers", this.userService.getAllUsers());
-		return "user";
+	public List listUsers(){
+		return this.userService.getAllUsers();
 	}
 
 	@PostMapping(value = "/user/add", produces = "application/json")
-	public String addUser(@ModelAttribute("user")UserEntity userEntity){
+	public UserEntity addUser(@ModelAttribute("user")UserEntity userEntity){
 		this.userService.saveUser(userEntity);
-		return "redirect:/";
+		return userEntity;
 	}
 
 	@ModelAttribute("user")
