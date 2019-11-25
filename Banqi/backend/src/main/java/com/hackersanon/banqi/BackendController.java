@@ -92,7 +92,12 @@ public class BackendController {
      @CrossOrigin(origins = {"http://localhost:8081"})
     @GetMapping("/api/")
     public String executeMove() {
-        
         return null;
+    }
+
+
+    @RequestMapping(value="*")
+    public String fallbackPage() {
+        return "Couldn't find the page you are looking for.";
     }
 }
