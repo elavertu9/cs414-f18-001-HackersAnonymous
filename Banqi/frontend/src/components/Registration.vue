@@ -70,6 +70,9 @@
         }
       },
       methods: {
+        // list users, add user now, remove user (maybe)
+
+
         onSubmit(evt) {
           evt.preventDefault();
           if (this.registrationForm.password != this.confirmPassword) {
