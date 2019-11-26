@@ -1,5 +1,6 @@
 package com.hackersanon.banqi.database;
 
+import com.hackersanon.banqi.database.entity.GameEntity;
 import com.hackersanon.banqi.database.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +23,16 @@ public class UserDAO implements UserDAOInterface
 		sessionFactory.getCurrentSession().save(userEntity);
 	}
 	
-	 public void updateUser(UserEntity userEntity)
+	public void saveGame(GameEntity gameEntity){
+		sessionFactory.getCurrentSession().save(gameEntity);
+	}
+	
+	public void updateGame(GameEntity gameEntity)
+	{
+	
+	}
+	
+	public void updateUser(UserEntity userEntity)
 	{
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(userEntity);

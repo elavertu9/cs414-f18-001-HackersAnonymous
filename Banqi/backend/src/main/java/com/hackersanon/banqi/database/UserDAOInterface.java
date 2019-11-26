@@ -1,5 +1,6 @@
 package com.hackersanon.banqi.database;
 
+import com.hackersanon.banqi.database.entity.GameEntity;
 import com.hackersanon.banqi.database.entity.UserEntity;
 
 import java.util.List;
@@ -10,5 +11,6 @@ public interface UserDAOInterface
 	void updateUser(UserEntity usersEntity);
 	List<UserEntity> findAll();
 	UserEntity findById(int id);
-	void deleteById(int userID);
+	void saveGame(GameEntity gameEntity);
+	void updateGame(GameEntity gameEntity);
 }
