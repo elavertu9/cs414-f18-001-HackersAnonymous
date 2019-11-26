@@ -24,7 +24,6 @@ public class UserController
 
 	@PostMapping(value = "add", consumes = "application/json", produces = "application/json")
 	public UserEntity addUser(@RequestBody()UserEntity userEntity){
-		System.out.println(userEntity.getFirstName());
 		this.userService.saveUser(userEntity);
 		return userEntity;
 	}

@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public interface IGameService
 {
-	BanqiBoard getBoard(int gameId);
-	List<UserEntity> getPlayersByGameId(int gameId);
+	BanqiBoard getBoard(long gameId);
+	List<UserEntity> getPlayersByGameId(long gameId);
 	List<Integer> listAllGamesByUserId(int userID);
-	Game getGame(int gameId);
+	Game getGame(long gameId);
 	void saveGame(GameEntity game);
 }
