@@ -10,19 +10,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = {"http://localhost:8081"})
 public class UserController
 {
 	@Autowired
 	private UserServiceInterface userService;
 
 
-	@CrossOrigin(origins = {"http://localhost:8081"})
 	@GetMapping(value = "list", produces = "application/json")
 	public List listUsers(){
 		return this.userService.getAllUsers();
 	}
 
-	@CrossOrigin(origins = {"http://localhost:8081"})
 	@PostMapping(value = "add", consumes = "application/json", produces = "application/json")
 	public UserEntity addUser(@RequestBody()UserEntity userEntity){
 		System.out.println(userEntity.getFirstName());

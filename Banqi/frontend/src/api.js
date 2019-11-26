@@ -13,7 +13,7 @@ export default {
     return AXIOS.get(`/hello`);
   },
   getBoard() {
-    return AXIOS.get('/board');
+    return AXIOS.get('/game/board');
   },
   registerUser(userData) {
     return AXIOS.post('/user/add', userData);

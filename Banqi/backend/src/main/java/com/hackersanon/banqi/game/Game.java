@@ -36,6 +36,8 @@ public class Game {
 //    public ArrayList<Coordinate> getValidMoves(Coordinate origin){
 //        return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
 //    }
+    
+    
 
     public void attemptMove(Move newMove) throws GameOverException {
         moveHistory.add(banqiBoard.makeMove(newMove));
@@ -53,7 +55,7 @@ public class Game {
         return gameID;
     }
 
-    protected BanqiBoard getBanqiBoard() {
+    public BanqiBoard getBanqiBoard() {
         return banqiBoard;
     }
 

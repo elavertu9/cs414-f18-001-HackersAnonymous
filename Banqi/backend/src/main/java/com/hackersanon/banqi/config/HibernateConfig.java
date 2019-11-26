@@ -17,14 +17,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScans(value = { @ComponentScan("com.hackersanon.banqi")})
 public class HibernateConfig {
-    private final static String DATABASE_URL = "jdbc:mysql://cs414-f19-hackersanon.mysql.database.azure.com:3306";
-    private final static String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final static String DATABASE_USERNAME = "hackersanon@cs414-f19-hackersanon";
-    private final static String DATABASE_PASSWORD = "CS414BANQI";
-
-
-    @Bean
-    public LocalSessionFactoryBean getSessionFactory(){
+    
+    
+    @Bean(name="getSessionFactory")
+    public LocalSessionFactoryBean getSessionFactory()
+    {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setHibernateProperties(getHibernateProperties());
         factoryBean.setDataSource(getDataSource());
@@ -69,14 +66,6 @@ public class HibernateConfig {
         properties.put("hibernate.archive.autodetection","class,hbm");
         return properties;
     }
-
-//    @Bean
-//    @Qualifier("jpaVendorAdaptor")
-//    public JpaVendorAdapter getJpaVendorAdaptor(){
-//        JpaVendorAdapter jpaVendorAdapter;
-//        jpaVendorAdapter = new HibernateJpaVendorAdapter();
-//        return jpaVendorAdapter;
-//    }
 
 }
 

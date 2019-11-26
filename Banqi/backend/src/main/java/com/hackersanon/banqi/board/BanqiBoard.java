@@ -108,18 +108,6 @@ public class BanqiBoard {
         return boardString.toString();
     }
 
-//    public void printBoard(){
-//        AsciiTable printBoard = new AsciiTable();
-//        for(int i = board.length-1; i>=0;--i){
-//            printBoard.addRule();
-//            printBoard.addRow(Arrays.asList(board[i])).setTextAlignment(TextAlignment.CENTER).setPaddingLeftRight(1,2);
-//        }
-//        printBoard.addRule();
-//        printBoard.getContext().setWidth(125);
-//        System.out.println(printBoard.render());
-//    }
-
-
     public Move makeMove(Move newMove){
         return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
     }
@@ -128,15 +116,4 @@ public class BanqiBoard {
         Move newMove = new Move(this, origin,destination, "");
         return newMove.getActionType().executeMove(this, new Move(this, origin, destination, ""));
     }
-
-
-//    public String[][] getStringBoard() {
-//        String[][] stringBoard = new String[rowDimension][colDimension];
-//        int i=0,j = 0;
-//        for(Square[] row: board){
-//            for(Square square: row){
-//                stringBoard[i++][j++] = square.;
-//            }
-//        }
-//    }
 }
