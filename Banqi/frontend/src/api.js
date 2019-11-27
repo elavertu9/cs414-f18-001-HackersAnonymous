@@ -27,6 +27,6 @@ export default {
   },
 
   getNewGame() {
-    return AXIOS.get('/game/new')
+    return AXIOS.get('/game/create')
   }
 }

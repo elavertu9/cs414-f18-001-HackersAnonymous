@@ -185,7 +185,6 @@
       },
       created() {
         console.log("Getting game board instance from backend");
-        this.getGame();
       },
       updated() {
         console.log("Testing");
@@ -207,6 +206,7 @@
       },
       mounted() {
         this.players.player1 = localStorage.getItem('username');
+        this.getGame();
       },
 
       name: "BanqiBoard",
