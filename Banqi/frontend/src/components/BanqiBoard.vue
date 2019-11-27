@@ -185,7 +185,7 @@
       },
       created() {
         console.log("Getting game board instance from backend");
-        this.getBoardApi();
+        this.getGame();
       },
       updated() {
         console.log("Testing");
@@ -237,9 +237,19 @@
       },
 
       methods: {
+        getGame() {
+          if(localStorage.hasOwnProperty('gameId')) {
+              this.gameId = localStorage.getItem('gameId');
+              localStorage.removeItem('gameId');
+              API.getExistingGame(this.gameId).then(response => {
+                 console.log(response.data);
+              });
+          }
+        },
+
 
         getBoardApi() {
-          API.getBoard().then(response => {
+          API.getExistingGame().then(response => {
             this.board = response.data;
           })
           .catch(error => {
