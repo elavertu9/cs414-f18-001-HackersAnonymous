@@ -108,12 +108,13 @@ public class BanqiBoard {
         return boardString.toString();
     }
 
+    //TODO FIX THIS....so ugly
     public Move makeMove(Move newMove){
-        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
+        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()),newMove.getGameID());
     }
 
-    private Move makeMove(Square origin, Square destination){
-        Move newMove = new Move(this, origin,destination, "");
-        return newMove.getActionType().executeMove(this, new Move(this, origin, destination, ""));
+    private Move makeMove(Square origin, Square destination, long gameId){
+        Move newMove = new Move(this, origin,destination, gameId);
+        return newMove.getActionType().executeMove(this, new Move(this, origin, destination, gameId));
     }
 }
