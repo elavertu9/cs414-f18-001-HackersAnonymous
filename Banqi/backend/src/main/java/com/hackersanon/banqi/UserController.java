@@ -17,14 +17,15 @@ public class UserController
 	private UserServiceInterface userService;
 
 
+	// /api/user/list
 	@GetMapping(value = "list", produces = "application/json")
 	public List listUsers(){
 		return this.userService.getAllUsers();
 	}
 
+	// /api/user/add
 	@PostMapping(value = "add", consumes = "application/json", produces = "application/json")
 	public UserEntity addUser(@RequestBody()UserEntity userEntity){
-		System.out.println(userEntity.getFirstName());
 		this.userService.saveUser(userEntity);
 		return userEntity;
 	}
@@ -33,7 +34,7 @@ public class UserController
 	public UserEntity formBackingObject(){
 		return new UserEntity();
 	}
-	
+
 	@RequestMapping("/api/remove/{id}")
 	public String removeUser(@PathVariable("id") int id){
 		this.userService.removeUser(id);

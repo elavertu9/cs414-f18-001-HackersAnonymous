@@ -12,13 +12,14 @@ public class Game {
     private BanqiBoard banqiBoard;
     private ArrayList<Player> players;
     private ArrayList<Move> moveHistory;
-    private final String gameID;
+    private final long gameID;
+    private long gameId;
     
     public Game(){
         banqiBoard = new BanqiBoard();
         moveHistory = new ArrayList<>();
         players = new ArrayList<>();
-        gameID = UUID.randomUUID().toString();
+        gameID = UUID.randomUUID().getMostSignificantBits();
     }
 
     public void start(){
@@ -51,7 +52,7 @@ public class Game {
         attemptMove(move);
     }
     
-    public String getGameID(){
+    public long getGameID(){
         return gameID;
     }
 

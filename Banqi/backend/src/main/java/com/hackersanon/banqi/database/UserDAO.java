@@ -60,5 +60,12 @@ public class UserDAO implements UserDAOInterface
 			session.delete(userEntity);
 		}
 	}
+	
+	public GameEntity findGameById(long gameId)
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		GameEntity gameEntity = session.load(GameEntity.class, gameId);
+		return gameEntity;
+	}
 
 }

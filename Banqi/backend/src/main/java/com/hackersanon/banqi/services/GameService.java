@@ -1,5 +1,7 @@
 package com.hackersanon.banqi.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hackersanon.banqi.board.BanqiBoard;
 import com.hackersanon.banqi.database.UserDAO;
 import com.hackersanon.banqi.database.entity.GameEntity;
@@ -19,12 +21,13 @@ public class GameService implements IGameService
 	@Autowired
 	private UserDAO userDAO;
 	
-	@Override public BanqiBoard getBoard(int gameId)
+	@Override public BanqiBoard getBoard(long gameId)
 	{
-		return null;
+		Game currentGame = getGame(gameId);
+		return currentGame.getBanqiBoard();
 	}
 	
-	@Override public List<UserEntity> getPlayersByGameId(int gameId)
+	@Override public List<UserEntity> getPlayersByGameId(long gameId)
 	{
 		return null;
 	}
@@ -34,8 +37,17 @@ public class GameService implements IGameService
 		return null;
 	}
 	
-	@Override public Game getGame(int gameId)
+	@Override public Game getGame(long gameId)
 	{
+		GameEntity gameEntity = userDAO.findGameById(gameId);
+		try {
+			Game currentGame = new ObjectMapper().readValue(gameEntity.getGameObject(), Game.class);
+			return currentGame;
+		}
+		catch (JsonProcessingException e) {
+			e.printStackTrace();
+			System.err.println("GameEntity conversion to Game Failed...");
+		}
 		return null;
 	}
 	

@@ -19,6 +19,7 @@ import Login from './components/Login'
 import Account from './components/Account'
 import MyAccount from './components/MyAccount'
 import LogOut from './components/LogOut'
+import GameHome from './components/GameHome'
 
 export default {
   name: 'app',
@@ -32,7 +33,8 @@ export default {
     Login,
     Account,
     MyAccount,
-    LogOut
+    LogOut,
+      GameHome
   }
 }
 </script>

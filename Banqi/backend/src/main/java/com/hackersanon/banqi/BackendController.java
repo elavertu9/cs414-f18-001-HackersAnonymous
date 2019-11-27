@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/game")
+@RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:8081"})
 public class BackendController {
 
@@ -22,18 +22,13 @@ public class BackendController {
         return "Hello from the backend!";
     }
 
-    @GetMapping("create")
-    public Game startGame() {
-        return new Game();
-    }
-
     @GetMapping("/retrieve/{gameId}")
     public Game retrieveGame(@RequestParam("gameId") String gameId){
         return null;
     }
 
     @RequestMapping("/api/move")
-    public Move receiveMove(@RequestParam("move") Move move){
+    public Move receiveMove( Move move){
 //        Game currentGame = DAO.getGame(move.getGameID());
 //        try {
 //            assert currentGame != null;
