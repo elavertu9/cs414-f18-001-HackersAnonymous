@@ -51,7 +51,7 @@
             </b-card>
           </b-col>
           <b-col>
-            <b-card title="Kareem Yousseff"
+            <b-card title="Kareem Youssef"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
               <img src="../images/kareem.jpg" class="restrict-size"/>
