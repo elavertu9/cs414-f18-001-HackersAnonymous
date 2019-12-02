@@ -10,7 +10,7 @@
             <b-card title="Evan Lavertu"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/Lavertu.png" class="restrict-size"/>
+              <img src="../images/Lavertu.png" class="img-fluid"/>
               <b-card-text>
                 Evan Lavertu is currently pursuing a degree in Computer Science at Colorado State University (CSU).
                 He currently works for Engineering Technology Services at CSU providing technical support to the College of Engineering.
@@ -24,7 +24,7 @@
             <b-card title="Cody Coleman"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/cody.png" class="restrict-size"/>
+              <img src="../images/cody.png" class="img-fluid"/>
               <b-card-text>
                 Cody Coleman is a Junior at Colorado State University and working on
                 completing his degree in Computer Science (CS). Interests in the field of
@@ -42,7 +42,7 @@
             <b-card title="Patrick Keleher"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/patrick.png" class="restrict-size"/>
+              <img src="../images/patrick.png" class="img-fluid"/>
               <b-card-text>
                 Patrick is a Senior in Computer Science. His interests are in cyber security and networking.
                 Some of his hobbies include hiking, snowboarding, and playing video games.
@@ -54,7 +54,7 @@
             <b-card title="Kareem Youssef"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/kareem.jpg" class="restrict-size"/>
+              <img src="../images/kareem.jpg" class="img-fluid"/>
               <b-card-text>
                 Kareem is a senior computer science Major, he's interested in Virtual/augmented reality tech and their use cases.
                 In his free time he likes playing video games, going on hikes, camping or just doing anything outside.
@@ -65,7 +65,7 @@
             <b-card title="Jack Fitzgerald"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/jack.jpeg" class="restrict-size"/>
+              <img src="../images/jack.jpeg" class="img-fluid"/>
               <b-card-text>
                 Jack is a senior at CSU studying Computer Science, his current interests are in AI, networking and cyber security.
                 Jack has recently attended his first CTF event with the members of this team, as well as a virtual reality hackathon.
