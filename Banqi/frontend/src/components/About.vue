@@ -8,9 +8,9 @@
         <b-row class="text-center  justify-content-md-center">
           <b-col md="auto">
             <b-card title="Evan Lavertu"
-                    style= "max-width: 20rem;"
+                    style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/Lavertu.png" class="img-fluid"/>
+              <img src="../images/Lavertu.png" class="restrict-size"/>
               <b-card-text>
                 Evan Lavertu is currently pursuing a degree in Computer Science at Colorado State University (CSU).
                 He currently works for Engineering Technology Services at CSU providing technical support to the College of Engineering.
@@ -24,7 +24,7 @@
             <b-card title="Cody Coleman"
                     style="max-width: 20rem;"
                     class="mb-2 aboutCards">
-              <img src="../images/cody.png" class="img-fluid"/>
+              <img src="../images/cody.png" class="restrict-size"/>
               <b-card-text>
                 Cody Coleman is a Junior at Colorado State University and working on
                 completing his degree in Computer Science (CS). Interests in the field of
