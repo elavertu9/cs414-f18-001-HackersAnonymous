@@ -87,20 +87,20 @@ public class Move {
         TRAVEL(){
             @Override
             public boolean calculateMoveType(Square origin, Square destination) {
-                return (origin.isOccupied() && origin.getStoredPiece().isFaceUp()) &&
-                        (!destination.isOccupied());
+                return (origin.checkOccupied() && origin.getStoredPiece().isFaceUp()) &&
+                        (!destination.checkOccupied());
             }
         },CAPTURE(){
             @Override
             public boolean calculateMoveType(Square origin, Square destination) {
-                return ((origin.isOccupied()&& origin.getStoredPiece().isFaceUp()) &&
-                        (destination.isOccupied() && destination.getStoredPiece().isFaceUp()) &&
+                return ((origin.checkOccupied()&& origin.getStoredPiece().isFaceUp()) &&
+                        (destination.checkOccupied() && destination.getStoredPiece().isFaceUp()) &&
                         origin.getStoredPiece().canCapture(destination.getStoredPiece()));
             }
         },FLIP(){
             @Override
             public boolean calculateMoveType(Square origin, Square destination) {
-                return ( origin.isOccupied() && !origin.getStoredPiece().isFaceUp() ) &&
+                return ( origin.checkOccupied() && !origin.getStoredPiece().isFaceUp() ) &&
                         ( destination.getCoordinate().equals(origin.getCoordinate()) &&
                                 !destination.getStoredPiece().isFaceUp() );
             }

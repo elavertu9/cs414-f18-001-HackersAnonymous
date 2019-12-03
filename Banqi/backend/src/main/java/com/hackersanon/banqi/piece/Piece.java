@@ -2,9 +2,11 @@ package com.hackersanon.banqi.piece;
 
 import com.hackersanon.banqi.board.Coordinate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Piece {
+public class Piece implements Serializable
+{
     private final PieceAttributes pieceType;
     private final TeamColor team;
     private boolean faceUp = false;

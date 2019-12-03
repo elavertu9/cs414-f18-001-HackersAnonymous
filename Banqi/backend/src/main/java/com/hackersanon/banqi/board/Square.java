@@ -1,14 +1,20 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
-import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.TeamColor;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
 import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 
-public class Square {
+@Entity
+public class Square implements Serializable
+{
     private Piece storedPiece;
+    
+    @Id
     private Coordinate coordinate;
 
     Square(Coordinate coordinate, Piece piece){
@@ -19,18 +25,33 @@ public class Square {
     protected Square(Coordinate coordinate){
         this(coordinate,null);
     }
-
-    public Piece getStoredPiece(){
+	
+	public Square()
+	{
+	
+	}
+	
+	public Piece getStoredPiece(){
         return storedPiece;
     }
+	
+	public void setStoredPiece(Piece piece)
+	{
+		this.storedPiece = piece;
+	}
 
     public Coordinate getCoordinate(){
         return coordinate;
     }
+	
+	public void setCoordinate(Coordinate coordinate)
+	{
+		this.coordinate = coordinate;
+	}
 
     public Piece occupySquare(Piece newPiece){
         Piece captured = null;
-        if(isOccupied()) {
+        if(checkOccupied()) {
             captured = this.storedPiece;
         }
         this.storedPiece = newPiece;
@@ -41,7 +62,7 @@ public class Square {
         this.storedPiece = new Piece(EMPTY, NEUTRAL);
     }
 
-   public boolean isOccupied(){
+   public boolean checkOccupied(){
         return (storedPiece.getPieceType() != EMPTY);
    }
 

@@ -1,11 +1,13 @@
 package com.hackersanon.banqi.board;
 
-import java.rmi.UnexpectedException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Coordinate {
+
+public class Coordinate implements Serializable
+{
 
     private Map<String, Integer> coordinate;
 
@@ -14,7 +16,11 @@ public class Coordinate {
         coordinate.put("row", row);
         coordinate.put("column", column);
     }
-
+    
+    public Coordinate()
+    {
+    }
+    
     public boolean isValid(){
         return isRowValid(this.getRow())&&isColumnValid(this.getColumn());
     }
@@ -35,23 +41,21 @@ public class Coordinate {
         return coordinate.get("column");
     }
 
-    public boolean setColumn(int column){
+    public void setColumn(int column){
         boolean validity = isColumnValid(column);
         if(validity){
             this.coordinate.replace("column", column);
         }
-        return validity;
     }
 
-    public boolean setRow(int row){
+    public void setRow(int row){
         boolean validity = isRowValid(row);
         if(validity){
             coordinate.replace("row",row);
         }
-        return validity;
     }
 
-    public String getStringPosition(){
+    private String stringPosition(){
         return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
     }
 
