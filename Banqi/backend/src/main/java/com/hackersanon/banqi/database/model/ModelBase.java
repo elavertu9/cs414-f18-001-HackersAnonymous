@@ -5,27 +5,31 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
+@MappedSuperclass
 public class ModelBase implements Serializable
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	public Long id;
-	
-	@Version
-	@Column(name = "ts")
+	@Column(name = "id", updatable = false, nullable = false, insertable = false)
+	private Long id;
+
+
+	@Temporal(TemporalType.DATE)
+	@Column()
 	private Date timestamp;
 
-	@Id
+
 	public Long getId() {
 		return id;
 	}
-	
+
+
 	public Date getTimestamp() {
 		return timestamp;
 	}
 	
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 	

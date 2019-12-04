@@ -1,34 +1,39 @@
 package com.hackersanon.banqi.database.model;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Coordinate {
-    @ElementCollection
-    private Map<String, Integer> coordinate;
+
+
+    @NotNull
+    private int row;
+
+    @NotNull
+    private int column;
 
     public Coordinate(){
     }
 
     public Coordinate(int row, int column) {
-       this.setCoordinate(row,column);
+        this.row = row;
+        this.column = column;
     }
 
-    public void setCoordinate(Map<String, Integer> coordinate){
-        this.coordinate = coordinate;
+    public int getRow() {
+        return row;
     }
 
-    public Map<String, Integer> getCoordinate(){
-        return this.coordinate;
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    private void setCoordinate(int row, int column){
-        this.coordinate = new HashMap<>();
-        this.coordinate.put("row", row);
-        this.coordinate.put("column", column);
+    public int getColumn() {
+        return column;
     }
 
+    public void setColumn(int column) {
+        this.column = column;
+    }
 }

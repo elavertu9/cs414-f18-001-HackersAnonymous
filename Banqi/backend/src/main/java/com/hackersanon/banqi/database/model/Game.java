@@ -1,32 +1,55 @@
 package com.hackersanon.banqi.database.model;
 
-import com.hackersanon.banqi.board.BanqiBoard;
-import org.hibernate.annotations.TypeDef;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
-@TypeDef(name = "banqiboard",
-		defaultForType = BanqiBoard.class,
-		typeClass = BanqiBoard.class)
+@Table(name = "game")
 public class Game extends ModelBase
 {
-	@ManyToOne
-	private Board banqiboard;
-	
+
+	@Transient
+	private static final long serialVersionUID = -3621010469526215357L;
+
+
+	@Embedded
+	private Board board;
+
+	@Column
 	private Long playerOneId;
+
+	@Column
 	private Long playerTwoId;
-	@Id private Long id;
-	
-	public void setId(Long id)
-	{
-		this.id = id;
+
+	public Game(){
 	}
-	
-	public Long getId()
-	{
-		return id;
+
+	public Game(Board board, Long playerOneId, Long playerTwoId){
+		this.board = board;
+		this.playerOneId = playerOneId;
+		this.playerTwoId = playerTwoId;
 	}
+
+	public void setBoard(Board board){
+		this.board = board;
+	}
+
+	public Board getBoard(){
+		return this.board;
+	}
+
+	public void setPlayerOneId(Long playerOneId){
+		this.playerOneId = playerOneId;
+	}
+	public Long getPlayerOneId(){
+		return this.playerOneId;
+	}
+
+	public void setPlayerTwoId(Long playerTwoId){
+		this.playerTwoId = playerTwoId;
+	}
+
+	public Long getPlayerTwoId(){
+		return this.playerTwoId;
+	}
+
 }
