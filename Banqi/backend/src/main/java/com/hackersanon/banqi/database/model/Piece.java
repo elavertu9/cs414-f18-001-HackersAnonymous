@@ -4,7 +4,6 @@ import com.hackersanon.banqi.piece.PieceAttributes;
 import com.hackersanon.banqi.piece.TeamColor;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
@@ -12,10 +11,8 @@ public class Piece {
 
 
     @NotNull
-    @Embedded
     private PieceAttributes type;
     @NotNull
-    @Embedded
     private TeamColor teamColor;
 
     private boolean faceUp = false;
