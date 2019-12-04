@@ -1,7 +1,7 @@
 package com.hackersanon.banqi.database.service;
 
 import com.hackersanon.banqi.database.dao.GameDAO;
-import com.hackersanon.banqi.game.Game;
+import com.hackersanon.banqi.database.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +12,8 @@ import javax.transaction.Transactional;
 @Transactional
 public class GameService implements IGameService
 {
-	@Autowired
-	public GameDAO gameDAO;
+
+	private GameDAO gameDAO;
 	
 	
 	@Override
@@ -27,10 +27,12 @@ public class GameService implements IGameService
 	public Game createGame()
 	{
 		Game game = new Game();
-		game.start();
 		return gameDAO.save(game);
 	}
-	
-	
+
+	@Autowired
+	public void setGameDAO(final GameDAO gameDAO){
+		this.gameDAO = gameDAO;
+	}
 	
 }
