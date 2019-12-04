@@ -5,17 +5,21 @@ import com.hackersanon.banqi.board.Coordinate;
 import com.hackersanon.banqi.board.Square;
 import com.hackersanon.banqi.player.Player;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 public class Game {
     private BanqiBoard banqiBoard;
     private ArrayList<Player> players;
     private ArrayList<Move> moveHistory;
-
+    private final long gameID;
+    private long gameId;
+    
     public Game(){
         banqiBoard = new BanqiBoard();
         moveHistory = new ArrayList<>();
         players = new ArrayList<>();
+        gameID = UUID.randomUUID().getMostSignificantBits();
     }
 
     public void start(){
@@ -33,6 +37,8 @@ public class Game {
 //    public ArrayList<Coordinate> getValidMoves(Coordinate origin){
 //        return banqiBoard.getSquare(origin).getStoredPiece().getValidMoveList(origin);
 //    }
+    
+    
 
     public void attemptMove(Move newMove) throws GameOverException {
         moveHistory.add(banqiBoard.makeMove(newMove));
@@ -42,11 +48,15 @@ public class Game {
     }
 
     public void attemptMove(String origin, String destination) throws GameOverException {
-        Move move = new Move(this.getBanqiBoard(), Coordinate.convertANtoCoord(origin), Coordinate.convertANtoCoord(destination));
+        Move move = new Move(this.getBanqiBoard(), Coordinate.convertANtoCoord(origin), Coordinate.convertANtoCoord(destination),gameID);
         attemptMove(move);
     }
+    
+    public long getGameID(){
+        return gameID;
+    }
 
-    protected BanqiBoard getBanqiBoard() {
+    public BanqiBoard getBanqiBoard() {
         return banqiBoard;
     }
 

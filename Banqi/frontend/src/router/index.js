@@ -8,6 +8,7 @@ import Login from '../components/Login'
 import Account from '../components/Account'
 import MyAccount from '../components/MyAccount'
 import LogOut from '../components/LogOut'
+import GameHome from '../components/GameHome'
 
 Vue.use(Router);
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/logOut',
       name: 'LogOut',
       component: LogOut
+    },
+    {
+      path: '/gameHome',
+      name: 'GameHome',
+      component: GameHome
     }
   ]
 })

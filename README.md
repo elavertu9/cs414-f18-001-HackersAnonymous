@@ -46,7 +46,7 @@
   * Tasks that you would have finished during the sprint (least priority)
 
 ## Acceptance criteria 
-* Acceptance criteria is defined for each user story inside of the comment.  
+* Acceptance criteria is defined for each com.hackersanon.banqi.user story inside of the comment.  
 
 ## Deliverables
 * Various deliverables associated with the sprints can be found in Banqi/team/sprintX, where X is the sprint number.

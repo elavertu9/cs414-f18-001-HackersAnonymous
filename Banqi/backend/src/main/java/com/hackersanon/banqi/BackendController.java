@@ -1,38 +1,90 @@
 package com.hackersanon.banqi;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hackersanon.banqi.board.BanqiBoard;
 import com.hackersanon.banqi.game.Game;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hackersanon.banqi.game.Move;
+import com.hackersanon.banqi.services.IGameService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = {"http://localhost:8081"})
 public class BackendController {
-    ObjectMapper mapper = new ObjectMapper();
-    @CrossOrigin(origins = {"http://localhost:8081"})
-    @GetMapping("/api/hello")
+
+    @Autowired
+    private IGameService gameService;
+
+    @GetMapping("hello")
     public String sayHello() {
         return "Hello from the backend!";
     }
-    
-    @CrossOrigin(origins = {"http://localhost:8081"})
-    @GetMapping("/api/board")
-    public String getBoard() {
-        Game game = new Game();
-        game.start();
-        try {
-            return mapper.writeValueAsString(game.getClientBoard());
-        } catch (JsonProcessingException e) {
-            System.out.println("Java to JSON conversion fail.");
-        }
-        return "";
+
+    @GetMapping("/retrieve/{gameId}")
+    public Game retrieveGame(@RequestParam("gameId") String gameId){
+        return null;
     }
 
-    @CrossOrigin(origins = {"http://localhost:8081"})
-    @GetMapping("/api/")
-    public String executeMove() {//TODO JSON converter: Move Object to JSON?
-        
+    @RequestMapping("/api/move")
+    public Move receiveMove( Move move){
+//        Game currentGame = DAO.getGame(move.getGameID());
+//        try {
+//            assert currentGame != null;
+//            currentGame.attemptMove(move);
+//        }
+//        catch (GameOverException e) {
+//            System.out.println("Game OVER");
+//        }
+//        return move;
         return null;
+    }
+
+    @GetMapping("/api/move-history")
+    public ArrayList<Move> getMoveHistory(@RequestParam("gameID") String gameID){
+//        Game currentGame = DAO.getGame(gameID);
+//
+//        assert currentGame != null;
+//        return currentGame.getMoveHistory();
+        return null;
+    }
+
+
+    @GetMapping("/api/board")
+    public BanqiBoard getBoard() {
+        Game game = new Game();
+        return game.getBanqiBoard();
+    }
+
+
+//    @CrossOrigin(origins = {"http://localhost:8081"})
+//    @RequestMapping("/api/register")
+//    public User registerUser(User user) {
+//        User returnValue = null;
+//        User tempProfile = new User();
+//        BeanUtils.copyProperties(user, tempProfile);
+////        UserEngine userEngine = new UserEngine();
+////        UserProfile storedCredentials = userEngine.saveUser(tempProfile);
+////
+////        if(storedCredentials != null && !storedCredentials.getFirstName().isEmpty()){
+////            returnValue = new UserProfile();
+////            BeanUtils.copyProperties(storedCredentials, returnValue);
+////
+////        }
+////
+//        return user;
+//
+//    }
+
+    @GetMapping("/api/")
+    public String executeMove() {
+        return null;
+    }
+
+
+    @RequestMapping(value="*")
+    public String fallbackPage() {
+        return "Couldn't find the page you are looking for.";
     }
 }

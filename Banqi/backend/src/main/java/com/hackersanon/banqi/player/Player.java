@@ -2,7 +2,10 @@ package com.hackersanon.banqi.player;
 
 import com.hackersanon.banqi.piece.TeamColor;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable
+{
     private TeamColor team;
     private boolean turn = false;
     public Player(TeamColor color){

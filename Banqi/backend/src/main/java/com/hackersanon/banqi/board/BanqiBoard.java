@@ -3,8 +3,6 @@ package com.hackersanon.banqi.board;
 import com.hackersanon.banqi.game.Move;
 import com.hackersanon.banqi.piece.Piece;
 import com.hackersanon.banqi.piece.TeamColor;
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,35 +108,13 @@ public class BanqiBoard {
         return boardString.toString();
     }
 
-    public void printBoard(){
-        AsciiTable printBoard = new AsciiTable();
-        for(int i = board.length-1; i>=0;--i){
-            printBoard.addRule();
-            printBoard.addRow(Arrays.asList(board[i])).setTextAlignment(TextAlignment.CENTER).setPaddingLeftRight(1,2);
-        }
-        printBoard.addRule();
-        printBoard.getContext().setWidth(125);
-        System.out.println(printBoard.render());
-    }
-
-
+    //TODO FIX THIS....so ugly
     public Move makeMove(Move newMove){
-        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
+        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()),newMove.getGameID());
     }
 
-    private Move makeMove(Square origin, Square destination){
-        Move newMove = new Move(this, origin,destination);
-        return newMove.getActionType().executeMove(this, new Move(this, origin, destination));
+    private Move makeMove(Square origin, Square destination, long gameId){
+        Move newMove = new Move(this, origin,destination, gameId);
+        return newMove.getActionType().executeMove(this, new Move(this, origin, destination, gameId));
     }
-
-
-//    public String[][] getStringBoard() {
-//        String[][] stringBoard = new String[rowDimension][colDimension];
-//        int i=0,j = 0;
-//        for(Square[] row: board){
-//            for(Square square: row){
-//                stringBoard[i++][j++] = square.;
-//            }
-//        }
-//    }
 }

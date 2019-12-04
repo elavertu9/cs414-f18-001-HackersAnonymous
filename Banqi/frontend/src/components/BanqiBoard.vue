@@ -185,7 +185,6 @@
       },
       created() {
         console.log("Getting game board instance from backend");
-        this.getBoardApi();
       },
       updated() {
         console.log("Testing");
@@ -207,6 +206,7 @@
       },
       mounted() {
         this.players.player1 = localStorage.getItem('username');
+        this.getGame();
       },
 
       name: "BanqiBoard",
@@ -237,9 +237,19 @@
       },
 
       methods: {
+        getGame() {
+          if(localStorage.hasOwnProperty('gameId')) {
+              this.gameId = localStorage.getItem('gameId');
+              localStorage.removeItem('gameId');
+              API.getExistingGame(this.gameId).then(response => {
+                 console.log(response.data);
+              });
+          }
+        },
+
 
         getBoardApi() {
-          API.getBoard().then(response => {
+          API.getExistingGame().then(response => {
             this.board = response.data;
           })
           .catch(error => {

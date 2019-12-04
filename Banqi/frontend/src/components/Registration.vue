@@ -70,6 +70,9 @@
         }
       },
       methods: {
+        // list users, add user now, remove user (maybe)
+
+
         onSubmit(evt) {
           evt.preventDefault();
           if (this.registrationForm.password != this.confirmPassword) {
@@ -82,13 +85,32 @@
           }
         },
         callApiRegister() {
-          API.registerUser(this.registrationForm).then(response => {
-             console.log(response.data);
-             window.location.pathname = "/login";
-          })
-          .catch(error => {
-              this.backendErrors.push(error);
+          let postUser = {
+            firstName:this.registrationForm.firstName,
+            lastName:this.registrationForm.lastName,
+            email:this.registrationForm.email,
+            username:this.registrationForm.username
+          };
+
+          API.getAllUsers().then(response => {
+            console.log(response.data);
           });
+
+          API.registerUser(postUser).then(response => {
+            console.log(response.data);
+          })
+            .catch(error => {
+              this.backendErrors.push(error);
+            });
+        },
+
+        callApiGetAllUsers() {
+          API.getAllUsers().then(response => {
+            console.log(response.data);
+          })
+            .catch(error => {
+              this.backendErrors.push(error);
+            });
         }
       }
     }

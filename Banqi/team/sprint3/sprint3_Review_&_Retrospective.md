@@ -1,11 +1,11 @@
 # Sprint 3 - *Hackers Anonymous*
 
 ## Goal
-* Implement communication between frontend and backend so the user can play the game on localhost
-* Implement backend Java logic for user registration
+* Implement communication between frontend and backend so the com.hackersanon.banqi.user can play the game on localhost
+* Implement backend Java logic for com.hackersanon.banqi.user registration
     
 ### Stretch Goal
-* Implement frontend and back communication for user registration
+* Implement frontend and back communication for com.hackersanon.banqi.user registration
 * User should be able to use frontend for setting up an account and logging in
 
 ### Sprint Leader: *Evan Lavertu*

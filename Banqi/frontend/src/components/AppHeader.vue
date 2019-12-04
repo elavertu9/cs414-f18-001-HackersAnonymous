@@ -16,7 +16,7 @@
             <router-link class="normalLinks" to="/about">About</router-link>
           </b-nav-item>
           <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/game">Game</router-link>
+            <router-link class="normalLinks" to="/gameHome">Game</router-link>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
