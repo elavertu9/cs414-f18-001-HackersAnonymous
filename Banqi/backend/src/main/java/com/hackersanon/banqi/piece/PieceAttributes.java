@@ -2,8 +2,10 @@ package com.hackersanon.banqi.piece;
 
 import com.hackersanon.banqi.board.Coordinate;
 
+import javax.persistence.Embeddable;
 import java.util.ArrayList;
 
+@Embeddable
 public enum PieceAttributes {
     GENERAL(){
     },
