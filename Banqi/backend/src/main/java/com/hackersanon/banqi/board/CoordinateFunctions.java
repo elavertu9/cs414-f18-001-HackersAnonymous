@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 
-public class Coordinate
+public class CoordinateFunctions
 {
 
     private Map<String, Integer> coordinate;
 
-    public Coordinate(int row, int column){
+    public CoordinateFunctions(int row, int column){
         coordinate = new HashMap<>();
         coordinate.put("row", row);
         coordinate.put("column", column);
@@ -25,7 +25,7 @@ public class Coordinate
         return isRowValid(row) && isColumnValid(column);
     }
 
-    public static boolean isValid(Coordinate coordinate){
+    public static boolean isValid(CoordinateFunctions coordinate){
         return isRowValid(coordinate.getRow())&&isColumnValid(coordinate.getColumn());
     }
 
@@ -55,9 +55,9 @@ public class Coordinate
         return columnLetters.values()[coordinate.get("column")].name()+coordinate.get("row");
     }
 
-    public static Coordinate convertANtoCoord(String origin){
+    public static CoordinateFunctions convertANtoCoord(String origin){
         if(Pattern.matches("[a-h][1-4]", origin)){
-           return new Coordinate(Integer.parseInt(origin.substring(1,2))-1, columnLetters.valueOf(origin.substring(0,1)).ordinal());
+           return new CoordinateFunctions(Integer.parseInt(origin.substring(1,2))-1, columnLetters.valueOf(origin.substring(0,1)).ordinal());
         }else{
             throw new IndexOutOfBoundsException();
         }
@@ -82,11 +82,11 @@ public class Coordinate
             return true;
         }
 
-        if(!(object instanceof Coordinate)){
+        if(!(object instanceof CoordinateFunctions)){
             return false;
         }
 
-        Coordinate coordinate = (Coordinate) object;
+        CoordinateFunctions coordinate = (CoordinateFunctions) object;
 
         return (this.getRow() == coordinate.getRow() && this.getColumn() == coordinate.getColumn());
     }
