@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Embeddable
-public class Board extends ModelBase
+public class Board
 {
 	@ElementCollection
 	private Collection<Square> board = new ArrayList<>();
