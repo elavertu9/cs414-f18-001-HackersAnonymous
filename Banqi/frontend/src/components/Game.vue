@@ -11,7 +11,7 @@
       name: "Game",
       components: {
         'banqi-board': BanqiBoard
-      },
+      }
     }
 </script>
 

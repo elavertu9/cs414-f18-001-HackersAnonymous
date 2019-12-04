@@ -1,9 +1,7 @@
 <template>
-    <footer class="bottom-footer">
-      <div class="footerFormat">
-        <p>Developed by ___ Hackers Anonymous</p>
-      </div>
-    </footer>
+  <footer id="footer">
+    Developed by ___ Hackers Anonymous
+  </footer>
 </template>
 
 <script>
@@ -13,15 +11,12 @@
 </script>
 
 <style scoped>
-  .footerFormat {
-    text-align: center;
-    color: white;
-  }
-  .bottom-footer {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+
+  #footer {
+    width:100%;
+    height:60px;
     background-color: #1E4D2B;
+    color: white;
+    text-align: center;
   }
 </style>

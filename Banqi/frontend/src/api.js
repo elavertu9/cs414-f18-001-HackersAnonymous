@@ -9,7 +9,24 @@ const AXIOS = axios.create({
 });
 
 export default {
+
+  // User Endpoints
+  registerUser(userData) {
+    return AXIOS.post('/user/add', userData);
+  },
+  getAllUsers() {
+    return AXIOS.get('/user/list');
+  },
+
+  // Game Endpoints
   hello() {
-    return AXIOS.get(`/hello`);
+    return AXIOS.get(`/game/hello`);
+  },
+  getExistingGame(gameId) {
+    return AXIOS.post('/game/board', gameId);
+  },
+
+  getNewGame() {
+    return AXIOS.get('/game/create')
   }
 }
