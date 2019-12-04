@@ -1,12 +1,11 @@
 package com.hackersanon.banqi.board;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 
-public class Coordinate implements Serializable
+public class Coordinate
 {
 
     private Map<String, Integer> coordinate;

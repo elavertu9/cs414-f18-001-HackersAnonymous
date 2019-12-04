@@ -2,15 +2,12 @@ package com.hackersanon.banqi.game;
 
 import com.hackersanon.banqi.board.BanqiBoard;
 import com.hackersanon.banqi.board.Coordinate;
-import com.hackersanon.banqi.database.model.ModelBase;
 
-import javax.persistence.ElementCollection;
 import java.util.ArrayList;
 
 
-public class Game extends ModelBase
+public class Game
 {
-   @ElementCollection
     private BanqiBoard banqiBoard;
     
     private long id;

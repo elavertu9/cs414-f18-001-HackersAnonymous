@@ -2,19 +2,15 @@ package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.Piece;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
 import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
 
-@Entity
 public class Square implements Serializable
 {
     private Piece storedPiece;
     
-    @Id
     private Coordinate coordinate;
 
     Square(Coordinate coordinate, Piece piece){
