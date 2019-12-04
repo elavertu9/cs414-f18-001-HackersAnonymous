@@ -1,6 +1,6 @@
 package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.board.Coordinate;
+import com.hackersanon.banqi.board.CoordinateFunctions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PieceAttributesTest {
+class PieceFunctionsAttributesTest {
 
     @BeforeEach
     void setUp() {
@@ -24,11 +24,11 @@ class PieceAttributesTest {
 
     @Test
     void isValidMove() {
-        Coordinate origin = new Coordinate(2,2);
-        Coordinate destUp = new Coordinate(3,2);
-        Coordinate destDown = new Coordinate(1, 2);
-        Coordinate destLeft = new Coordinate(2, 1);
-        Coordinate destRight = new Coordinate(2, 3);
+        CoordinateFunctions origin = new CoordinateFunctions(2,2);
+        CoordinateFunctions destUp = new CoordinateFunctions(3,2);
+        CoordinateFunctions destDown = new CoordinateFunctions(1, 2);
+        CoordinateFunctions destLeft = new CoordinateFunctions(2, 1);
+        CoordinateFunctions destRight = new CoordinateFunctions(2, 3);
 
         for(PieceAttributes pieceType : PieceAttributes.values()) {
             assertTrue(pieceType.isValidMove(origin, destUp));

@@ -1,19 +1,18 @@
 package com.hackersanon.banqi.database.model;
 
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Embeddable
 public class Square
 {
-    @NotNull
     @Embedded
     private Piece piece;
 
-    @NotNull
     @Embedded
+    @AttributeOverrides({
+    @AttributeOverride(name = "row", column = @Column(name = "squareRow")),
+    @AttributeOverride(name = "column", column = @Column(name = "squareCol"))})
     private Coordinate coordinate;
 
     public Square() {

@@ -12,12 +12,17 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserService implements IUserService
 {
-	@Autowired
-	public UserDAO userDAO;
+	private UserDAO userDAO;
 	
 	@Override
 	public User findById(Long id)
 	{
 		return userDAO.findById(id).orElse(null);
 	}
+
+	@Autowired
+	public void setUserDAO(final UserDAO userDAO){
+		this.userDAO = userDAO;
+	}
+
 }

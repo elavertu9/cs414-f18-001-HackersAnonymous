@@ -40,6 +40,5 @@ public class BackendController
     {
         return gameService.createGame();
     }
-    
 
 }

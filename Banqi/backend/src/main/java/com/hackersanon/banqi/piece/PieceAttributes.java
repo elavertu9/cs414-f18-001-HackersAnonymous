@@ -1,11 +1,9 @@
 package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.board.Coordinate;
+import com.hackersanon.banqi.board.CoordinateFunctions;
 
-import javax.persistence.Embeddable;
 import java.util.ArrayList;
 
-@Embeddable
 public enum PieceAttributes {
     GENERAL(){
     },
@@ -24,24 +22,25 @@ public enum PieceAttributes {
     EMPTY(){
     };
 
+    PieceAttributes(){}
     public String toString(){
         return this.name();
     }
 
-    public boolean isValidMove(Coordinate origin, Coordinate destination){
+    public boolean isValidMove(CoordinateFunctions origin, CoordinateFunctions destination){
         return legalMoves(origin).contains(destination);
     }
 
-    public ArrayList<Coordinate> legalMoves(Coordinate origin){
-        ArrayList<Coordinate> legalMoves = new ArrayList<>();
-        addLegalMove(new Coordinate(origin.getRow()+1,origin.getColumn()), legalMoves);
-        addLegalMove(new Coordinate(origin.getRow()-1,origin.getColumn()), legalMoves);
-        addLegalMove(new Coordinate(origin.getRow(),origin.getColumn()+1), legalMoves);
-        addLegalMove(new Coordinate(origin.getRow(),origin.getColumn()-1), legalMoves);
+    public ArrayList<CoordinateFunctions> legalMoves(CoordinateFunctions origin){
+        ArrayList<CoordinateFunctions> legalMoves = new ArrayList<>();
+        addLegalMove(new CoordinateFunctions(origin.getRow()+1,origin.getColumn()), legalMoves);
+        addLegalMove(new CoordinateFunctions(origin.getRow()-1,origin.getColumn()), legalMoves);
+        addLegalMove(new CoordinateFunctions(origin.getRow(),origin.getColumn()+1), legalMoves);
+        addLegalMove(new CoordinateFunctions(origin.getRow(),origin.getColumn()-1), legalMoves);
         return legalMoves;
     }
 
-    private static void addLegalMove(Coordinate destination, ArrayList<Coordinate> legalMoves){
+    private static void addLegalMove(CoordinateFunctions destination, ArrayList<CoordinateFunctions> legalMoves){
         if(destination.isValid()){
             legalMoves.add(destination);
         }
