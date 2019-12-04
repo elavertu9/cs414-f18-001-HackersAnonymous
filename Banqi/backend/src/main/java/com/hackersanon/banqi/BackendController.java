@@ -23,6 +23,11 @@ public class BackendController
     {
         return "Hello from the backend!";
     }
+
+    @GetMapping("/game/{gameId}")
+    public Game getGame(@PathVariable Long gameId){
+        return gameService.findById(gameId);
+    }
     
     @GetMapping("/game/{gameId}/board")
     public Board getBoard(@PathVariable Long gameId)
