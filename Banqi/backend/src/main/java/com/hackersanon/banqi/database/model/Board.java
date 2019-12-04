@@ -1,20 +1,31 @@
 package com.hackersanon.banqi.database.model;
 
-import com.hackersanon.banqi.board.Square;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
-@Entity
+@Embeddable
 public class Board extends ModelBase
 {
-	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-	private List<Square> banqiBoard = new ArrayList<>();
+	@ElementCollection
+	private Collection<Square> board = new ArrayList<>();
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	private int colDimension = 8;
+	private int rowDimension = 4;
+	private boolean gameOver = false;
+
+	public Board(){
+	}
+
+	public Board(Collection<Square> board){
+		this.board = board;
+	}
+
 	public void setId(Long id)
 	{
 		this.id = id;
@@ -24,15 +35,15 @@ public class Board extends ModelBase
 	{
 		return id;
 	}
-	
 
-	public List<Square> getBoard()
+
+	public void setBoard(Collection<Square> board)
 	{
-		return banqiBoard;
+		this.board = board;
 	}
-	
-	public void setBoard(ArrayList<Square> board)
+
+	public Collection<Square> getBoard()
 	{
-		this.banqiBoard = board;
+		return board;
 	}
 }

@@ -17,10 +17,7 @@ public class Coordinate implements Serializable
         coordinate.put("column", column);
     }
     
-    public Coordinate()
-    {
-    }
-    
+
     public boolean isValid(){
         return isRowValid(this.getRow())&&isColumnValid(this.getColumn());
     }

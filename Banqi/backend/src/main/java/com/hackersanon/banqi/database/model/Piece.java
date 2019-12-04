@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Piece {
+
+
     @NotNull
     @Embedded
     private PieceAttributes type;
