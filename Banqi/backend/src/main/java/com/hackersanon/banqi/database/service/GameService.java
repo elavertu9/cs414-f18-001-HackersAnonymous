@@ -3,6 +3,7 @@ package com.hackersanon.banqi.database.service;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.Board;
 import com.hackersanon.banqi.database.model.Game;
+import com.hackersanon.banqi.database.model.Move;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,12 @@ public class GameService implements IGameService
 		game.setPlayerTwoId(p2id);
 		game.setBoard(new Board());
 		return gameDAO.save(game);
+	}
+
+	@Override
+	public Move newMoveOnGame(Move move){
+		Game game = gameDAO.getOne(move.getGameId());
+		return null;
 	}
 
 	@Autowired
