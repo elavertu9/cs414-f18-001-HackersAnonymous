@@ -16,7 +16,8 @@
             <router-link class="normalLinks" to="/about">About</router-link>
           </b-nav-item>
           <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/gameHome">Game</router-link>
+            <router-link v-if="this.gameLoaded" class="normalLinks" to="/game">Game</router-link>
+            <router-link v-else class="normalLinks" to="/gameHome">Game</router-link>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
@@ -25,6 +26,7 @@
               <em class="normalLinks">{{username}}</em>
             </template>
             <b-dropdown-item class="dropDownLinks" href="/myAccount">Profile</b-dropdown-item>
+            <b-dropdown-item v-if="authenticated" class="dropDownLinks" href="/admin">Admin</b-dropdown-item>
             <b-dropdown-item class="dropDownLinks" href="/logOut">Log Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -45,8 +47,10 @@
       data() {
         return {
           signedIn: false,
+          gameLoaded: false,
           userID: '',
-          username: ''
+          username: '',
+          authenticated: false
         }
       },
       mounted() {
@@ -58,12 +62,24 @@
           this.signedIn = false;
           this.userID = '';
         }
+
+        if(localStorage.hasOwnProperty('gameId')) {
+          this.gameLoaded = true;
+        } else {
+          this.gameLoaded = false;
+        }
       },
 
       methods: {
         getUserInfo() {
           API.getUser(this.userID).then(response => {
             this.username = response.data.username;
+            // Add other admin account checks here
+            if (this.username == "elavertu9") {
+              this.authenticated = true;
+            } else {
+              this.authenticated = false;
+            }
           });
         }
       }

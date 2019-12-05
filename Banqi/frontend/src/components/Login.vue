@@ -15,7 +15,7 @@
                     <b-form-input id="password" type="password" v-model="loginForm.password" required></b-form-input>
                   </b-form-group>
                   <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
-                  <b-button type="submit" variant="success">Submit</b-button>
+                  <b-button type="submit" variant="success" class="full-size">Submit</b-button>
                 </b-form>
               </div>
             </b-card-text>
@@ -38,7 +38,7 @@
           loginForm: {
             username: '',
             password: '',
-            userID: '85'
+            userID: ''
           },
           showError: false,
           error: ''
@@ -47,9 +47,6 @@
       methods: {
         onSubmit(evt) {
           evt.preventDefault();
-          console.log(this.loginForm.username);
-          console.log(this.loginForm.password);
-          // TODO: get user id from api call
           this.getUser();
         },
 
@@ -78,5 +75,9 @@
 
   #spacer {
     height: 300px;
+  }
+
+  .full-size {
+    width: 100%;
   }
 </style>
