@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDAO extends IBaseRepository<User, Long>
 {
+    User findUserByUsername(String username);
 }

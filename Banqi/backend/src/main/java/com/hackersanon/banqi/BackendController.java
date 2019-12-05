@@ -50,20 +50,28 @@ public class BackendController
         return gameService.createGame(p1id,p2id);
     }
 
+
     @RequestMapping(value = "/user/add", consumes = "application/Json")
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
-    @RequestMapping(value = "/user/{userId}")
+    @GetMapping(value = "/user/{userId}")
     public User getUserById(@PathVariable long userId){
         return userService.findById(userId);
+    }
+
+    @GetMapping(value = "/user/byUsername/{username}")
+    public User getUserByUsername(@PathVariable String username){
+        return userService.findByUsername(username);
     }
 
     @GetMapping(value = "/user/list")
     public List getAllUsers(){
         return userService.listAllUsers();
     }
+
+
 
     @Autowired
     public void setGameService(GameService gameService){
@@ -74,6 +82,8 @@ public class BackendController
     public void setUserService(UserService userService){
         this.userService = userService;
     }
+
+
 
     @RequestMapping(value="*")
     public String fallbackPage() {
