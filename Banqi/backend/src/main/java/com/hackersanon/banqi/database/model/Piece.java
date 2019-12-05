@@ -49,4 +49,8 @@ public class Piece {
         return this.faceUp;
     }
 
+    public boolean canCapture(Piece enemyPiece){
+        return false;
+    }
+
 }

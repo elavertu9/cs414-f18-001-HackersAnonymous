@@ -39,5 +39,11 @@ public class Square
         return this.coordinate;
     }
 
+    public boolean checkOccupied(){
+        return false;
+    }
+
+
+
 
 }

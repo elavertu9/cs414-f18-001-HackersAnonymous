@@ -15,26 +15,8 @@ public class SquareFunctions
 	{
 	
 	}
-	
-//	public Piece getStoredPiece(){
-//        return storedPiece;
-//    }
 //
-//	public void setStoredPiece(Piece piece)
-//	{
-//		this.storedPiece = piece;
-//	}
-//
-//    public Coordinate getCoordinate(){
-//        return coordinate;
-//    }
-//
-//	public void setCoordinate(Coordinate coordinate)
-//	{
-//		this.coordinate = coordinate;
-//	}
-//
-//    public Piece occupySquare(Piece newPiece){
+//    public static void occupySquare(){
 //        Piece captured = null;
 //        if(checkOccupied()) {
 //            captured = this.storedPiece;
