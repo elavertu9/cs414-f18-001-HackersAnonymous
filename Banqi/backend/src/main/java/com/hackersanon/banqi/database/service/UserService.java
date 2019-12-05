@@ -39,6 +39,11 @@ public class UserService implements IUserService
 		return userDAO.findUserByUsername(username);
 	}
 
+	@Override
+	public void deleteUserById(Long id){
+		userDAO.deleteById(id);
+	}
+
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
 		this.userDAO = userDAO;

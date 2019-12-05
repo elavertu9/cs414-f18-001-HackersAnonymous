@@ -87,6 +87,12 @@ public class BackendController
         return userService.listAllUsers();
     }
 
+    @GetMapping(value = "/user/{userId}/delete")
+    public String deleteUserById(@PathVariable Long userId){
+        userService.deleteUserById(userId);
+        return "User Corresponding To Id: "+userId+" Has Been Deleted.";
+    }
+
     @Autowired
     public void setUserService(UserService userService){
         this.userService = userService;

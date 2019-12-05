@@ -10,4 +10,6 @@ public interface IUserService extends IService<User>
     List listAllUsers();
 
     User findByUsername(String username);
+
+    void deleteUserById(Long id);
 }
