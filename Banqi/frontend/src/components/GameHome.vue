@@ -58,6 +58,7 @@
         methods: {
           resumeGame(gameID) {
               console.log("Resuming Game");
+
           },
 
           getPlayers() {
@@ -69,8 +70,7 @@
 
           createGame() {
               API.getNewGame().then(response => {
-                 console.log(response.data);
-                 let gameId = response.data.gameID;
+                 let gameId = response.data.id;
                  localStorage.setItem('gameId', gameId);
                  window.location.pathname = "/game"
               });

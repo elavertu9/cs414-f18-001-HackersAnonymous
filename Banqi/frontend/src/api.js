@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const AXIOS = axios.create({
   baseURL: `http://localhost:8080/api`,
-  timeout: 2000,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -23,10 +23,10 @@ export default {
     return AXIOS.get(`/game/hello`);
   },
   getExistingGame(gameId) {
-    return AXIOS.post('/game/board', gameId);
+    return AXIOS.get(`/game/${gameId}/board`);
   },
 
   getNewGame() {
-    return AXIOS.get('/game/create')
+    return AXIOS.get('/game/create');
   }
 }
