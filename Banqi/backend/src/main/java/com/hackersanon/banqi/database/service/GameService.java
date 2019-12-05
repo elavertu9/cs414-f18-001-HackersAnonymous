@@ -25,9 +25,11 @@ public class GameService implements IGameService
 	
 	
 	@Override
-	public Game createGame()
+	public Game createGame(Long p1id, Long p2id)
 	{
 		Game game = new Game();
+		game.setPlayerOneId(p1id);
+		game.setPlayerTwoId(p2id);
 		game.setBoard(new Board());
 		return gameDAO.save(game);
 	}
