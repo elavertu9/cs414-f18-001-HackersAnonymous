@@ -39,22 +39,32 @@
 </template>
 
 <script>
-
+    import API from '../api';
     export default {
       name: "AppHeader",
       data() {
         return {
           signedIn: false,
-          username: '',
+          userID: '',
+          username: ''
         }
       },
       mounted() {
-        if(localStorage.hasOwnProperty('username')) {
+        if(localStorage.hasOwnProperty('userID')) {
           this.signedIn = true;
-          this.username = localStorage.getItem('username');
+          this.userID = localStorage.getItem('userID');
+          this.getUserInfo();
         } else {
           this.signedIn = false;
-          this.username = '';
+          this.userID = '';
+        }
+      },
+
+      methods: {
+        getUserInfo() {
+          API.getUser(this.userID).then(response => {
+            console.log(response.data.username);
+          });
         }
       }
     }

@@ -76,16 +76,18 @@
 
 <script>
     import ChangePassword from "./ChangePassword";
+    import API from '../api';
     export default {
       name: "MyAccount",
       components: {ChangePassword},
       data() {
         return {
           userInfo: {
-            username: '',
+            username: 'Placeholder',
             firstName: '',
             lastName: '',
             email: '',
+            userID: ''
           },
           error: '',
           showError: false
@@ -93,12 +95,26 @@
       },
 
       mounted() {
-        this.userInfo.username = localStorage.getItem('username');
+        this.userInfo.userID = localStorage.getItem('userID');
+        this.getUserInfo();
       },
 
       methods: {
         onSubmit() {
 
+        },
+
+        getUserInfo() {
+          API.getUser(this.userInfo.userID).then(response => {
+            let getUser = {
+              username: response.data.username,
+              firstName: response.data.firstName,
+              lastName: response.data.lastName,
+              email: response.data.email,
+              userID: this.userInfo.userID
+            };
+            this.userInfo = getUser;
+          });
         }
       }
     }

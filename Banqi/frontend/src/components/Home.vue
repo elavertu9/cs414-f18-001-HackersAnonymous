@@ -45,14 +45,15 @@
   export default {
     name: "Home",
     mounted() {
-      this.userInfo.username = localStorage.getItem('username');
+      this.userInfo.userID = localStorage.getItem('userID');
     },
     data() {
       return {
         msg: "HowTo call REST-Services",
         backendResponse: [],
         userInfo: {
-          username: ''
+          username: '',
+          userID: ''
         },
         errors: [],
       }
