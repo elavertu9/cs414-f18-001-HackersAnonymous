@@ -16,9 +16,8 @@ public class ModelBase implements Serializable
 
 
 	@Temporal(TemporalType.DATE)
-	@Column()
-	private Date timestamp;
-
+	@Column
+	private Date timestamp = new Date();
 
 	public Long getId() {
 		return id;
