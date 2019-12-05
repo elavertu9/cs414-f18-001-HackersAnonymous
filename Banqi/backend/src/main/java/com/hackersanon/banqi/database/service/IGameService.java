@@ -14,4 +14,6 @@ public interface IGameService extends IService<Game>
     List<Game> findGamesByPlayerId(Long id);
 
     List<Game> findAllExistingGames();
+
+    void deleteGameById(Long gameId);
 }

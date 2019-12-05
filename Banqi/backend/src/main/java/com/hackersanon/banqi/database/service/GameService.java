@@ -58,6 +58,11 @@ public class GameService implements IGameService
 		return gameDAO.findAll();
 	}
 
+	@Override
+	public void deleteGameById(Long gameId){
+		gameDAO.deleteById(gameId);
+	}
+
 	@Autowired
 	public void setGameDAO(final GameDAO gameDAO){
 		this.gameDAO = gameDAO;

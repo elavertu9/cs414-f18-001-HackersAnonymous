@@ -60,6 +60,12 @@ public class BackendController
         return gameService.findAllExistingGames();
     }
 
+    @GetMapping(value = "/game/{gameId}/delete")
+    public String deleteGameById(@PathVariable Long gameId){
+        gameService.deleteGameById(gameId);
+        return "Game Associated with GameId: " + gameId + "Has Been Deleted.";
+    }
+
 
     @Autowired
     public void setGameService(GameService gameService){
@@ -92,6 +98,8 @@ public class BackendController
         userService.deleteUserById(userId);
         return "User Corresponding To Id: "+userId+" Has Been Deleted.";
     }
+
+
 
     @Autowired
     public void setUserService(UserService userService){
