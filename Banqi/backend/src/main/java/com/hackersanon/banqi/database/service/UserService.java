@@ -20,6 +20,10 @@ public class UserService implements IUserService
 		return userDAO.findById(id).orElse(null);
 	}
 
+//	public User createUser(){
+//
+//	}
+
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
 		this.userDAO = userDAO;
