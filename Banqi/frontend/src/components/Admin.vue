@@ -1,10 +1,23 @@
 <template>
     <b-container>
       <h1 class="center">Admin Page</h1>
+      <h4 class="center">Selected Table: {{selectedTable}}</h4>
       <br/>
+
+      <b-row>
+        <b-col class="center">
+          <b-dropdown variant="primary" text="Change Table">
+            <b-dropdown-item @click="switchToUsers()">Users</b-dropdown-item>
+            <b-dropdown-item @click="switchToGames()">Games</b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col>
-          <table class="table table-hover">
+          <br/>
+
+          <!-- USERS TABLE -->
+          <table v-if="selectedTable == 'Users'" class="table table-hover">
             <thead>
             <tr>
               <th>ID</th>
@@ -25,6 +38,46 @@
               <td>{{user.email}}</td>
               <td><b-button variant="primary" @click="editPlayer(user.id)">Edit</b-button></td>
               <td><b-button variant="danger" @click="deletePlayer(user.id)">Delete</b-button></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!-- GAMES TABLE -->
+          <table v-else-if="selectedTable == 'Games'" class="table table-hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Player 1</th>
+              <th>Player 2</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>elavertu9</td>
+              <td>crcolema</td>
+              <td>In Progress</td>
+              <!--<td><b-button variant="primary" @click="editGame(game.id)">Edit</b-button></td>-->
+              <!--<td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>-->
+              <td><b-button variant="primary">Edit</b-button></td>
+              <td><b-button variant="danger">Delete</b-button></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!-- DEFAULT TABLE -->
+          <table v-else class="table table-hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
             </tr>
             </tbody>
           </table>
@@ -97,7 +150,8 @@
               password: ''
             },
             error: '',
-            showError: false
+            showError: false,
+            selectedTable: 'Users'
           }
         },
 
@@ -130,6 +184,14 @@
 
           onSubmit() {
 
+          },
+
+          switchToUsers() {
+            this.selectedTable = 'Users';
+          },
+
+          switchToGames() {
+            this.selectedTable = 'Games';
           }
         }
     }
