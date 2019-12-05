@@ -13,6 +13,7 @@
           <b-button @click="clear()" variant="primary" class="toolbar">Clear Selection</b-button>
           <b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>
           <b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>
+          <b-button @click="backToGameHome()" variant="primary" class="toolbar">Back to Game Home</b-button>
         </b-button-group>
       </b-col>
       <b-col></b-col>
@@ -187,22 +188,19 @@
         console.log("Getting game board instance from backend");
       },
       updated() {
-        console.log("Testing");
-        this.board[0].faceUp = true;
-        this.board[0].piece = "SOLDIER";
-        this.board[0].color = "RED";
-        for (let i in this.row1) {
-          this.row1[i].faceUp = true;
-        }
-        for (let i in this.row2) {
-          this.row2[i].faceUp = true;
-        }
-        for (let i in this.row3) {
-          this.row3[i].faceUp = true;
-        }
-        for (let i in this.row4) {
-          this.row4[i].faceUp = true;
-        }
+        // console.log("Testing");
+        // for (let i in this.row1) {
+        //   this.row1[i].faceUp = true;
+        // }
+        // for (let i in this.row2) {
+        //   this.row2[i].faceUp = true;
+        // }
+        // for (let i in this.row3) {
+        //   this.row3[i].faceUp = true;
+        // }
+        // for (let i in this.row4) {
+        //   this.row4[i].faceUp = true;
+        // }
       },
       mounted() {
         this.players.player1 = localStorage.getItem('username');
@@ -240,21 +238,10 @@
         getGame() {
           if(localStorage.hasOwnProperty('gameId')) {
               this.gameId = localStorage.getItem('gameId');
-              localStorage.removeItem('gameId');
               API.getExistingGame(this.gameId).then(response => {
-                 console.log(response.data);
+                 this.board = response.data.board;
               });
           }
-        },
-
-
-        getBoardApi() {
-          API.getExistingGame().then(response => {
-            this.board = response.data;
-          })
-          .catch(error => {
-            this.errors.push(error);
-          })
         },
 
         getClass(index, row) {
@@ -279,6 +266,11 @@
 
         moveSubmit() {
           console.log("Move Submitted");
+        },
+
+        backToGameHome() {
+          localStorage.removeItem('gameId');
+          window.location.pathname = "/gameHome";
         },
 
         clicked(row, col) {
