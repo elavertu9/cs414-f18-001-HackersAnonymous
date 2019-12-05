@@ -2,6 +2,7 @@ package com.hackersanon.banqi;
 
 import com.hackersanon.banqi.database.model.Board;
 import com.hackersanon.banqi.database.model.Game;
+import com.hackersanon.banqi.database.model.Move;
 import com.hackersanon.banqi.database.model.User;
 import com.hackersanon.banqi.database.service.GameService;
 import com.hackersanon.banqi.database.service.IGameService;
@@ -55,9 +56,20 @@ public class BackendController
         return gameService.findGamesByPlayerId(userId);
     }
 
-    @GetMapping(value = "admin/game/list/all")
+    @GetMapping(value = "/admin/game/list/all")
     public List listAllExistingGames(){
         return gameService.findAllExistingGames();
+    }
+
+    @GetMapping(value = "/game/{gameId}/delete")
+    public String deleteGameById(@PathVariable Long gameId){
+        gameService.deleteGameById(gameId);
+        return "Game Associated with GameId: " + gameId + "Has Been Deleted.";
+    }
+
+    @GetMapping(value = "/game/{gameId}/executeMove")
+    public Move executeMove(@PathVariable Long gameId){
+        return null;
     }
 
 
@@ -86,6 +98,13 @@ public class BackendController
     public List getAllUsers(){
         return userService.listAllUsers();
     }
+
+    @GetMapping(value = "/user/{userId}/delete")
+    public String deleteUserById(@PathVariable Long userId){
+        userService.deleteUserById(userId);
+        return "User Corresponding To Id: "+userId+" Has Been Deleted.";
+    }
+
 
     @Autowired
     public void setUserService(UserService userService){
