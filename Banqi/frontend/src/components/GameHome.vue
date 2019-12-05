@@ -36,8 +36,12 @@
           <b-button @click="getPlayers()" variant="primary">Players</b-button>
         </div>
         <br/>
-        <b-button variant="danger" @click="$bvModal.hide('newGameModal')" class="toolbar">Cancel</b-button>
-        <b-button @click="createGame()" variant="success" class="toolbar">Create</b-button>
+        <div v-if="this.loading" class="loader"></div>
+        <br/>
+        <div class="center">
+          <b-button variant="danger" @click="$bvModal.hide('newGameModal')" class="toolbar">Cancel</b-button>
+          <b-button @click="createGame()" variant="success" class="toolbar">Create</b-button>
+        </div>
       </b-modal>
     </b-container>
   </div>
@@ -51,7 +55,7 @@
 
         data() {
           return {
-
+            loading: true,
           }
         },
 
@@ -69,10 +73,12 @@
           },
 
           createGame() {
+              this.loading = true;
               API.getNewGame().then(response => {
                  let gameId = response.data.id;
                  localStorage.setItem('gameId', gameId);
-                 window.location.pathname = "/game"
+                 window.location.pathname = "/game";
+                 this.loading = false;
               });
           }
         }
@@ -93,5 +99,22 @@
     margin-right: 2px;
     width: 200px;
     border-radius: 12px;
+  }
+
+  .loader {
+    border: 10px solid #1E4D2B; /* Light grey */
+    border-top: 10px solid #D9782D; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
