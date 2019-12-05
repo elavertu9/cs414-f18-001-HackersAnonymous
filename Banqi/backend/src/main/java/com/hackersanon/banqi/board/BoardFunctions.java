@@ -1,21 +1,17 @@
 package com.hackersanon.banqi.board;
 
-import com.hackersanon.banqi.database.model.Coordinate;
-import com.hackersanon.banqi.database.model.Piece;
-import com.hackersanon.banqi.database.model.Square;
+import com.hackersanon.banqi.database.model.*;
 import com.hackersanon.banqi.piece.TeamColor;
 
 import java.util.*;
 
+import static com.hackersanon.banqi.game.MoveType.*;
 import static com.hackersanon.banqi.piece.PieceAttributes.*;
 
-public class BanqiBoard
+public class BoardFunctions
 {
     private static int colDimension = 8;
     private static int rowDimension = 4;
-
-    public BanqiBoard(){
-    }
 
     public static Collection<Square> initialize(){
         return initSquares();
@@ -52,36 +48,36 @@ public class BanqiBoard
                 new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
     }
 
-//    public Square getSquare(Coordinate coordinate){
-//        if(coordinate.isValid()){
-//            return board.get(coordinate.getRow()*rowDimension+coordinate.getColumn());
-//        }else{
-//            return null; //TODO throw new exception?
-//        }
-//    }
-//
-//    public Piece getPieceAt(Coordinate coordinate){
-//        if (this.getSquare(coordinate) != null) {
-//            return this.getSquare(coordinate).getStoredPiece();
-//        }
-//        else {
-//            return null;
-//        }
-//    }
+    public static Square getSquare(Board boardObject, Coordinate coordinate) throws InvalidCoordinateException{
+        if(CoordinateFunctions.isValid(coordinate)){
+            ArrayList<Square> board1 = (ArrayList<Square>) boardObject.getBoard();
+            return board1.get(coordinate.getRow()*rowDimension+coordinate.getColumn());
+        }else{
+            throw new InvalidCoordinateException();
+        }
+    }
 
+    public Move makeMove(Board boardObject, Move newMove) throws InvalidMoveException{
+        try {
+            return makeMove(boardObject, getSquare(boardObject,newMove.getOrigin()), getSquare(boardObject,newMove.getDestination()));
+        } catch (InvalidCoordinateException e) {
+            throw new InvalidMoveException();
+        }
+    }
 
-//    public Move makeMove(Move newMove){
-//        return makeMove(getSquare(newMove.getOrigin()),getSquare(newMove.getDestination()));
-//    }
-//
-//    public Move makeMove(SquareFunctions origin, SquareFunctions destination){
-//        Move newMove = new Move(this, origin,destination);
-//        if(newMove.getActionType() == TRAVEL || newMove.getActionType() == CAPTURE){
-//            return newMove.executeMove(this);
-//        }else if(newMove.getActionType() == FLIP){
-//            return newMove.executeFlip(this);
-//        }
-//        return newMove;
-//    }
+    public Move makeMove(Board boardObject, Square origin, Square destination) throws InvalidMoveException {
+        Move newMove = new Move();
+        if(newMove.getMoveType() == TRAVEL || newMove.getMoveType() == CAPTURE){
+            try {
+                return newMove.executeMove(boardObject);
+            } catch (InvalidCoordinateException e) {
+                e.printStackTrace();
+                throw new InvalidMoveException();
+            }
+        }else if(newMove.getMoveType() == FLIP){
+            return newMove.executeFlip(boardObject);
+        }
+        return newMove;
+    }
 
 }
