@@ -32,10 +32,11 @@ public class BackendController
         return gameService.findById(gameId);
     }
 
-    @GetMapping(value = "/game/{gameId}/board", consumes = "application/Json")
+    @GetMapping(value = "/game/{gameId}/board")
     public Board getBoard(@PathVariable Long gameId)
     {
-        return gameService.findById(gameId).getBoard();
+        Game game = gameService.findById(gameId);
+        return game.getBoard();
     }
 
     @GetMapping("/game/create/{p1id}/{p2id}")
