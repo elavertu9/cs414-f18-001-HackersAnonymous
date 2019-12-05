@@ -10,6 +10,11 @@
             <b-dropdown-item @click="switchToUsers()">Users</b-dropdown-item>
             <b-dropdown-item @click="switchToGames()">Games</b-dropdown-item>
           </b-dropdown>
+          <br/>
+          <br/>
+          <div v-if="this.loading" class="loader"></div>
+          <br/>
+          <b-alert v-if="this.showResponse == true" show variant="success">{{this.response}}</b-alert>
         </b-col>
       </b-row>
       <b-row>
@@ -51,19 +56,15 @@
               <th>Player 2</th>
               <th>Status</th>
               <th></th>
-              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>1</td>
-              <td>elavertu9</td>
-              <td>crcolema</td>
-              <td>In Progress</td>
-              <!--<td><b-button variant="primary" @click="editGame(game.id)">Edit</b-button></td>-->
-              <!--<td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>-->
-              <td><b-button variant="primary">Edit</b-button></td>
-              <td><b-button variant="danger">Delete</b-button></td>
+            <tr v-for="game in gameList">
+              <td>{{game.id}}</td>
+              <td>{{game.playerOneId}}</td>
+              <td>{{game.playerTwoId}}</td>
+              <td>{{game.board.gameOver ? "Completed" : "In Progress"}}</td>
+              <td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>
             </tr>
             </tbody>
           </table>
@@ -72,12 +73,12 @@
           <table v-else class="table table-hover">
             <thead>
             <tr>
-              <th>ID</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td>1</td>
+              <td></td>
             </tr>
             </tbody>
           </table>
@@ -128,6 +129,7 @@
 
         mounted() {
           this.getUserList();
+          this.getGameList();
         },
 
         data() {
@@ -141,6 +143,16 @@
                 email: ''
               }
             ],
+            gameList: [
+              {
+                id: '',
+                playerOneId: '',
+                playerTwoId: '',
+                board: {
+                  gameOver: false
+                }
+              }
+            ],
             selectedUser: {
               id: '',
               username: '',
@@ -151,7 +163,10 @@
             },
             error: '',
             showError: false,
-            selectedTable: 'Users'
+            selectedTable: 'Users',
+            loading: false,
+            showResponse: false,
+            response: ''
           }
         },
 
@@ -159,6 +174,14 @@
           getUserList() {
             API.getAllUsers().then(response => {
               this.userList = response.data;
+              this.loading = false;
+            });
+          },
+
+          getGameList() {
+            API.getAllGames().then(response => {
+              this.gameList = response.data;
+              this.loading = false;
             });
           },
 
@@ -179,7 +202,28 @@
           },
 
           deletePlayer(id) {
-            console.log("Editing user ", id)
+            this.loading = true;
+            API.deleteUser(id).then(() => {
+              this.showResponse = true;
+              this.response = `User with ID ${id} has been deleted`;
+              setTimeout(() => {
+                this.showResponse = false;
+              }, 5000);
+              this.getUserList();
+            });
+          },
+
+          deleteGame(id) {
+            this.loading = true;
+            API.deleteGame(id).then(() => {
+              this.showResponse = true;
+              this.response = `Game with ID ${id} has been deleted`;
+              setTimeout(() =>
+              {
+                this.showResponse = false;
+              }, 5000);
+              this.getGameList();
+            });
           },
 
           onSubmit() {
@@ -204,5 +248,22 @@
 
   .full-size {
     width: 100%;
+  }
+
+  .loader {
+    border: 10px solid #1E4D2B; /* Light grey */
+    border-top: 10px solid #D9782D; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>

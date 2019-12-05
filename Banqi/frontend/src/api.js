@@ -46,5 +46,17 @@ export default {
 
   updateUser(userId, userInfo) {
     return AXIOS.post(`/user/${userId}/update`, userInfo);
+  },
+
+  getAllGames() {
+    return AXIOS.get('/admin/game/list/all');
+  },
+
+  deleteGame(id) {
+    return AXIOS.get(`/game/${id}/delete`);
+  },
+
+  deleteUser(id) {
+    return AXIOS.get(`/user/${id}/delete`);
   }
 }
