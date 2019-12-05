@@ -4,6 +4,7 @@ package com.hackersanon.banqi.database.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User extends ModelBase
 {
 	public User() {
@@ -24,6 +25,7 @@ public class User extends ModelBase
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 
 	@Column
 	private String username;
@@ -67,4 +69,6 @@ public class User extends ModelBase
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 }

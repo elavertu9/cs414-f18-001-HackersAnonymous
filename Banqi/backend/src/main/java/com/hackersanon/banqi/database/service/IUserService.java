@@ -8,4 +8,6 @@ public interface IUserService extends IService<User>
 {
     User createUser(User user);
     List listAllUsers();
+
+    User findByUsername(String username);
 }
