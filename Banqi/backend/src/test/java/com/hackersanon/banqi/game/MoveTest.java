@@ -2,8 +2,8 @@ package com.hackersanon.banqi.game;
 
 class MoveTest {
 
-    private Move move;
-
+//    private Move move;
+//
 //    @BeforeEach
 //    void setUp() {
 //        BanqiBoard banqiBoard = new BanqiBoard();
