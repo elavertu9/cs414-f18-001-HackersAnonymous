@@ -81,13 +81,15 @@
             this.callApiRegister();
           }
         },
+
         callApiRegister() {
           this.callApiGetAllUsers();
           let postUser = {
-            firstName:this.registrationForm.firstName,
-            lastName:this.registrationForm.lastName,
-            email:this.registrationForm.email,
-            username:this.registrationForm.username
+            firstName: this.registrationForm.firstName,
+            lastName: this.registrationForm.lastName,
+            email: this.registrationForm.email,
+            username: this.registrationForm.username,
+            password: this.registrationForm.password
           };
           API.registerUser(postUser).then(response => {
             console.log(response.data);
@@ -97,6 +99,7 @@
               this.backendErrors.push(error);
             });
         },
+
         callApiGetAllUsers() {
           API.getAllUsers().then(response => {
             console.log(response.data);
