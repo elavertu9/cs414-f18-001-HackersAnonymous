@@ -21,7 +21,7 @@
     export default {
         name: "LogOut",
         mounted() {
-          localStorage.removeItem('username');
+          localStorage.removeItem('userID');
           setTimeout(() => {
               window.location.pathname = "/";
           }, 1500);

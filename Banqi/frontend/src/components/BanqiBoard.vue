@@ -22,7 +22,7 @@
     <b-row>
       <b-col>
         <b-card class="player-cards">
-          <b-card-title>{{this.players.player1}}</b-card-title>
+          <b-card-title>{{this.player1.userID}}</b-card-title>
           <b-card-text>
             Player 1 data to be placed here
           </b-card-text>
@@ -144,6 +144,7 @@
       </b-col>
       <b-col>
         <b-card title="Player 2" class="player-cards">
+          <b-card-title>{{this.player2.userID}}</b-card-title>
           <b-card-text>
             Player 2 data to be placed here
           </b-card-text>
@@ -203,7 +204,7 @@
         // }
       },
       mounted() {
-        this.players.player1 = localStorage.getItem('username');
+        this.player1.userID = localStorage.getItem('userID');
         this.getGame();
       },
 
@@ -227,9 +228,11 @@
             col: 9
           },
           errors: [],
-          players: {
-            player1: '',
-            player2: ''
+          player1: {
+            userID: ''
+          },
+          player2: {
+            userID: ''
           }
         }
       },
