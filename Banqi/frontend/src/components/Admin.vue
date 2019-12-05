@@ -25,7 +25,7 @@
           <table v-if="selectedTable == 'Users'" class="table table-hover">
             <thead>
             <tr>
-              <th>ID</th>
+              <th>User ID</th>
               <th>Username</th>
               <th>First Name</th>
               <th>Last Name</th>
@@ -51,7 +51,7 @@
           <table v-else-if="selectedTable == 'Games'" class="table table-hover">
             <thead>
             <tr>
-              <th>ID</th>
+              <th>Game ID</th>
               <th>Player 1</th>
               <th>Player 2</th>
               <th>Status</th>
@@ -59,10 +59,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="game in gameList">
+            <tr v-for="(game, index) in gameList">
               <td>{{game.id}}</td>
-              <td>{{game.playerOneId}}</td>
-              <td>{{game.playerTwoId}}</td>
+              <td>{{usernameList[index].p1Username}}</td>
+              <td>{{usernameList[index].p2Username}}</td>
               <td>{{game.board.gameOver ? "Completed" : "In Progress"}}</td>
               <td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>
             </tr>
@@ -166,7 +166,9 @@
             selectedTable: 'Users',
             loading: false,
             showResponse: false,
-            response: ''
+            response: '',
+            usernameList: [
+            ]
           }
         },
 
@@ -182,6 +184,7 @@
             API.getAllGames().then(response => {
               this.gameList = response.data;
               this.loading = false;
+              this.getUsernames();
             });
           },
 
@@ -236,6 +239,22 @@
 
           switchToGames() {
             this.selectedTable = 'Games';
+          },
+
+          getUsernames() {
+            for (let i in this.gameList) {
+              let usernameAdd = {
+                p1Username: '',
+                p2Username: ''
+              };
+              API.getUser(this.gameList[i].playerOneId).then(response => {
+                usernameAdd.p1Username = response.data.username;
+              });
+              API.getUser(this.gameList[i].playerTwoId).then(response => {
+                usernameAdd.p2Username = response.data.username;
+              });
+              this.usernameList.push(usernameAdd);
+            }
           }
         }
     }
