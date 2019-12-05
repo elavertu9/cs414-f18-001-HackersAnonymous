@@ -14,6 +14,7 @@
                   <b-form-group id="password" label="Password:" label-for="password">
                     <b-form-input id="password" type="password" v-model="loginForm.password" required></b-form-input>
                   </b-form-group>
+                  <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
                   <b-button type="submit" variant="success">Submit</b-button>
                 </b-form>
               </div>
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+    import API from '../api';
     export default {
       name: "Login",
       data() {
@@ -37,7 +39,9 @@
             username: '',
             password: '',
             userID: '85'
-          }
+          },
+          showError: false,
+          error: ''
         }
       },
       methods: {
@@ -46,8 +50,22 @@
           console.log(this.loginForm.username);
           console.log(this.loginForm.password);
           // TODO: get user id from api call
-          localStorage.setItem('userID', this.loginForm.userID);
-          window.location.pathname = '/myAccount';
+          this.getUser();
+        },
+
+        getUser() {
+          API.getUserByUsername(this.loginForm.username).then(response => {
+            console.log(response.data);
+            if((response.data.username == this.loginForm.username) && (response.data.password == this.loginForm.password)) {
+              this.showError = false;
+              this.error = '';
+              localStorage.setItem('userID', response.data.id);
+              window.location.pathname = '/myAccount';
+            } else {
+              this.error = "Incorrect credentials";
+              this.showError = true;
+            }
+          });
         }
       }
     }

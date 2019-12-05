@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import API from '../api';
     export default {
         name: "DeleteAccount",
 
@@ -37,7 +38,7 @@
         },
 
         mounted() {
-          this.userID = localStorage.getItem('userID');
+          this.userInfo.userID = localStorage.getItem('userID');
         },
 
         methods: {
@@ -46,12 +47,28 @@
             // call api/user/list to confirm username entered is the username of the account id
             // if so call /api/user delete endpoint
             // else, show error
-            console.log(this.userInfo.confirmUsername);
+            this.checkIDUsername();
+          },
+
+          checkIDUsername() {
+            API.getUser(this.userInfo.userID).then(response => {
+              if(response.data.username == this.userInfo.confirmUsername) {
+                // call delete account with this.userInfo.userID
+                this.showError = false;
+                this.error = '';
+                console.log("Good to go!");
+              }else{
+                this.error = "Incorrect Username";
+                this.showError = true;
+              }
+            });
           }
         }
     }
 </script>
 
 <style scoped>
-
+  .full-size {
+    width: 100%;
+  }
 </style>
