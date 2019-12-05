@@ -97,7 +97,7 @@
       data() {
         return {
           userInfo: {
-            username: 'Placeholder',
+            username: '',
             firstName: '',
             lastName: '',
             email: '',
