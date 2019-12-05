@@ -19,6 +19,10 @@ export default {
     return AXIOS.get('/user/list');
   },
 
+  getUser(id) {
+    return AXIOS.get(`/user/${id}`);
+  },
+
   // Game Endpoints
   hello() {
     return AXIOS.get(`/game/hello`);

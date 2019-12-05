@@ -55,7 +55,7 @@
 
         data() {
           return {
-            loading: true,
+            loading: false,
           }
         },
 
@@ -74,7 +74,7 @@
 
           createGame() {
               this.loading = true;
-              API.getNewGame().then(response => {
+              API.createNewGame(30, 20).then(response => {
                  let gameId = response.data.id;
                  localStorage.setItem('gameId', gameId);
                  window.location.pathname = "/game";

@@ -64,7 +64,7 @@
             password: '',
           },
           confirmPassword: '',
-          error: 'Passwords do not match',
+          error: '',
           showError: false,
           backendErrors: []
         }
@@ -72,18 +72,29 @@
       methods: {
         onSubmit(evt) {
           evt.preventDefault();
+          // Check passwords match
           if (this.registrationForm.password != this.confirmPassword) {
-            console.log("Passwords do not match");
+            this.error = "Passwords do not match";
             this.showError = true;
           } else {
-            console.log(JSON.stringify(this.registrationForm));
-            this.showError = false;
-            this.callApiRegister();
+            // Check password length
+            if (this.registrationForm.password.length < 5) {
+              this.error = "Password must contain 5 or more characters";
+              this.showError = true;
+            } else {
+              this.showError = false;
+              this.error = '';
+              this.checkUsernameEmail();
+            }
           }
         },
 
+        checkUsernameEmail() {
+          //this.callApiGetAllUsers();
+          this.callApiRegister();
+        },
+
         callApiRegister() {
-          this.callApiGetAllUsers();
           let postUser = {
             firstName: this.registrationForm.firstName,
             lastName: this.registrationForm.lastName,
@@ -92,21 +103,15 @@
             password: this.registrationForm.password
           };
           API.registerUser(postUser).then(response => {
-            console.log(response.data);
-            this.callApiGetAllUsers();
-          })
-            .catch(error => {
-              this.backendErrors.push(error);
-            });
+            //console.log(response.data.id);
+            localStorage.setItem('userID', response.data.id);
+          });
         },
 
         callApiGetAllUsers() {
           API.getAllUsers().then(response => {
             console.log(response.data);
-          })
-            .catch(error => {
-              this.backendErrors.push(error);
-            });
+          });
         }
       }
     }

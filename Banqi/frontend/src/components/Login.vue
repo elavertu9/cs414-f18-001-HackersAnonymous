@@ -35,7 +35,8 @@
         return {
           loginForm: {
             username: '',
-            password: ''
+            password: '',
+            userID: '85'
           }
         }
       },
@@ -44,7 +45,8 @@
           evt.preventDefault();
           console.log(this.loginForm.username);
           console.log(this.loginForm.password);
-          localStorage.setItem('username', this.loginForm.username);
+          // TODO: get user id from api call
+          localStorage.setItem('userID', this.loginForm.userID);
           window.location.pathname = '/myAccount';
         }
       }
