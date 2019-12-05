@@ -20,9 +20,10 @@ public class UserService implements IUserService
 		return userDAO.findById(id).orElse(null);
 	}
 
-//	public User createUser(){
-//
-//	}
+	@Override
+	public User createUser(User user){
+		return userDAO.save(user);
+	}
 
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
