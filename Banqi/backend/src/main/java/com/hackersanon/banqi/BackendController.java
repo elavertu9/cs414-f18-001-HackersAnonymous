@@ -38,10 +38,10 @@ public class BackendController
         return gameService.findById(gameId).getBoard();
     }
 
-    @GetMapping("/game/create")
-    public Game createGame()
+    @GetMapping("/game/create/{p1id}/{p2id}")
+    public Game createGame(@PathVariable long p1id,@PathVariable long p2id)
     {
-        return gameService.createGame();
+        return gameService.createGame(p1id,p2id);
     }
 
     @RequestMapping(value = "/user/add", consumes = "application/Json")
