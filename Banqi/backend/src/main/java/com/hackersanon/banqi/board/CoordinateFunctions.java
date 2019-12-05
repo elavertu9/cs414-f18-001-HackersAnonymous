@@ -15,7 +15,7 @@ public class CoordinateFunctions
         coordinate.put("row", row);
         coordinate.put("column", column);
     }
-    
+
 
     public boolean isValid(){
         return isRowValid(this.getRow())&&isColumnValid(this.getColumn());

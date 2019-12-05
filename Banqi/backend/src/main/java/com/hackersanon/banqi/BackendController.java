@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class BackendController
 {
     private IGameService gameService;
-    
+
     private IUserService userService;
-    
+
     @GetMapping(value = "/game/hello")
     public String sayHello()
     {
@@ -29,13 +29,13 @@ public class BackendController
     public Game getGame(@PathVariable Long gameId){
         return gameService.findById(gameId);
     }
-    
+
     @GetMapping("/game/{gameId}/board")
     public Board getBoard(@PathVariable Long gameId)
     {
         return gameService.findById(gameId).getBoard();
     }
-    
+
     @GetMapping("/game/create")
     public Game createGame()
     {
@@ -55,5 +55,11 @@ public class BackendController
     @Autowired
     public void setUserService(UserService userService){
         this.userService = userService;
+    }
+
+
+    @RequestMapping(value="*")
+    public String fallbackPage() {
+        return "Couldn't find the page you are looking for.";
     }
 }

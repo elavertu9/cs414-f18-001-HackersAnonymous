@@ -10,7 +10,6 @@
 		<springframework.version>2.2.1.RELEASE</springframework.version>
 	</properties>
 
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hackersanon.banqi</groupId>
 	<artifactId>backend</artifactId>
@@ -69,13 +68,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${springframework.version}</version>
 			</plugin>
-
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
@@ -95,18 +92,20 @@
 		</plugins>
 	</build>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
