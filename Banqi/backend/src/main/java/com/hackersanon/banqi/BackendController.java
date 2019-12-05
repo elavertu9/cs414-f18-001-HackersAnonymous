@@ -55,6 +55,11 @@ public class BackendController
         return userService.createUser(user);
     }
 
+    @RequestMapping(value = "/user/{userId}")
+    public User getUserById(@PathVariable long userId){
+        return userService.findById(userId);
+    }
+
     @GetMapping(value = "/user/list")
     public List getAllUsers(){
         return userService.listAllUsers();
