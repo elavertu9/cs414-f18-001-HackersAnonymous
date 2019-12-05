@@ -43,8 +43,8 @@ public class BackendController
     }
 
     @GetMapping("/user/add")
-    public User createUser() {
-        return null;
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @Autowired
@@ -56,7 +56,6 @@ public class BackendController
     public void setUserService(UserService userService){
         this.userService = userService;
     }
-
 
     @RequestMapping(value="*")
     public String fallbackPage() {
