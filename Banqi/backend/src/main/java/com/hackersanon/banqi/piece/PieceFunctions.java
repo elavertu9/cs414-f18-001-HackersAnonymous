@@ -1,16 +1,18 @@
 package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.board.Coordinate;
+import com.hackersanon.banqi.board.CoordinateFunctions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Piece {
+public class PieceFunctions implements Serializable
+{
     private final PieceAttributes pieceType;
     private final TeamColor team;
     private boolean faceUp = false;
 
 
-    public Piece(PieceAttributes pieceType, TeamColor color){
+    public PieceFunctions(PieceAttributes pieceType, TeamColor color){
         this.pieceType = pieceType;
         this.team = color;
     }
@@ -35,15 +37,15 @@ public class Piece {
         return faceUp;
     }
 
-    boolean isValidMove(Coordinate origin, Coordinate destination){
+    public boolean isValidMove(CoordinateFunctions origin, CoordinateFunctions destination){
         return pieceType.isValidMove(origin, destination);
     }
 
-    public ArrayList<Coordinate> getValidMoveList(Coordinate origin){
+    public ArrayList<CoordinateFunctions> getValidMoveList(CoordinateFunctions origin){
         return pieceType.legalMoves(origin);
     }
 
-    public boolean canCapture(Piece enemy){
+    public boolean canCapture(PieceFunctions enemy){
         return this.pieceType.ordinal() <= enemy.getPieceType().ordinal();//TODO implement exception for general and soldier
     }
 

@@ -1,14 +1,12 @@
 package com.hackersanon.banqi.config;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.context.annotation.*;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -19,22 +17,22 @@ import java.util.Properties;
 public class HibernateConfig {
     
     
-    @Bean(name="getSessionFactory")
-    public LocalSessionFactoryBean getSessionFactory()
-    {
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setHibernateProperties(getHibernateProperties());
-        factoryBean.setDataSource(getDataSource());
-        factoryBean.setPackagesToScan("com.hackersanon.banqi");
-        return factoryBean;
-    }
+//    @Bean
+//    public LocalSessionFactoryBean getSessionFactory()
+//    {
+//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+//        factoryBean.setHibernateProperties(getHibernateProperties());
+//        factoryBean.setDataSource(getDataSource());
+//        factoryBean.setPackagesToScan("com.hackersanon.banqi");
+//        return factoryBean;
+//    }
 
-    @Bean
-    public HibernateTransactionManager getTransactionManager(){
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(getSessionFactory().getObject());
-        return transactionManager;
-    }
+//    @Bean("transactionManager")
+//    public HibernateTransactionManager getTransactionManager(){
+//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+//        transactionManager.setSessionFactory(getSessionFactory().getObject());
+//        return transactionManager;
+//    }
 
     @Bean
     public static DataSource getDataSource(){
@@ -63,8 +61,25 @@ public class HibernateConfig {
         properties.put("hibernate.c3p0.acquire_increment","1");
         properties.put("hibernate.c3p0.timeout","1000");
         properties.put("hibernate.c3p0.max_statements","150");
-        properties.put("hibernate.archive.autodetection","class,hbm");
+        properties.put("exclude-unlisted-classes","true");
+        properties.put("hibernate.archive.autodetection","hbm");
         return properties;
+    }
+
+    @Bean
+    public EntityManager entityManager() {
+        return entityManagerFactory().getObject().createEntityManager();
+    }
+
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(getDataSource());
+        em.setJpaProperties(getHibernateProperties());
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setPackagesToScan("com.hackersanon.banqi.database");
+        return em;
     }
 
 }

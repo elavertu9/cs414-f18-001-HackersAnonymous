@@ -20,7 +20,7 @@ export default {
 
   // Game Endpoints
   hello() {
-    return AXIOS.get(`/hello`);
+    return AXIOS.get(`/game/hello`);
   },
   getExistingGame(gameId) {
     return AXIOS.post('/game/board', gameId);

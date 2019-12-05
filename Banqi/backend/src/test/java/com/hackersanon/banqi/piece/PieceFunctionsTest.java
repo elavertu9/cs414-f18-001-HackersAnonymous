@@ -1,21 +1,20 @@
 package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.board.Coordinate;
-import org.junit.jupiter.api.BeforeAll;
+import com.hackersanon.banqi.board.CoordinateFunctions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PieceTest {
+class PieceFunctionsTest {
 
-    private static Piece redGeneral;
-    private static Piece blackHorse;
+    private static PieceFunctions redGeneral;
+    private static PieceFunctions blackHorse;
 
     @BeforeEach
     void setUp() {
-        redGeneral = new Piece(PieceAttributes.GENERAL, TeamColor.RED);
-        blackHorse = new Piece(PieceAttributes.HORSE, TeamColor.BLACK);
+        redGeneral = new PieceFunctions(PieceAttributes.GENERAL, TeamColor.RED);
+        blackHorse = new PieceFunctions(PieceAttributes.HORSE, TeamColor.BLACK);
     }
 
     @Test
@@ -38,16 +37,16 @@ class PieceTest {
 
     @Test
     void isValidMove() {
-        Coordinate origin = new Coordinate(3, 4);
-        Coordinate destination = new Coordinate(3, 5);
+        CoordinateFunctions origin = new CoordinateFunctions(3, 4);
+        CoordinateFunctions destination = new CoordinateFunctions(3, 5);
 
         assertTrue(redGeneral.isValidMove(origin, destination));
     }
 
     @Test
     void isInvalidMove() {
-        Coordinate origin = new Coordinate(3, 4);
-        Coordinate destination = new Coordinate(4, 4);
+        CoordinateFunctions origin = new CoordinateFunctions(3, 4);
+        CoordinateFunctions destination = new CoordinateFunctions(4, 4);
 
         assertFalse(blackHorse.isValidMove(origin, destination));
     }
