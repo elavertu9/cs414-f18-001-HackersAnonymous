@@ -23,6 +23,10 @@ export default {
     return AXIOS.get(`/user/${id}`);
   },
 
+  getUserByUsername(username) {
+    return AXIOS.get(`/user/byUsername/${username}`);
+  },
+
   // Game Endpoints
   hello() {
     return AXIOS.get(`/game/hello`);

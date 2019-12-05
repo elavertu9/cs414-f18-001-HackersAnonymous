@@ -63,7 +63,7 @@
       methods: {
         getUserInfo() {
           API.getUser(this.userID).then(response => {
-            console.log(response.data.username);
+            this.username = response.data.username;
           });
         }
       }
