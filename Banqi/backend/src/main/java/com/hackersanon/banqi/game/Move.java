@@ -51,34 +51,34 @@ public class Move {
 //    public void setActionType(Actions actionType) {
 //        this.actionType = actionType;
 //    }
-
-    public boolean isExecuted() {
-        return executed;
-    }
-
-    public void setExecuted() {
-        this.executed = true;
-    }
-
-    public PieceFunctions getAttacker() {
-        return attacker;
-    }
-
-    public PieceFunctions getCaptured() {
-        return captured;
-    }
-
-    public Map<String, CoordinateFunctions> getTrip() {
-        return trip;
-    }
-
-    public CoordinateFunctions getOrigin(){
-        return trip.get("origin");
-    }
-
-    public CoordinateFunctions getDestination(){
-        return trip.get("destination");
-    }
+//
+//    public boolean isExecuted() {
+//        return executed;
+//    }
+//
+//    public void setExecuted() {
+//        this.executed = true;
+//    }
+//
+//    public PieceFunctions getAttacker() {
+//        return attacker;
+//    }
+//
+//    public PieceFunctions getCaptured() {
+//        return captured;
+//    }
+//
+//    public Map<String, CoordinateFunctions> getTrip() {
+//        return trip;
+//    }
+//
+//    public CoordinateFunctions getOrigin(){
+//        return trip.get("origin");
+//    }
+//
+//    public CoordinateFunctions getDestination(){
+//        return trip.get("destination");
+//    }
 //
 //    public enum Actions {
 //        TRAVEL(){
