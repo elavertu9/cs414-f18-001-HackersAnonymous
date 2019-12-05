@@ -87,7 +87,8 @@
             firstName:this.registrationForm.firstName,
             lastName:this.registrationForm.lastName,
             email:this.registrationForm.email,
-            username:this.registrationForm.username
+            username:this.registrationForm.username,
+              password:this.registrationForm.password
           };
           API.registerUser(postUser).then(response => {
             console.log(response.data);
