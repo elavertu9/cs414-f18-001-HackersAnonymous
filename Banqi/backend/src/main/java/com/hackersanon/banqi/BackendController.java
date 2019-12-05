@@ -27,7 +27,7 @@ public class BackendController
         return "Hello from the backend!";
     }
 
-    @GetMapping("/game/{gameId}")
+    @GetMapping(value = "/game/{gameId}")
     public Game getGame(@PathVariable Long gameId){
         return gameService.findById(gameId);
     }
@@ -39,7 +39,12 @@ public class BackendController
         return game.getBoard();
     }
 
-    @GetMapping("/game/create/{p1id}/{p2id}")
+    @GetMapping(value = "/game/create")
+    public Game createGame(){
+        return gameService.createGame();
+    }
+
+    @GetMapping(value = "/game/create/{p1id}/{p2id}")
     public Game createGame(@PathVariable long p1id,@PathVariable long p2id)
     {
         return gameService.createGame(p1id,p2id);
@@ -48,6 +53,11 @@ public class BackendController
     @RequestMapping(value = "/user/add", consumes = "application/Json")
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
+    }
+
+    @RequestMapping(value = "/user/{userId}")
+    public User getUserById(@PathVariable long userId){
+        return userService.findById(userId);
     }
 
     @GetMapping(value = "/user/list")

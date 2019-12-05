@@ -22,8 +22,14 @@ public class GameService implements IGameService
 	{
 		return gameDAO.findById(id).orElse(null);
 	}
-	
-	
+
+	@Override
+	public Game createGame() {
+		Game game = new Game();
+		game.setBoard(new Board());
+		return gameDAO.save(game);
+	}
+
 	@Override
 	public Game createGame(Long p1id, Long p2id)
 	{
