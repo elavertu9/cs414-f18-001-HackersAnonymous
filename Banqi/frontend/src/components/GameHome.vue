@@ -65,6 +65,7 @@
         <br/>
         <div v-if="this.loading" class="loader"></div>
         <br/>
+        <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
         <div class="center">
           <b-button variant="danger" @click="$bvModal.hide('newGameModal')" class="toolbar">Cancel</b-button>
           <b-button @click="createGame()" variant="success" class="toolbar">Create</b-button>
@@ -109,6 +110,8 @@
               id: '',
               username: ''
             },
+            error: '',
+            showError: false
           }
         },
 
@@ -119,16 +122,25 @@
           },
 
           createGame() {
+            if (this.playerSelected) {
+              this.error = '';
+              this.showError = false;
               this.loading = true;
               API.createNewGame(this.currentPlayer.id, this.selectedPlayer.id).then(response => {
-                 let gameId = response.data.id;
-                 localStorage.setItem('gameId', gameId);
-                 window.location.pathname = "/game";
-                 this.loading = false;
+                let gameId = response.data.id;
+                localStorage.setItem('gameId', gameId);
+                window.location.pathname = "/game";
+                this.loading = false;
               });
+            } else {
+              this.error = "Please select an opponent";
+              this.showError = true;
+            }
           },
 
           selectPlayer(index) {
+            this.error = '';
+            this.showError = false;
             this.playerSelected = true;
             let selected = this.userList[index];
             let newSelection = {
