@@ -28,12 +28,39 @@
       <br/>
 
       <!-- Create New Game Modal -->
-      <b-modal id="newGameModal" hide-footer>
+      <b-modal id="newGameModal" size="xl" hide-footer>
         <template v-slot:modal-title>
           Create a Game
         </template>
+        <div class="overflow">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(user, index) in userList">
+              <td>{{user.username}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
+              <td>{{user.email}}</td>
+              <td><b-button variant="success" @click="selectPlayer(index)">Invite</b-button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <br/>
         <div class="d-block text-center">
-          <b-button @click="getPlayers()" variant="primary">Players</b-button>
+          <b-alert v-if="this.playerSelected" show variant="success">
+            <h5><b>Creating Game:</b></h5>
+            {{this.currentPlayer.username}} VS. {{this.selectedPlayer.username}}
+          </b-alert>
         </div>
         <br/>
         <div v-if="this.loading" class="loader"></div>
@@ -53,9 +80,35 @@
     export default {
         name: "GameHome",
 
+        mounted() {
+          API.getAllUsers().then(response => {
+            this.userList = response.data;
+          });
+
+          this.getUserInfo();
+        },
+
         data() {
           return {
             loading: false,
+            userList: [
+              {
+                id: '',
+                username: '',
+                firstName: '',
+                lastName: '',
+                email: ''
+              }
+            ],
+            selectedPlayer: {
+              id: '',
+              username: ''
+            },
+            playerSelected: false,
+            currentPlayer: {
+              id: '',
+              username: ''
+            },
           }
         },
 
@@ -65,21 +118,35 @@
 
           },
 
-          getPlayers() {
-            API.getAllUsers().then(response => {
-               let users = response.data;
-               console.log(users);
-            });
-          },
-
           createGame() {
               this.loading = true;
-              API.createNewGame(30, 20).then(response => {
+              API.createNewGame(this.currentPlayer.id, this.selectedPlayer.id).then(response => {
                  let gameId = response.data.id;
                  localStorage.setItem('gameId', gameId);
                  window.location.pathname = "/game";
                  this.loading = false;
               });
+          },
+
+          selectPlayer(index) {
+            this.playerSelected = true;
+            let selected = this.userList[index];
+            let newSelection = {
+              id: selected.id,
+              username: selected.username
+            };
+            this.selectedPlayer = newSelection;
+          },
+
+          getUserInfo() {
+            this.currentPlayer.id = localStorage.getItem('userID');
+            API.getUser(this.currentPlayer.id).then(response => {
+              let currUser = {
+                id: response.data.id,
+                username: response.data.username
+              };
+              this.currentPlayer = currUser;
+            });
           }
         }
     }
@@ -116,5 +183,12 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  .overflow {
+    height: 300px;
+    width: 100%;
+    overflow: scroll;
+    border: 3px solid black;
   }
 </style>

@@ -90,8 +90,38 @@
         },
 
         checkUsernameEmail() {
-          //this.callApiGetAllUsers();
-          this.callApiRegister();
+          this.callApiGetAllUsers();
+          //this.callApiRegister();
+        },
+
+        callApiGetAllUsers() {
+          API.getAllUsers().then(response => {
+            let userList = response.data;
+            let emailExists = false;
+            let usernameExists = false;
+            for(let i in userList) {
+              // Check if username is already in use
+              if (userList[i].username == this.registrationForm.username) {
+                usernameExists = true;
+              }
+              // Check if email is already in use
+              if (userList[i].email == this.registrationForm.email) {
+                emailExists = true;
+
+              }
+            }
+            if (emailExists) {
+              this.error = "Email address already in use, try a different email"
+              this.showError = true;
+            } else if (usernameExists) {
+              this.error = "Username already in use, try a different username";
+              this.showError = true;
+            } else {
+              this.error = '';
+              this.showError = false;
+              this.callApiRegister();
+            }
+          });
         },
 
         callApiRegister() {
@@ -103,16 +133,11 @@
             password: this.registrationForm.password
           };
           API.registerUser(postUser).then(response => {
-            //console.log(response.data.id);
-            localStorage.setItem('userID', response.data.id);
+            console.log(response.data);
+            // TODO: check if account creation was successful or failed
+            window.location.pathname = "/login"
           });
         },
-
-        callApiGetAllUsers() {
-          API.getAllUsers().then(response => {
-            console.log(response.data);
-          });
-        }
       }
     }
 </script>

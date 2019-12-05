@@ -33,7 +33,7 @@ export default {
   },
 
   getExistingGame(gameId) {
-    return AXIOS.get(`/game/${gameId}/board`);
+    return AXIOS.get(`/game/${gameId}`);
   },
 
   getNewGame() {

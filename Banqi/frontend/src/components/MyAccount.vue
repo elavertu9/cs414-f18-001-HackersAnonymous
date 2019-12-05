@@ -31,6 +31,16 @@
             <br/>
             <b-button @click="$bvModal.show('deleteAccountModal')" variant="danger">Delete Account</b-button>
           </b-card>
+          <br/>
+          <b-card class="shadow center">
+            <div v-if="gameLoaded">
+              <h5>{{this.gameInfo.player1.username}} <b>vs.</b> {{this.gameInfo.player2.username}}</h5>
+            </div>
+            <br/>
+
+            <b-button v-if="gameLoaded" @click="playBanqi()" variant="success">Resume Game</b-button>
+            <b-button v-else @click="playBanqi()" variant="success">Play Banqi</b-button>
+          </b-card>
         </b-col>
         <b-col>
           <b-card title="Edit Account Information" class="shadow center">
@@ -104,12 +114,29 @@
             userID: ''
           },
           error: '',
-          showError: false
+          showError: false,
+          gameLoaded: false,
+          gameInfo: {
+            player1: {
+              id: '',
+              username: ''
+            },
+            player2: {
+              id: '',
+              username: ''
+            }
+          }
         }
       },
 
       mounted() {
         this.userInfo.userID = localStorage.getItem('userID');
+        if (localStorage.hasOwnProperty('gameId')) {
+          this.gameLoaded = true;
+          this.getGameInfo();
+        } else {
+          this.gameLoaded = false;
+        }
         this.getUserInfo();
       },
 
@@ -128,6 +155,42 @@
               userID: this.userInfo.userID
             };
             this.userInfo = getUser;
+          });
+        },
+
+        playBanqi() {
+          if (localStorage.hasOwnProperty('gameId')) {
+            window.location.pathname = "/game";
+          } else {
+            window.location.pathname = "/gameHome";
+          }
+        },
+
+        getGameInfo() {
+          API.getExistingGame(localStorage.getItem('gameId')).then(response => {
+            this.gameInfo.player1.id = response.data.playerOneId;
+            this.gameInfo.player2.id = response.data.playerTwoId;
+            this.getPlayers();
+          });
+        },
+
+        getPlayers() {
+          // Get player1 info
+          API.getUser(this.gameInfo.player1.id).then(response => {
+            let user1 = {
+              id: response.data.id,
+              username: response.data.username
+            };
+            this.gameInfo.player1 = user1;
+          });
+
+          // Get player2 info
+          API.getUser(this.gameInfo.player2.id).then(response => {
+            let user2 = {
+              id: response.data.id,
+              username: response.data.username
+            };
+            this.gameInfo.player2 = user2;
           });
         }
       }

@@ -13,21 +13,24 @@
           <b-button @click="clear()" variant="primary" class="toolbar">Clear Selection</b-button>
           <b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>
           <b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>
-          <b-button @click="backToGameHome()" variant="primary" class="toolbar">Back to Game Home</b-button>
+          <b-button @click="backToGameHome()" variant="primary" class="toolbar">Change Game</b-button>
         </b-button-group>
       </b-col>
       <b-col></b-col>
     </b-row>
     <br/>
     <b-row>
+
+      <!-- PLAYER 1 CARD -->
       <b-col>
         <b-card class="player-cards">
-          <b-card-title>{{this.player1.userID}}</b-card-title>
+          <b-card-title class="center">{{this.player1.username}}</b-card-title>
           <b-card-text>
             Player 1 data to be placed here
           </b-card-text>
         </b-card>
       </b-col>
+
       <b-col>
         <div class="board-wrapper">
           <div id="board">
@@ -142,9 +145,11 @@
           </div>
         </div>
       </b-col>
+
+      <!-- PLAYER 2 CARD -->
       <b-col>
-        <b-card title="Player 2" class="player-cards">
-          <b-card-title>{{this.player2.userID}}</b-card-title>
+        <b-card class="player-cards">
+          <b-card-title class="center">{{this.player2.username}}</b-card-title>
           <b-card-text>
             Player 2 data to be placed here
           </b-card-text>
@@ -229,10 +234,12 @@
           },
           errors: [],
           player1: {
-            userID: ''
+            userID: '',
+            username: ''
           },
           player2: {
-            userID: ''
+            userID: '',
+            username: ''
           }
         }
       },
@@ -242,9 +249,34 @@
           if(localStorage.hasOwnProperty('gameId')) {
               this.gameId = localStorage.getItem('gameId');
               API.getExistingGame(this.gameId).then(response => {
-                 this.board = response.data.board;
+                 this.board = response.data.board.board;
+                 this.player1.userID = response.data.playerOneId;
+                 this.player2.userID = response.data.playerTwoId;
+                 console.log(this.player1.userID);
+                 console.log(this.player2.userID);
+                 this.getPlayerInfo();
               });
           }
+        },
+
+        getPlayerInfo() {
+          // Assign player 1
+          API.getUser(this.player1.userID).then(response => {
+            let user1 = {
+              userID: response.data.id,
+              username: response.data.username
+            };
+            this.player1 = user1;
+          });
+
+          // Assign player 2
+          API.getUser(this.player2.userID).then(response => {
+            let user2 = {
+              userID: response.data.id,
+              username: response.data.username
+            };
+            this.player2 = user2;
+          });
         },
 
         getClass(index, row) {
