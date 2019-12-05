@@ -54,5 +54,9 @@ export default {
 
   deleteGame(id) {
     return AXIOS.get(`/game/${id}/delete`);
+  },
+
+  deleteUser(id) {
+    return AXIOS.get(`/user/${id}/delete`);
   }
 }

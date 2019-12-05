@@ -56,7 +56,6 @@
               <th>Player 2</th>
               <th>Status</th>
               <th></th>
-              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -65,7 +64,6 @@
               <td>{{game.playerOneId}}</td>
               <td>{{game.playerTwoId}}</td>
               <td>{{game.board.gameOver ? "Completed" : "In Progress"}}</td>
-              <td><b-button variant="primary" @click="editGame(game.id)">Edit</b-button></td>
               <td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>
             </tr>
             </tbody>
@@ -176,6 +174,7 @@
           getUserList() {
             API.getAllUsers().then(response => {
               this.userList = response.data;
+              this.loading = false;
             });
           },
 
@@ -203,16 +202,20 @@
           },
 
           deletePlayer(id) {
-            console.log("Editing user ", id);
-          },
-
-          editGame(id) {
-            console.log("editing game ", id);
+            this.loading = true;
+            API.deleteUser(id).then(() => {
+              this.showResponse = true;
+              this.response = `User with ID ${id} has been deleted`;
+              setTimeout(() => {
+                this.showResponse = false;
+              }, 5000);
+              this.getUserList();
+            });
           },
 
           deleteGame(id) {
             this.loading = true;
-            API.deleteGame(id).then(response => {
+            API.deleteGame(id).then(() => {
               this.showResponse = true;
               this.response = `Game with ID ${id} has been deleted`;
               setTimeout(() =>
