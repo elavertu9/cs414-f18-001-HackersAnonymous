@@ -34,6 +34,11 @@ public class UserService implements IUserService
 		return list;
 	}
 
+	@Override
+	public User findByUsername(String username) {
+		return userDAO.findUserByUsername(username);
+	}
+
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
 		this.userDAO = userDAO;
