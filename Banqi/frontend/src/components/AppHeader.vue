@@ -16,7 +16,8 @@
             <router-link class="normalLinks" to="/about">About</router-link>
           </b-nav-item>
           <b-nav-item v-if="this.signedIn">
-            <router-link class="normalLinks" to="/gameHome">Game</router-link>
+            <router-link v-if="this.gameLoaded" class="normalLinks" to="/game">Game</router-link>
+            <router-link v-else class="normalLinks" to="/gameHome">Game</router-link>
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="this.signedIn" class="ml-auto">
@@ -45,6 +46,7 @@
       data() {
         return {
           signedIn: false,
+          gameLoaded: false,
           userID: '',
           username: ''
         }
@@ -57,6 +59,12 @@
         } else {
           this.signedIn = false;
           this.userID = '';
+        }
+
+        if(localStorage.hasOwnProperty('gameId')) {
+          this.gameLoaded = true;
+        } else {
+          this.gameLoaded = false;
         }
       },
 

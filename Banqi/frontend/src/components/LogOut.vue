@@ -22,6 +22,7 @@
         name: "LogOut",
         mounted() {
           localStorage.removeItem('userID');
+          localStorage.removeItem('gameId');
           setTimeout(() => {
               window.location.pathname = "/";
           }, 1500);
