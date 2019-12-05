@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -45,6 +46,16 @@ public class GameService implements IGameService
 	public Move newMoveOnGame(Move move){
 		Game game = gameDAO.getOne(move.getGameId());
 		return null;
+	}
+
+	@Override
+	public List<Game> findGamesByPlayerId(Long id){
+		return gameDAO.findGamesByPlayerTwoIdOrPlayerOneId(id,id);
+	}
+
+	@Override
+	public List<Game> findAllExistingGames(){
+		return gameDAO.findAll();
 	}
 
 	@Autowired

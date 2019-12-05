@@ -50,6 +50,22 @@ public class BackendController
         return gameService.createGame(p1id,p2id);
     }
 
+    @GetMapping(value = "/game/list/{userId}")
+    public List listGamesById(@PathVariable long userId){
+        return gameService.findGamesByPlayerId(userId);
+    }
+
+    @GetMapping(value = "admin/game/list/all")
+    public List listAllExistingGames(){
+        return gameService.findAllExistingGames();
+    }
+
+
+    @Autowired
+    public void setGameService(GameService gameService){
+        this.gameService = gameService;
+    }
+
 
     @RequestMapping(value = "/user/add", consumes = "application/Json")
     public User createUser(@RequestBody User user) {
@@ -69,13 +85,6 @@ public class BackendController
     @GetMapping(value = "/user/list")
     public List getAllUsers(){
         return userService.listAllUsers();
-    }
-
-
-
-    @Autowired
-    public void setGameService(GameService gameService){
-        this.gameService = gameService;
     }
 
     @Autowired
