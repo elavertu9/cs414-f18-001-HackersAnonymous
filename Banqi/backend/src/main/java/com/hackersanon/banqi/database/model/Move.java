@@ -1,5 +1,9 @@
 package com.hackersanon.banqi.database.model;
 
+import com.hackersanon.banqi.board.BoardFunctions;
+import com.hackersanon.banqi.board.InvalidCoordinateException;
+import com.hackersanon.banqi.board.InvalidMoveException;
+import com.hackersanon.banqi.board.SquareFunctions;
 import com.hackersanon.banqi.game.MoveType;
 
 import javax.persistence.Column;
@@ -12,21 +16,21 @@ public class Move extends ModelBase {
     @Column
     private long gameId;
     @Embedded
-    private Square origin;
+    private Coordinate origin;
     @Embedded
-    private Square destination;
+    private Coordinate destination;
     @Embedded
     private Piece attacker;
     @Embedded
     private Piece captured;
-    private MoveType action;
+    private MoveType moveType;
 
     private boolean executed;
-    public Square getOrigin() {
+    public Coordinate getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Square origin) {
+    public void setOrigin(Coordinate origin) {
         this.origin = origin;
     }
 
@@ -38,11 +42,11 @@ public class Move extends ModelBase {
         this.gameId = gameId;
     }
 
-    public Square getDestination() {
+    public Coordinate getDestination() {
         return destination;
     }
 
-    public void setDestination(Square destination) {
+    public void setDestination(Coordinate destination) {
         this.destination = destination;
     }
 
@@ -62,12 +66,12 @@ public class Move extends ModelBase {
         this.captured = captured;
     }
 
-    public MoveType getAction() {
-        return action;
+    public MoveType getMoveType() {
+        return moveType;
     }
 
-    public void setAction(MoveType action) {
-        this.action = action;
+    public void setMoveType(MoveType moveType) {
+        this.moveType = moveType;
     }
 
     public boolean isExecuted() {
@@ -77,4 +81,27 @@ public class Move extends ModelBase {
     public void setExecuted(boolean executed) {
         this.executed = executed;
     }
+
+
+    public boolean isValidMove(){
+        return this.attacker.getType().isValidMove(origin, destination);
+    }
+
+        public Move executeMove(Board board) throws InvalidCoordinateException {
+        SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker);
+        SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
+        this.setExecuted(true);
+        return this;
+    }
+
+    public Move executeFlip(Board board) throws InvalidMoveException {
+        try {
+            BoardFunctions.getSquare(board,getOrigin()).getPiece().setFaceUp(true);
+            this.setExecuted(true);
+        } catch (InvalidCoordinateException e) {
+            throw new InvalidMoveException();
+        }
+        return this;
+    }
+
 }
