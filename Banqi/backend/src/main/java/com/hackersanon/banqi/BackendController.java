@@ -10,6 +10,8 @@ import com.hackersanon.banqi.database.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:8081"})
@@ -30,21 +32,26 @@ public class BackendController
         return gameService.findById(gameId);
     }
 
-    @GetMapping("/game/{gameId}/board")
+    @GetMapping(value = "/game/{gameId}/board", consumes = "application/Json")
     public Board getBoard(@PathVariable Long gameId)
     {
         return gameService.findById(gameId).getBoard();
     }
 
-    @GetMapping("/game/create")
-    public Game createGame()
+    @GetMapping("/game/create/{p1id}/{p2id}")
+    public Game createGame(@PathVariable long p1id,@PathVariable long p2id)
     {
-        return gameService.createGame();
+        return gameService.createGame(p1id,p2id);
     }
 
-    @GetMapping("/user/add")
+    @RequestMapping(value = "/user/add", consumes = "application/Json")
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
+    }
+
+    @GetMapping(value = "/user/list")
+    public List getAllUsers(){
+        return userService.listAllUsers();
     }
 
     @Autowired

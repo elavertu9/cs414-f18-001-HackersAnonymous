@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -23,6 +25,13 @@ public class UserService implements IUserService
 	@Override
 	public User createUser(User user){
 		return userDAO.save(user);
+	}
+
+	@Override
+	public List listAllUsers(){
+		List list = new ArrayList();
+		userDAO.findAll().forEach(list::add);
+		return list;
 	}
 
 	@Autowired
