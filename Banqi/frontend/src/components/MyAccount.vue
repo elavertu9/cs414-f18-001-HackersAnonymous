@@ -27,6 +27,9 @@
             <h2><b>{{this.userInfo.username}}</b></h2>
             <br/>
             <b-button @click="$bvModal.show('changePasswordModal')" variant="primary">Change Password</b-button>
+            <br/>
+            <br/>
+            <b-button @click="$bvModal.show('deleteAccountModal')" variant="danger">Delete Account</b-button>
           </b-card>
         </b-col>
         <b-col>
@@ -71,15 +74,26 @@
         <ChangePassword></ChangePassword>
       </b-modal>
     </div>
+
+    <!-- DELETE ACCOUNT MODAL -->
+    <div>
+      <b-modal id="deleteAccountModal" hide-footer>
+        <template v-slot:modal-title>
+          Delete Account
+        </template>
+        <DeleteAccount></DeleteAccount>
+      </b-modal>
+    </div>
   </div>
 </template>
 
 <script>
     import ChangePassword from "./ChangePassword";
+    import DeleteAccount from "./DeleteAccount";
     import API from '../api';
     export default {
       name: "MyAccount",
-      components: {ChangePassword},
+      components: {ChangePassword, DeleteAccount},
       data() {
         return {
           userInfo: {
