@@ -118,7 +118,9 @@ public class BackendController
 
     @GetMapping(value = "/user/{userId}/delete")
     public String deleteUserById(@PathVariable Long userId){
+
         userService.deleteUserById(userId);
+        gameService.deleteGameByUserId(userId);
         return "User Corresponding To Id: "+userId+" Has Been Deleted.";
     }
 
