@@ -111,6 +111,11 @@ public class BackendController
         return "User Corresponding To Id: "+userId+" Has Been Deleted.";
     }
 
+    @PostMapping(value = "/user/edit", consumes = "application/Json")
+    public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
+    }
+
 
     @Autowired
     public void setUserService(UserService userService){
