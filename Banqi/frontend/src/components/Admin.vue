@@ -229,7 +229,17 @@
           },
 
           onSubmit() {
-
+            let updatedUser = {
+              id: this.selectedUser.id,
+              firstName: this.selectedUser.firstName,
+              lastName: this.selectedUser.lastName,
+              username: this.selectedUser.username,
+              email: this.selectedUser.email,
+              password: this.selectedUser.password
+            };
+            API.updateUser(updatedUser).then(() => {
+              console.log("Success");
+            });
           },
 
           switchToUsers() {
