@@ -51,7 +51,9 @@ public class GameService implements IGameService
 		assert gameDAO.findById(gameId).isPresent();
 		Game game = gameDAO.findById(gameId).get();
 		Board board = game.getBoard();
-		return MoveFunctions.makeMove(board,move);
+		Move attemptedMove =  MoveFunctions.makeMove(board,move);
+		game.getMoveHistory().add(attemptedMove);
+		return attemptedMove;
 
 	}
 
