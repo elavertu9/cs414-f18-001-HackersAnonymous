@@ -1,11 +1,13 @@
 package com.hackersanon.banqi.board;
 
-import com.hackersanon.banqi.database.model.*;
+import com.hackersanon.banqi.database.model.Board;
+import com.hackersanon.banqi.database.model.Coordinate;
+import com.hackersanon.banqi.database.model.Piece;
+import com.hackersanon.banqi.database.model.Square;
 import com.hackersanon.banqi.piece.TeamColor;
 
 import java.util.*;
 
-import static com.hackersanon.banqi.game.MoveType.*;
 import static com.hackersanon.banqi.piece.PieceAttributes.*;
 
 public class BoardFunctions
@@ -50,34 +52,11 @@ public class BoardFunctions
 
     public static Square getSquare(Board boardObject, Coordinate coordinate) throws InvalidCoordinateException{
         if(CoordinateFunctions.isValid(coordinate)){
-            ArrayList<Square> board1 = (ArrayList<Square>) boardObject.getBoard();
-            return board1.get(coordinate.getRow()*rowDimension+coordinate.getColumn());
+            ArrayList<Square> board1 = new ArrayList<>(boardObject.getBoard());
+            return board1.get(coordinate.getRow()*colDimension+coordinate.getColumn());
         }else{
             throw new InvalidCoordinateException();
         }
-    }
-
-    public Move makeMove(Board boardObject, Move newMove) throws InvalidMoveException{
-        try {
-            return makeMove(boardObject, getSquare(boardObject,newMove.getOrigin()), getSquare(boardObject,newMove.getDestination()));
-        } catch (InvalidCoordinateException e) {
-            throw new InvalidMoveException();
-        }
-    }
-
-    public Move makeMove(Board boardObject, Square origin, Square destination) throws InvalidMoveException {
-        Move newMove = new Move();
-        if(newMove.getMoveType() == TRAVEL || newMove.getMoveType() == CAPTURE){
-            try {
-                return newMove.executeMove(boardObject);
-            } catch (InvalidCoordinateException e) {
-                e.printStackTrace();
-                throw new InvalidMoveException();
-            }
-        }else if(newMove.getMoveType() == FLIP){
-            return newMove.executeFlip(boardObject);
-        }
-        return newMove;
     }
 
 }

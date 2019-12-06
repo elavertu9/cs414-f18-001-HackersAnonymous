@@ -78,7 +78,6 @@ public class BackendController
         return move;
     }
 
-
     @Autowired
     public void setGameService(GameService gameService){
         this.gameService = gameService;

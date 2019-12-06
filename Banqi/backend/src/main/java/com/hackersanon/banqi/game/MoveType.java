@@ -34,12 +34,13 @@ public enum MoveType {
     MoveType(){}
 
     public static MoveType translateToMoveType (Square origin, Square destination){
+        MoveType type = null;
         for (MoveType action : MoveType.values()) {
             if (action.calculateMoveType(origin, destination)) {
-                return action;
+                type = action;
             }
         }
-        return INVALID;
+        return type;
     }
 
     abstract boolean calculateMoveType(Square origin, Square destination);
