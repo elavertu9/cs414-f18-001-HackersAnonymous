@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -90,6 +91,17 @@ public class BackendController
         if(moves.isEmpty()){
             return ResponseEntity.accepted().body("No Valid Moves Found");
         }else {
+            return ResponseEntity.accepted().body(moves);
+        }
+    }
+
+    @GetMapping(value = "/game/{gameId}/moveHistory")
+    public ResponseEntity getMoveHistory(@PathVariable Long gameId){
+        Game game = getGame(gameId);
+        Collection moves = game.getMoveHistory();
+        if(moves.isEmpty()){
+            return ResponseEntity.accepted().body("No Move History Yet");
+        }else{
             return ResponseEntity.accepted().body(moves);
         }
     }
