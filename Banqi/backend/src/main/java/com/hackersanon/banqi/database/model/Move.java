@@ -84,11 +84,13 @@ public class Move extends ModelBase {
 
 
     public boolean isValidMove(){
+
         return this.attacker.getType().isValidMove(origin, destination);
     }
 
-        public Move executeMove(Board board) throws InvalidCoordinateException {
-        SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker);
+    public Move executeMove(Board board) throws InvalidCoordinateException {
+        setAttacker(BoardFunctions.getSquare(board, origin).getPiece());
+        setCaptured(SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker));
         SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
         this.setExecuted(true);
         return this;

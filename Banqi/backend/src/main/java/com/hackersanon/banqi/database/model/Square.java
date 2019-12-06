@@ -1,6 +1,8 @@
 package com.hackersanon.banqi.database.model;
 
 
+import com.hackersanon.banqi.piece.PieceAttributes;
+
 import javax.persistence.*;
 
 @Embeddable
@@ -40,7 +42,7 @@ public class Square
     }
 
     public boolean checkOccupied(){
-        return false;
+        return (piece.getType()!= PieceAttributes.EMPTY && piece != null);
     }
 
 
