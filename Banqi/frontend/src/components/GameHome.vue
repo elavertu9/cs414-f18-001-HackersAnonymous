@@ -13,13 +13,17 @@
             <table class="table">
               <thead>
                 <th>Game ID</th>
-                <th>Players</th>
+                <th>Player1</th>
+                <th>Player2</th>
                 <th></th>
               </thead>
               <tbody>
-                <td>1</td>
-                <td>2</td>
-                <td><b-button variant="success" @click="resumeGame()">Resume</b-button></td>
+                <tr v-for="game in gamesInProgress">
+                  <td>{{game.id}}</td>
+                  <td>{{game.player1.username}}</td>
+                  <td>{{game.player2.username}}</td>
+                  <td><b-button variant="success" @click="resumeGame(game.id)">Resume</b-button></td>
+                </tr>
               </tbody>
             </table>
           </b-card>
@@ -87,6 +91,7 @@
           });
 
           this.getUserInfo();
+          this.getGameList();
         },
 
         data() {
@@ -108,17 +113,21 @@
             playerSelected: false,
             currentPlayer: {
               id: '',
-              username: ''
+              firstName: '',
+              lastName: '',
+              username: '',
+              email: '',
             },
             error: '',
-            showError: false
+            showError: false,
+            gamesInProgress: []
           }
         },
 
         methods: {
           resumeGame(gameID) {
-              console.log("Resuming Game");
-
+              localStorage.setItem('gameId', gameID);
+              window.location.pathname = "/game";
           },
 
           createGame() {
@@ -155,11 +164,47 @@
             API.getUser(this.currentPlayer.id).then(response => {
               let currUser = {
                 id: response.data.id,
-                username: response.data.username
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                username: response.data.username,
+                email: response.data.email
               };
               this.currentPlayer = currUser;
             });
-          }
+          },
+
+          getGameList() {
+            API.getUsersGames(this.currentPlayer.id).then(response => {
+              for (let i in response.data) {
+                let game = {
+                  id: response.data[i].id,
+                  player1: {
+                    id: response.data[i].playerOneId,
+                    username: ''
+                  },
+                  player2: {
+                    id: response.data[i].playerTwoId,
+                    username: ''
+                  }
+                };
+                this.gamesInProgress.push(game);
+              }
+              this.populateUsernames();
+            });
+          },
+
+          populateUsernames() {
+            for (let i in this.gamesInProgress) {
+              API.getUser(this.gamesInProgress[i].player1.id).then(response => {
+                this.gamesInProgress[i].player1.username = response.data.username;
+              });
+
+              API.getUser(this.gamesInProgress[i].player2.id).then(response => {
+                this.gamesInProgress[i].player2.username = response.data.username;
+              });
+            }
+          },
+
         }
     }
 </script>
