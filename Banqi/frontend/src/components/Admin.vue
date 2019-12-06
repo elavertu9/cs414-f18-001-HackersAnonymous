@@ -167,8 +167,7 @@
             loading: false,
             showResponse: false,
             response: '',
-            usernameList: [
-            ]
+            usernameList: []
           }
         },
 
