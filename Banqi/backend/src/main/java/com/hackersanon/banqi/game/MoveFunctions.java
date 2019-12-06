@@ -27,12 +27,7 @@ public class MoveFunctions {
         newMove.setAttacker(origin.getPiece());
         newMove.setCaptured(destination.getPiece());
         if (newMove.getMoveType() == TRAVEL || newMove.getMoveType() == CAPTURE) {
-            try {
-                return newMove.executeMove(boardObject);
-            } catch (InvalidCoordinateException e) {
-                e.printStackTrace();
-                throw new InvalidMoveException();
-            }
+            return newMove.executeMove(boardObject);
         } else if (newMove.getMoveType() == FLIP) {
             return newMove.executeFlip(boardObject);
         }
