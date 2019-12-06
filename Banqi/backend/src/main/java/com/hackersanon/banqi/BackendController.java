@@ -87,7 +87,11 @@ public class BackendController
             e.printStackTrace();
             return ResponseEntity.badRequest().body(new InvalidCoordinateException());
         }
-        return ResponseEntity.accepted().body(moves);
+        if(moves.isEmpty()){
+            return ResponseEntity.accepted().body("No Valid Moves Found");
+        }else {
+            return ResponseEntity.accepted().body(moves);
+        }
     }
 
     @Autowired
