@@ -52,7 +52,9 @@ public class GameService implements IGameService
 		Game game = gameDAO.findById(gameId).get();
 		Board board = game.getBoard();
 		Move attemptedMove =  MoveFunctions.makeMove(board,move);
-		game.getMoveHistory().add(attemptedMove);
+		if(attemptedMove.isExecuted()) {
+			game.getMoveHistory().add(attemptedMove);
+		}
 		return attemptedMove;
 
 	}
