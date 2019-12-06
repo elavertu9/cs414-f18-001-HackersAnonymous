@@ -82,7 +82,13 @@ public class GameService implements IGameService
 		gameDAO.deleteById(gameId);
 	}
 
-	@Autowired
+    @Override
+    public void deleteGameByUserId(Long userId) {
+		List<Game> games = gameDAO.findGamesByPlayerTwoIdOrPlayerOneId(userId,userId);
+		games.forEach(game -> gameDAO.deleteById(game.getId()));
+    }
+
+    @Autowired
 	public void setGameDAO(final GameDAO gameDAO){
 		this.gameDAO = gameDAO;
 	}
