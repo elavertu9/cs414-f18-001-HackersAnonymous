@@ -1,6 +1,7 @@
 package com.hackersanon.banqi.database.model;
 
 import com.hackersanon.banqi.piece.PieceAttributes;
+import com.hackersanon.banqi.piece.PieceFunctions;
 import com.hackersanon.banqi.piece.TeamColor;
 
 import javax.persistence.Embeddable;
@@ -50,7 +51,7 @@ public class Piece {
     }
 
     public boolean canCapture(Piece enemyPiece){
-        return false;
+        return PieceFunctions.canCapture(this,enemyPiece);
     }
 
 }

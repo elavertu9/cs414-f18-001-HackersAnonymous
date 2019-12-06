@@ -1,6 +1,8 @@
 package com.hackersanon.banqi.database.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "game")
@@ -10,9 +12,11 @@ public class Game extends ModelBase
 	@Transient
 	private static final long serialVersionUID = -3621010469526215357L;
 
-
 	@Embedded
 	private Board board;
+
+	@ElementCollection
+	private Collection<Move> moveHistory = new ArrayList<>();
 
 	@Column
 	private Long playerOneId;
@@ -35,6 +39,14 @@ public class Game extends ModelBase
 
 	public Board getBoard(){
 		return this.board;
+	}
+
+	public Collection<Move> getMoveHistory() {
+		return moveHistory;
+	}
+
+	public void setMoveHistory(Collection<Move> moveHistory) {
+		this.moveHistory = moveHistory;
 	}
 
 	public void setPlayerOneId(Long playerOneId){
