@@ -21,7 +21,7 @@
         </b-col>
         <b-col>
           <div class="homeCards">
-            <b-card v-if="this.userInfo.username != null" class="mb-2 center">
+            <b-card v-if="this.userInfo.username != ''" class="mb-2 center">
               <b-card-title>Welcome Back, {{this.userInfo.username}}!</b-card-title>
               <b-card-text>
                 Select "Game" above or press the button below to play Banqi!
