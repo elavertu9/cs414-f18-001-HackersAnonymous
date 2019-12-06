@@ -10,6 +10,7 @@
                 <b-form-input id="confirmUsername" type="text" v-model="userInfo.confirmUsername" required></b-form-input>
               </b-form-group>
               <br/>
+              <b-alert v-if="this.showResponse" show variant="success">{{this.response}}</b-alert>
               <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
               <b-button type="submit" class="full-size" variant="success">Submit</b-button>
             </b-form>
@@ -33,7 +34,9 @@
               confirmUsername: ''
             },
             showError: false,
-            error: ''
+            error: '',
+            response: '',
+            showResponse: ''
           }
         },
 
@@ -44,22 +47,32 @@
         methods: {
           onSubmit(evt) {
             evt.preventDefault();
-            // call api/user/list to confirm username entered is the username of the account id
-            // if so call /api/user delete endpoint
-            // else, show error
             this.checkIDUsername();
           },
 
           checkIDUsername() {
             API.getUser(this.userInfo.userID).then(response => {
               if(response.data.username == this.userInfo.confirmUsername) {
-                // call delete account with this.userInfo.userID
                 this.showError = false;
                 this.error = '';
-                console.log("Good to go!");
+                API.deleteUser(this.userInfo.userID).then(res => {
+                  this.response = `Account ${response.data.username} was successfully deleted`;
+                  this.showResponse = true;
+                  setTimeout(() => {
+                    this.showResponse = false;
+                    this.response = '';
+                    localStorage.removeItem('userID');
+                    if (localStorage.hasOwnProperty('gameId')) {
+                      localStorage.removeItem('gameId');
+                    }
+                    window.location.pathname = "/";
+                  }, 4000);
+                });
               }else{
                 this.error = "Incorrect Username";
                 this.showError = true;
+                this.response = '';
+                this.showResponse = false;
               }
             });
           }

@@ -111,7 +111,8 @@
             firstName: '',
             lastName: '',
             email: '',
-            userID: ''
+            userID: '',
+            password: ''
           },
           error: '',
           showError: false,
@@ -142,7 +143,18 @@
 
       methods: {
         onSubmit() {
-
+          console.log("Hello");
+          let updatedUser = {
+            id: this.userInfo.userID,
+            firstName: this.userInfo.firstName,
+            lastName: this.userInfo.lastName,
+            username: this.userInfo.username,
+            email: this.userInfo.email,
+            password: this.userInfo.password
+          };
+          API.updateUser(updatedUser).then(() => {
+            console.log("Success");
+          });
         },
 
         getUserInfo() {
@@ -152,7 +164,8 @@
               firstName: response.data.firstName,
               lastName: response.data.lastName,
               email: response.data.email,
-              userID: this.userInfo.userID
+              userID: this.userInfo.userID,
+              password: response.data.password
             };
             this.userInfo = getUser;
           });

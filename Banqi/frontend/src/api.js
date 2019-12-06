@@ -44,8 +44,8 @@ export default {
     return AXIOS.get(`/game/create/${id1}/${id2}`);
   },
 
-  updateUser(userId, userInfo) {
-    return AXIOS.post(`/user/${userId}/update`, userInfo);
+  updateUser(userInfo) {
+    return AXIOS.post(`/user/edit`, userInfo);
   },
 
   getAllGames() {
@@ -58,5 +58,5 @@ export default {
 
   deleteUser(id) {
     return AXIOS.get(`/user/${id}/delete`);
-  }
+  },
 }
