@@ -1,7 +1,7 @@
 package com.hackersanon.banqi.database.model;
 
 
-import com.hackersanon.banqi.board.BanqiBoard;
+import com.hackersanon.banqi.board.BoardFunctions;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
@@ -21,7 +21,7 @@ public class Board
     private boolean gameOver = false;
 
 	public Board(){
-		this.board = BanqiBoard.initialize();
+		this.board = BoardFunctions.initialize();
 	}
 
 

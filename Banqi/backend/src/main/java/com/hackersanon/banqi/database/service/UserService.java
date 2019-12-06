@@ -44,6 +44,11 @@ public class UserService implements IUserService
 		userDAO.deleteById(id);
 	}
 
+	@Override
+	public User updateUser(User updatedUser) {
+		return userDAO.save(updatedUser);
+	}
+
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
 		this.userDAO = userDAO;

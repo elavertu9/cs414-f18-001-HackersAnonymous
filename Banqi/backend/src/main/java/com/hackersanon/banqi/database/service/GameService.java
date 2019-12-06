@@ -1,9 +1,13 @@
 package com.hackersanon.banqi.database.service;
 
+import com.hackersanon.banqi.board.BoardFunctions;
+import com.hackersanon.banqi.board.InvalidCoordinateException;
+import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.Board;
 import com.hackersanon.banqi.database.model.Game;
 import com.hackersanon.banqi.database.model.Move;
+import com.hackersanon.banqi.game.MoveType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,9 +47,16 @@ public class GameService implements IGameService
 	}
 
 	@Override
-	public Move newMoveOnGame(Move move){
-		Game game = gameDAO.getOne(move.getGameId());
-		return null;
+	public Move executeMoveOnGame(Long gameId, Move move) throws InvalidMoveException {
+		Game game = gameDAO.findById(gameId).orElse(null);
+		try {
+			assert game != null;
+			Board board = game.getBoard();
+			move.setMoveType(MoveType.translateToMoveType(BoardFunctions.getSquare(board, move.getOrigin()),BoardFunctions.getSquare(board,move.getDestination())));
+		} catch (InvalidCoordinateException e) {
+			throw new InvalidMoveException();
+		}
+		return move;
 	}
 
 	@Override

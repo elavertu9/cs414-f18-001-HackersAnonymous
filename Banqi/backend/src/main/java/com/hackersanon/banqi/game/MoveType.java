@@ -33,7 +33,7 @@ public enum MoveType {
     };
     MoveType(){}
 
-    public static MoveType translateToAction (Square origin, Square destination){
+    public static MoveType translateToMoveType (Square origin, Square destination){
         for (MoveType action : MoveType.values()) {
             if (action.calculateMoveType(origin, destination)) {
                 return action;

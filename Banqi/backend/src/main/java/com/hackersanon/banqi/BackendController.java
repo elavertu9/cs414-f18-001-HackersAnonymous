@@ -1,5 +1,6 @@
 package com.hackersanon.banqi;
 
+import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.model.Board;
 import com.hackersanon.banqi.database.model.Game;
 import com.hackersanon.banqi.database.model.Move;
@@ -67,9 +68,14 @@ public class BackendController
         return "Game Associated with GameId: " + gameId + "Has Been Deleted.";
     }
 
-    @GetMapping(value = "/game/{gameId}/executeMove")
-    public Move executeMove(@PathVariable Long gameId){
-        return null;
+    @PostMapping(value = "/game/{gameId}/executeMove")
+    public Move executeMove(@PathVariable Long gameId, @RequestBody Move move){
+        try {
+            move = gameService.executeMoveOnGame(gameId,move);
+        } catch (InvalidMoveException e) {
+            e.printStackTrace();
+        }
+        return move;
     }
 
 
@@ -103,6 +109,11 @@ public class BackendController
     public String deleteUserById(@PathVariable Long userId){
         userService.deleteUserById(userId);
         return "User Corresponding To Id: "+userId+" Has Been Deleted.";
+    }
+
+    @PostMapping(value = "/user/edit", consumes = "application/Json")
+    public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
     }
 
 

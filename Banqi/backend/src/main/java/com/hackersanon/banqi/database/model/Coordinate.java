@@ -33,4 +33,20 @@ public class Coordinate {
     public void setColumn(int column) {
         this.column = column;
     }
+
+
+    @Override
+    public boolean equals(Object object){
+        if(object == this){
+            return true;
+        }
+
+        if(!(object instanceof Coordinate)){
+            return false;
+        }
+
+        Coordinate coordinate = (Coordinate) object;
+
+        return (this.getRow() == coordinate.getRow() && this.getColumn() == coordinate.getColumn());
+    }
 }

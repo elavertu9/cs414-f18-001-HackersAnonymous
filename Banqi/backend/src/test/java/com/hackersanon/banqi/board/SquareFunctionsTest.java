@@ -1,8 +1,6 @@
 package com.hackersanon.banqi.board;
 
 import com.hackersanon.banqi.piece.PieceFunctions;
-import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.TeamColor;
 import org.junit.jupiter.api.BeforeEach;
 
 class SquareFunctionsTest {
@@ -13,9 +11,7 @@ class SquareFunctionsTest {
 
     @BeforeEach
     void setUp() {
-        blackCannon = new PieceFunctions(PieceAttributes.CANNON, TeamColor.BLACK);
-        squareFunctions = new SquareFunctions(new CoordinateFunctions(0, 0), blackCannon);
-        emptySquareFunctions = new SquareFunctions(new CoordinateFunctions(0, 0), new PieceFunctions(PieceAttributes.EMPTY,TeamColor.NEUTRAL));
+
     }
 
 //    @Test
