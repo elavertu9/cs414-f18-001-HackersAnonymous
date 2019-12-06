@@ -47,9 +47,6 @@
         methods: {
           onSubmit(evt) {
             evt.preventDefault();
-            // call api/user/list to confirm username entered is the username of the account id
-            // if so call /api/user delete endpoint
-            // else, show error
             this.checkIDUsername();
           },
 
