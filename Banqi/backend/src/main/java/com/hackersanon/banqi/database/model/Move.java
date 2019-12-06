@@ -24,8 +24,8 @@ public class Move extends ModelBase {
     @Embedded
     private Piece captured;
     private MoveType moveType;
-
     private boolean executed;
+
     public Coordinate getOrigin() {
         return origin;
     }
@@ -78,8 +78,8 @@ public class Move extends ModelBase {
         return executed;
     }
 
-    public void setExecuted(boolean executed) {
-        this.executed = executed;
+    private void setExecuted() {
+        this.executed = true;
     }
 
 
@@ -88,18 +88,23 @@ public class Move extends ModelBase {
         return this.attacker.getType().isValidMove(origin, destination);
     }
 
-    public Move executeMove(Board board) throws InvalidCoordinateException {
-        setAttacker(BoardFunctions.getSquare(board, origin).getPiece());
-        setCaptured(SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker));
-        SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
-        this.setExecuted(true);
+    public Move executeMove(Board board) throws InvalidMoveException {
+        try {
+            setAttacker(BoardFunctions.getSquare(board, origin).getPiece());
+            setCaptured(SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker));
+            SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
+        } catch (InvalidCoordinateException e) {
+            e.printStackTrace();
+            throw new InvalidMoveException();
+        }
+        this.setExecuted();
         return this;
     }
 
     public Move executeFlip(Board board) throws InvalidMoveException {
         try {
             BoardFunctions.getSquare(board,getOrigin()).getPiece().setFaceUp(true);
-            this.setExecuted(true);
+            this.setExecuted();
         } catch (InvalidCoordinateException e) {
             throw new InvalidMoveException();
         }
