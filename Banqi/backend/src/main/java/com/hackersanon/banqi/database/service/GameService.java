@@ -1,15 +1,20 @@
 package com.hackersanon.banqi.database.service;
 
+import com.hackersanon.banqi.board.BoardFunctions;
+import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.Board;
+import com.hackersanon.banqi.database.model.Coordinate;
 import com.hackersanon.banqi.database.model.Game;
 import com.hackersanon.banqi.database.model.Move;
 import com.hackersanon.banqi.game.MoveFunctions;
+import com.hackersanon.banqi.piece.PieceFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,6 +56,15 @@ public class GameService implements IGameService
 		Board board = game.getBoard();
 		return MoveFunctions.makeMove(board,move);
 
+	}
+
+	@Override
+	public ArrayList<Coordinate> validMoves(Long gameId, Coordinate coordinate) throws InvalidCoordinateException {
+		assert gameDAO.findById(gameId).isPresent();
+		Game game = gameDAO.findById(gameId).get();
+		Board board = game.getBoard();
+		ArrayList<Coordinate> moves = PieceFunctions.getValidMoveList(coordinate,BoardFunctions.getSquare(board, coordinate).getPiece());
+		return moves;
 	}
 
 	@Override

@@ -1,17 +1,17 @@
 package com.hackersanon.banqi;
 
+import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
-import com.hackersanon.banqi.database.model.Board;
-import com.hackersanon.banqi.database.model.Game;
-import com.hackersanon.banqi.database.model.Move;
-import com.hackersanon.banqi.database.model.User;
+import com.hackersanon.banqi.database.model.*;
 import com.hackersanon.banqi.database.service.GameService;
 import com.hackersanon.banqi.database.service.IGameService;
 import com.hackersanon.banqi.database.service.IUserService;
 import com.hackersanon.banqi.database.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -76,6 +76,18 @@ public class BackendController
             e.printStackTrace();
         }
         return move;
+    }
+
+    @PostMapping(value = "/game/{gameId}/validMoves")
+    public ResponseEntity getValidMoves(@PathVariable Long gameId, @RequestBody Coordinate coordinate){
+        ArrayList<Coordinate> moves;
+        try {
+            moves = gameService.validMoves(gameId, coordinate);
+        } catch (InvalidCoordinateException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(new InvalidCoordinateException());
+        }
+        return ResponseEntity.accepted().body(moves);
     }
 
     @Autowired
