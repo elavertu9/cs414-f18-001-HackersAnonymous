@@ -59,4 +59,8 @@ export default {
   deleteUser(id) {
     return AXIOS.get(`/user/${id}/delete`);
   },
+
+  getUsersGames(id) {
+    return AXIOS.get(`/game/list/${id}`);
+  }
 }

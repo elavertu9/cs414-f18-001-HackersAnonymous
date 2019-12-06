@@ -252,8 +252,6 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
-                 console.log(this.player1.userID);
-                 console.log(this.player2.userID);
                  this.getPlayerInfo();
               });
           }
