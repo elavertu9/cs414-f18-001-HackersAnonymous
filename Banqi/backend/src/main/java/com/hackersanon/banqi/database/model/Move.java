@@ -113,11 +113,11 @@ public class Move {
             setAttacker(BoardFunctions.getSquare(board, origin).getPiece());
             setCaptured(SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker));
             SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
+            this.setExecuted();
         } catch (InvalidCoordinateException e) {
             e.printStackTrace();
             throw new InvalidMoveException();
         }
-        this.setExecuted();
         return this;
     }
 
@@ -126,6 +126,7 @@ public class Move {
             BoardFunctions.getSquare(board,getOrigin()).getPiece().setFaceUp(true);
             this.setExecuted();
         } catch (InvalidCoordinateException e) {
+            e.printStackTrace();
             throw new InvalidMoveException();
         }
         return this;
