@@ -22,6 +22,10 @@
           <td><img src="../images/swords.png" class="icon"></td>
           <td class="middle">Icon for capturing another piece</td>
         </tr>
+        <tr class="center">
+          <td><img src="../images/reveal.png" class="icon"></td>
+          <td class="middle">Icon for an unknown piece to be revealed</td>
+        </tr>
         </tbody>
       </table>
     </b-container>

@@ -760,13 +760,20 @@
         },
 
         clear() {
-          let clear = {
-            row: 9,
-            col: 9,
-            faceUp: false
-          };
-          this.selectedSquare = clear;
+          this.selectedSquare = [];
           this.validMoves = [];
+          this.movePreview = {
+            src: {
+              type: '',
+              teamColor: '',
+              faceUp: false
+            },
+            dest: {
+              type: '',
+              teamColor: '',
+              faceUp: false
+            }
+          }
         }
       },
 
