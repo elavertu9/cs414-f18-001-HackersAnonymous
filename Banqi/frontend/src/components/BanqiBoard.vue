@@ -171,7 +171,7 @@
 
     <!-- RULES MODAL -->
     <div>
-      <b-modal id="rules-modal" hide-footer>
+      <b-modal id="rules-modal" size="lg" hide-footer>
         <template v-slot:modal-title>
           Rules
         </template>
