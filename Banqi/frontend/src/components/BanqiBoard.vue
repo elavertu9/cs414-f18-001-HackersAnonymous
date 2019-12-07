@@ -29,68 +29,74 @@
     <b-row>
       <b-col class="center">
         <h3>Move Preview: </h3>
-        <div v-if="selectedSquare.length === 2">
-          <p>{{this.selectedSquare[0].row}},{{this.selectedSquare[0].col}} TO {{this.selectedSquare[1].row}},{{this.selectedSquare[1].col}}</p>
-        </div>
-        <!-- ATTACKER -->
-
-          <!--<img v-if="move.attacker.type === move.captured.type && move.attacker.teamColor === move.captured.teamColor" src="../images/Pieces/blank_piece.png">-->
-          <!--<img v-else-if="move.attacker.type === 'SOLDIER' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png">-->
-          <!--<img v-else-if="move.attacker.type === 'SOLDIER' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'ADVISOR' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Advisor.png">-->
-          <!--<img v-else-if="move.attacker.type === 'ADVISOR' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Advisor.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'CANNON' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Cannon.png">-->
-          <!--<img v-else-if="move.attacker.type === 'CANNON' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Cannon.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'CHARIOT' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Chariot.png">-->
-          <!--<img v-else-if="move.attacker.type === 'CHARIOT' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Chariot.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'GENERAL' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_General.png">-->
-          <!--<img v-else-if="move.attacker.type === 'GENERAL' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_General.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'HORSE' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Horse.png">-->
-          <!--<img v-else-if="move.attacker.type === 'HORSE' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Horse.png">-->
-
-          <!--<img v-else-if="move.attacker.type === 'MINSTER' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Elephant.png">-->
-          <!--<img v-else-if="move.attacker.type === 'MINSTER' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">-->
-
-          <!--<img v-else-if="move.attacker.type === move.captured.type && move.attacker.teamColor === move.captured.teamColor" src="../images/Pieces/blank_piece.png">-->
-          <!--<div v-else></div>-->
-
-
-
-          <!--<img v-if="move.attacker.type === move.captured.type && move.attacker.teamColor === move.captured.teamColor" src="../images/flip.png" class="icon">-->
-          <!--<img v-else src="../images/swords.png" class="icon">-->
-
-
-        <!--&lt;!&ndash; CAPTURED &ndash;&gt;-->
-
-          <!--<img v-if="move.captured.type == 'SOLDIER' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Soldier.png">-->
-          <!--<img v-else-if="move.captured.type == 'SOLDIER' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Soldier.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'ADVISOR' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Advisor.png">-->
-          <!--<img v-else-if="move.captured.type == 'ADVISOR' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Advisor.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'CANNON' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Cannon.png">-->
-          <!--<img v-else-if="move.captured.type == 'CANNON' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Cannon.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'CHARIOT' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Chariot.png">-->
-          <!--<img v-else-if="move.captured.type == 'CHARIOT' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Chariot.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'GENERAL' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_General.png">-->
-          <!--<img v-else-if="move.captured.type == 'GENERAL' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_General.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'HORSE' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Horse.png">-->
-          <!--<img v-else-if="move.captured.type == 'HORSE' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Horse.png">-->
-
-          <!--<img v-else-if="move.captured.type == 'MINSTER' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">-->
-          <!--<img v-else-if="move.captured.type == 'MINSTER' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">-->
-
-          <!--<div v-else></div>-->
-
       </b-col>
+    </b-row>
+    <b-row>
+      <b-col></b-col>
+      <b-col class="center">
+        <table>
+          <tr v-if="selectedSquare.length === 2">
+            <td>
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/Pieces/blank_piece.png">
+              <img v-else-if="movePreview.src.type === 'SOLDIER' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png">
+              <img v-else-if="movePreview.src.type === 'SOLDIER' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png">
+
+              <img v-else-if="movePreview.src.type === 'ADVISOR' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Advisor.png">
+              <img v-else-if="movePreview.src.type === 'ADVISOR' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Advisor.png">
+
+              <img v-else-if="movePreview.src.type === 'CANNON' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Cannon.png">
+              <img v-else-if="movePreview.src.type === 'CANNON' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Cannon.png">
+
+              <img v-else-if="movePreview.src.type === 'CHARIOT' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Chariot.png">
+              <img v-else-if="movePreview.src.type === 'CHARIOT' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Chariot.png">
+
+              <img v-else-if="movePreview.src.type === 'GENERAL' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_General.png">
+              <img v-else-if="movePreview.src.type === 'GENERAL' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_General.png">
+
+              <img v-else-if="movePreview.src.type === 'HORSE' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Horse.png">
+              <img v-else-if="movePreview.src.type === 'HORSE' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Horse.png">
+
+              <img v-else-if="movePreview.src.type === 'MINSTER' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Elephant.png">
+              <img v-else-if="movePreview.src.type === 'MINSTER' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+              <img v-else-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/Pieces/blank_piece.png">
+              <div v-else></div>
+            </td>
+
+            <td>
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/flip.png" class="icon">
+              <img v-else src="../images/swords.png" class="icon">
+            </td>
+
+            <!-- CAPTURED -->
+            <td>
+              <img v-if="movePreview.dest.type == 'SOLDIER' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Soldier.png">
+              <img v-else-if="movePreview.dest.type == 'SOLDIER' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Soldier.png">
+
+              <img v-else-if="movePreview.dest.type == 'ADVISOR' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Advisor.png">
+              <img v-else-if="movePreview.dest.type == 'ADVISOR' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Advisor.png">
+
+              <img v-else-if="movePreview.dest.type == 'CANNON' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Cannon.png">
+              <img v-else-if="movePreview.dest.type == 'CANNON' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Cannon.png">
+
+              <img v-else-if="movePreview.dest.type == 'CHARIOT' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Chariot.png">
+              <img v-else-if="movePreview.dest.type == 'CHARIOT' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Chariot.png">
+
+              <img v-else-if="movePreview.dest.type == 'GENERAL' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_General.png">
+              <img v-else-if="movePreview.dest.type == 'GENERAL' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_General.png">
+
+              <img v-else-if="movePreview.dest.type == 'HORSE' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Horse.png">
+              <img v-else-if="movePreview.dest.type == 'HORSE' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Horse.png">
+
+              <img v-else-if="movePreview.dest.type == 'MINSTER' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
+              <img v-else-if="movePreview.dest.type == 'MINSTER' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+              <div v-else></div>
+            </td>
+          </tr>
+        </table>
+      </b-col>
+      <b-col/>
     </b-row>
     <br/>
     <b-row>
@@ -429,7 +435,19 @@
               executed: false,
               validMove: false
             }
-          ]
+          ],
+            movePreview: {
+              src: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+              },
+              dest: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+              }
+            }
         }
       },
 
@@ -613,7 +631,6 @@
           } else {
             console.log("Invalid Selection");
           }
-          // fist click and second click
           if (this.selectedSquare.length <= 1) {
             if (this.selectedSquare.length < 1) {
               this.selectedSquare.push(selected);
@@ -627,6 +644,7 @@
 
               if (this.selectedSquare.length === 1 && isValid) {
                 this.selectedSquare.push(selected);
+                this.getMovePreview();
               } else  {
                 this.selectedSquare = [];
                 this.selectedSquare.push(selected);
@@ -640,6 +658,55 @@
           }
 
           this.getValidMoves();
+        },
+
+        getMovePreview() {
+            let srcClick = this.selectedSquare[0];
+            let destClick = this.selectedSquare[1];
+
+            let movePrev = {
+                src: {
+                    type: '',
+                    teamColor: '',
+                    faceUp: false
+                },
+                dest: {
+                    type: '',
+                    teamColor: '',
+                    faceUp: false
+                }
+            };
+
+            if (srcClick.row === 0) {
+                let piece = this.row1[srcClick.col];
+                movePrev.src = piece.piece;
+            }else if (srcClick.row === 1)   {
+                let piece = this.row2[srcClick.col];
+                movePrev.src = piece.piece;
+            } else if (srcClick.row === 2) {
+                let piece = this.row3[srcClick.col];
+                movePrev.src = piece.piece;
+            } else {
+                let piece = this.row4[srcClick.col];
+                movePrev.src =  piece.piece;
+            }
+
+            if (destClick.row === 0) {
+                let piece = this.row1[destClick.col];
+                movePrev.dest = piece.piece;
+            }else if (destClick.row === 1)   {
+                let piece = this.row2[destClick.col];
+                movePrev.dest = piece.piece;
+            } else if (destClick.row === 2) {
+                let piece = this.row3[destClick.col];
+                movePrev.dest = piece.piece;
+            } else {
+                let piece = this.row4[destClick.col];
+                movePrev.dest =  piece.piece;
+            }
+
+            this.movePreview = movePrev;
+
         },
 
         getValidMoves() {
@@ -796,5 +863,9 @@
     margin-right: 5px;
     width: 150px;
     border-right: 12px;
+  }
+
+  .middle {
+    justify-content: center;
   }
 </style>
