@@ -630,6 +630,19 @@
               console.log(response.data);
               this.getGame();
               this.getHistory();
+              this.selectedSquare = [];
+              this.movePreview = {
+                src: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+                },
+                dest: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+                }
+              };
             });
           }
 
