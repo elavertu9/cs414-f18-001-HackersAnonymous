@@ -1,13 +1,11 @@
 package com.hackersanon.banqi.board;
 
-import com.hackersanon.banqi.piece.PieceFunctions;
 import org.junit.jupiter.api.BeforeEach;
 
 class SquareFunctionsTest {
 
     private SquareFunctions squareFunctions;
     private SquareFunctions emptySquareFunctions;
-    private PieceFunctions blackCannon;
 
     @BeforeEach
     void setUp() {
