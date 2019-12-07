@@ -62,5 +62,17 @@ export default {
 
   getUsersGames(id) {
     return AXIOS.get(`/game/list/${id}`);
+  },
+
+  getValidMoves(coordinates, id) {
+    return AXIOS.post(`/game/${id}/validMoves`, coordinates);
+  },
+
+  executeMove(coordinates, id) {
+    return AXIOS.post(`/game/${id}/executeMove`, coordinates);
+  },
+
+  getMoveHistory(id) {
+    return AXIOS.get(`/game/${id}/moveHistory`);
   }
 }

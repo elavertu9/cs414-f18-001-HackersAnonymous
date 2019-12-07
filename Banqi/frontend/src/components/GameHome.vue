@@ -67,7 +67,7 @@
           </b-alert>
         </div>
         <br/>
-        <div v-if="this.loading" class="loader"></div>
+        <Loader v-if="loading"></Loader>
         <br/>
         <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
         <div class="center">
@@ -81,9 +81,11 @@
 
 <script>
     import API from '../api';
+    import Loader from './Loader';
 
     export default {
         name: "GameHome",
+        components: {Loader},
 
         mounted() {
           API.getAllUsers().then(response => {
@@ -120,7 +122,7 @@
             },
             error: '',
             showError: false,
-            gamesInProgress: []
+            gamesInProgress: [],
           }
         },
 
@@ -223,29 +225,5 @@
     margin-right: 2px;
     width: 200px;
     border-radius: 12px;
-  }
-
-  .loader {
-    border: 10px solid #1E4D2B; /* Light grey */
-    border-top: 10px solid #D9782D; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .overflow {
-    height: 300px;
-    width: 100%;
-    overflow: scroll;
-    border: 3px solid black;
   }
 </style>
