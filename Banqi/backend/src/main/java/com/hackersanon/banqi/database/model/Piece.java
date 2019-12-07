@@ -38,7 +38,7 @@ public class Piece {
         this.teamColor = teamColor;
     }
 
-    private TeamColor getTeamColor(){
+    public TeamColor getTeamColor(){
         return this.teamColor;
     }
 
