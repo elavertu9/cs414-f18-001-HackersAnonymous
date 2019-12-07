@@ -14,7 +14,7 @@ public class PieceFunctions implements Serializable
     }
 
     public static boolean canCapture(Piece attacker,Piece enemy){
-        return (attacker.getType().ordinal() <= enemy.getType().ordinal()) && enemy.getFaceUp();//TODO implement exception for general and soldier
+        return (attacker.getType().ordinal() <= enemy.getType().ordinal()) && enemy.getFaceUp() && attacker.getFaceUp();//TODO implement exception for general and soldier
     }
 
 
