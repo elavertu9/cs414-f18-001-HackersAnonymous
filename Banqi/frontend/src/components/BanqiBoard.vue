@@ -1,13 +1,13 @@
 <template>
   <div name="BanqiBoard">
     <b-row>
-      <b-col><Loader v-if="loading"></Loader></b-col>
+      <b-col></b-col>
       <b-col class="center"><h1>Banqi Game</h1></b-col>
       <b-col></b-col>
     </b-row>
     <br/>
     <b-row>
-      <b-col></b-col>
+      <b-col><Loader v-if="loading"></Loader></b-col>
       <b-col class="center">
         <b-button-group>
 
@@ -20,7 +20,7 @@
             <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
           </b-dropdown>
 
-          <b-button @click="moveSubmit()" variant="success" class="toolbar">Submit Move</b-button>
+          <b-button @click="moveSubmit()" :disabled="selectedSquare.length < 2" variant="success" class="toolbar">Submit Move</b-button>
         </b-button-group>
       </b-col>
       <b-col></b-col>
@@ -141,6 +141,8 @@
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
+
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
               </tr>
@@ -166,6 +168,8 @@
 
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
 
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
@@ -193,6 +197,8 @@
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
+
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
               </tr>
@@ -218,6 +224,8 @@
 
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
 
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
@@ -591,8 +599,38 @@
         moveSubmit() {
           this.loading = true;
           // if the piece is not face up yet, flip it
-          if (this.selectedSquare.faceUp == false) {
+          if (this.selectedSquare[0].faceUp == false) {
             this.flipPiece();
+            this.selectedSquare = [];
+            this.movePreview = {
+              src: {
+                type: '',
+                teamColor: '',
+                faceUp: false
+              },
+              dest: {
+                type: '',
+                teamColor: '',
+                faceUp: false
+              }
+            };
+          } else {
+            let execute = {
+              gameId: this.gameId,
+              origin: {
+                row: this.selectedSquare[0].row,
+                column: this.selectedSquare[0].col
+              },
+              destination: {
+                row: this.selectedSquare[1].row,
+                column: this.selectedSquare[1].col
+              }
+            };
+            API.executeMove(execute, this.gameId).then(response => {
+              console.log(response.data);
+              this.getGame();
+              this.getHistory();
+            });
           }
 
         },
@@ -601,12 +639,12 @@
           let flip = {
             gameId: this.gameId,
             origin: {
-              row: this.selectedSquare.row,
-              column: this.selectedSquare.col
+              row: this.selectedSquare[0].row,
+              column: this.selectedSquare[0].col
             },
             destination: {
-              row: this.selectedSquare.row,
-              column: this.selectedSquare.col
+              row: this.selectedSquare[1].row,
+              column: this.selectedSquare[1].col
             }
           };
           API.executeMove(flip, this.gameId).then((response) => {
