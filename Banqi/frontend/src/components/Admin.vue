@@ -110,7 +110,7 @@
               </b-form-group>
 
               <b-form-group id="password" label="Password:" label-for="password">
-                <b-form-input id="password" v-model="selectedUser.password" type="text" required></b-form-input>
+                <b-form-input id="password" v-model="selectedUser.password" type="password" required></b-form-input>
               </b-form-group>
               <br/>
               <b-alert v-if="this.showError == true" show variant="danger">{{this.error}}</b-alert>
