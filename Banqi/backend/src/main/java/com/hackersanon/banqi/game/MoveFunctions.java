@@ -1,6 +1,5 @@
 package com.hackersanon.banqi.game;
 
-import com.hackersanon.banqi.board.BoardFunctions;
 import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.model.Board;
@@ -13,7 +12,7 @@ public class MoveFunctions {
 
     public static Move makeMove(Board boardObject, Move newMove) throws InvalidMoveException {
         try {
-            return makeMove(boardObject, BoardFunctions.getSquare(boardObject,newMove.getOrigin()), BoardFunctions.getSquare(boardObject,newMove.getDestination()));
+            return makeMove(boardObject, boardObject.getSquare(newMove.getOrigin()), boardObject.getSquare(newMove.getDestination()));
         } catch (InvalidCoordinateException e) {
             throw new InvalidMoveException();
         }

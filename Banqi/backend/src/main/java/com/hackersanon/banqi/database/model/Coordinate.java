@@ -34,6 +34,22 @@ public class Coordinate {
         this.column = column;
     }
 
+    public void setValid(boolean valid){
+        valid = rowValid(this.getRow())&& columnValid(this.getColumn());
+    }
+
+    public boolean valid(){
+        return rowValid(this.getRow())&& columnValid(this.getColumn());
+    }
+
+    private boolean rowValid(int row){
+        return (row<4)&&(row>=0);
+    }
+
+    private static boolean columnValid(int column){
+        return (column<8)&&(column>=0);
+    }
+
 
     @Override
     public boolean equals(Object object){

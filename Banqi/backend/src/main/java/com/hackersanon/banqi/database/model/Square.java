@@ -5,6 +5,9 @@ import com.hackersanon.banqi.piece.PieceAttributes;
 
 import javax.persistence.*;
 
+import static com.hackersanon.banqi.piece.PieceAttributes.EMPTY;
+import static com.hackersanon.banqi.piece.TeamColor.NEUTRAL;
+
 @Embeddable
 public class Square
 {
@@ -20,12 +23,12 @@ public class Square
     public Square() {
     }
 
-    public Square(Piece piece, Coordinate coordinate){
+    Square(Piece piece, Coordinate coordinate){
         this.piece = piece;
         this.coordinate = coordinate;
     }
 
-    public void setPiece(Piece piece){
+    private void setPiece(Piece piece){
         this.piece = piece;
     }
 
@@ -45,7 +48,16 @@ public class Square
         return (piece.getType()!= PieceAttributes.EMPTY && piece != null);
     }
 
+    Piece occupySquare(Piece piece){
+        Piece captured = null;
+        if(this.checkOccupied()) {
+            captured = this.getPiece();
+        }
+        this.setPiece(piece);
+        return captured;
+    }
 
-
-
+    void vacateSquare(){
+        this.setPiece(new Piece(EMPTY, NEUTRAL));
+    }
 }

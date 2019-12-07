@@ -1,11 +1,11 @@
 package com.hackersanon.banqi.database.model;
 
 import com.hackersanon.banqi.piece.PieceAttributes;
-import com.hackersanon.banqi.piece.PieceFunctions;
 import com.hackersanon.banqi.piece.TeamColor;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 @Embeddable
 public class Piece {
@@ -21,7 +21,7 @@ public class Piece {
     public Piece(){
     }
 
-    public Piece(PieceAttributes type, TeamColor teamColor){
+    Piece(PieceAttributes type, TeamColor teamColor){
         this.type = type;
         this.teamColor = teamColor;
     }
@@ -38,7 +38,7 @@ public class Piece {
         this.teamColor = teamColor;
     }
 
-    public TeamColor getTeamColor(){
+    private TeamColor getTeamColor(){
         return this.teamColor;
     }
 
@@ -51,7 +51,16 @@ public class Piece {
     }
 
     public boolean canCapture(Piece enemyPiece){
-        return PieceFunctions.canCapture(this,enemyPiece);
+        return this.type.canCapture(enemyPiece) && this.teamColor != enemyPiece.getTeamColor();
+    }
+
+    public ArrayList<Coordinate> getValidTripCoordinates(Coordinate origin){
+        if(this.getFaceUp()) {
+            return this.getType().legalMoves(origin);
+        }
+        else{
+            return new ArrayList<>();
+        }
     }
 
 }

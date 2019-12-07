@@ -1,12 +1,10 @@
 package com.hackersanon.banqi.database.service;
 
-import com.hackersanon.banqi.board.BoardFunctions;
 import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.*;
 import com.hackersanon.banqi.game.MoveFunctions;
-import com.hackersanon.banqi.piece.PieceFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,19 +62,19 @@ public class GameService implements IGameService
 		assert gameDAO.findById(gameId).isPresent();
 		Game game = gameDAO.findById(gameId).get();
 		Board board = game.getBoard();
-        Piece piece = BoardFunctions.getSquare(board, coordinate).getPiece();
-		ArrayList<Coordinate> moves = PieceFunctions.getValidMoveList(coordinate, piece);
-		ArrayList<Coordinate> validMoves = new ArrayList<>();
-		moves.forEach(coordinate1 -> {
+        Piece piece = board.getSquare(coordinate).getPiece();
+		ArrayList<Coordinate> possibleTrips = piece.getValidTripCoordinates(coordinate);
+		ArrayList<Coordinate> validTrips = new ArrayList<>();
+		possibleTrips.forEach(coordinate1 -> {
 			try {
-				if (PieceFunctions.canCapture(piece,BoardFunctions.getSquare(board, coordinate1).getPiece())){
-					validMoves.add(coordinate1);
+				if (piece.canCapture(board.getSquare(coordinate1).getPiece())){
+					validTrips.add(coordinate1);
 				}
 			} catch (InvalidCoordinateException e) {
 				e.printStackTrace();
 			}
 		});
-		return validMoves;
+		return validTrips;
 	}
 
 	@Override

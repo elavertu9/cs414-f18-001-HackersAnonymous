@@ -1,12 +1,14 @@
 package com.hackersanon.banqi.database.model;
 
 
-import com.hackersanon.banqi.board.BoardFunctions;
+import com.hackersanon.banqi.board.InvalidCoordinateException;
+import com.hackersanon.banqi.piece.TeamColor;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+
+import static com.hackersanon.banqi.piece.PieceAttributes.*;
 
 
 @Embeddable
@@ -21,7 +23,7 @@ public class Board
     private boolean gameOver = false;
 
 	public Board(){
-		this.board = BoardFunctions.initialize();
+		initialize();
 	}
 
 
@@ -58,4 +60,43 @@ public class Board
 	{
 		return board;
 	}
+
+	public Square getSquare(Coordinate coordinate) throws InvalidCoordinateException {
+		if(coordinate.valid()){
+			ArrayList<Square> board1 = new ArrayList<>(this.getBoard());
+			return board1.get(coordinate.getRow()*colDimension+coordinate.getColumn());
+		}else{
+			throw new InvalidCoordinateException();
+		}
+	}
+
+	private void initialize(){
+		ArrayList<Piece> allPiece = initAllPieces();
+		for (int i = 0; i<rowDimension;++i){
+			for(int j = 0; j<colDimension;++j){
+				this.board.add(new Square(allPiece.remove(0), new Coordinate(i, j) ));
+			}
+		}
+	}
+
+	private static ArrayList<Piece> initAllPieces(){
+		ArrayList<Piece> allPiece = new ArrayList<>(initTeamPieces(TeamColor.RED));
+		allPiece.addAll(initTeamPieces(TeamColor.BLACK));
+		for(int i=0;i<5;++i){
+			Collections.shuffle(allPiece);
+		}
+		return allPiece;
+	}
+
+	private static ArrayList<Piece> initTeamPieces(TeamColor color){
+		return new ArrayList<>(Arrays.asList( new Piece(GENERAL, color),
+				new Piece(CHARIOT, color), new Piece(CHARIOT, color),
+				new Piece(HORSE, color), new Piece(HORSE, color),
+				new Piece(CANNON, color), new Piece(CANNON, color),
+				new Piece(ADVISOR, color), new Piece(ADVISOR, color),
+				new Piece(MINSTER, color), new Piece(MINSTER, color),
+				new Piece(SOLDIER, color), new Piece(SOLDIER, color),
+				new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
+	}
+
 }

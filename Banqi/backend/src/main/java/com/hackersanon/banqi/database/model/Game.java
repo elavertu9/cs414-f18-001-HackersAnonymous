@@ -16,6 +16,7 @@ public class Game extends ModelBase
 	private Board board;
 
 	@ElementCollection
+	@AttributeOverride(name = "valid", column = @Column(name = "validCoord"))
 	private Collection<Move> moveHistory = new ArrayList<>();
 
 	@Column

@@ -1,12 +1,16 @@
 package com.hackersanon.banqi.piece;
 
-import com.hackersanon.banqi.board.CoordinateFunctions;
 import com.hackersanon.banqi.database.model.Coordinate;
+import com.hackersanon.banqi.database.model.Piece;
 
 import java.util.ArrayList;
 
 public enum PieceAttributes {
     GENERAL(){
+       @Override
+       public boolean canCapture(Piece enemy){
+           return enemy.getType().ordinal() != 6;
+       }
     },
     CHARIOT(){
     },
@@ -19,11 +23,14 @@ public enum PieceAttributes {
     MINSTER(){
     },
     SOLDIER(){
+       @Override
+       public boolean canCapture(Piece enemy){
+           return enemy.getType().ordinal() == 6 || enemy.getType().ordinal() == 0;
+       }
     },
     EMPTY(){
     };
 
-    PieceAttributes(){}
     public String toString(){
         return this.name();
     }
@@ -42,9 +49,13 @@ public enum PieceAttributes {
     }
 
     private static void addLegalMove(Coordinate destination, ArrayList<Coordinate> legalMoves){
-        if(CoordinateFunctions.isValid(destination)){
+        if(destination.valid()){
             legalMoves.add(destination);
         }
+    }
+
+    public boolean canCapture(Piece enemy){
+            return this.ordinal() <= enemy.getType().ordinal();
     }
 
 }
