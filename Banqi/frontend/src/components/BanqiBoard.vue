@@ -10,12 +10,23 @@
       <b-col></b-col>
       <b-col class="center">
         <b-button-group>
+
+          <b-dropdown id="dropdown-1" class="help" variant="primary" text="Help">
+            <b-dropdown-item @click="$bvModal.show('legend-modal')">Legend</b-dropdown-item>
+            <b-dropdown-item @click="$bvModal.show('rules-modal')">Rules</b-dropdown-item>
+          </b-dropdown>
+          <b-dropdown id="dropdown-1" class="help" variant="primary" text="Actions">
+            <b-dropdown-item @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
+          </b-dropdown>
+
           <b-button @click="moveSubmit()" variant="success" class="toolbar">Submit Move</b-button>
-          <b-button @click="clear()" variant="primary" class="toolbar">Clear Selection</b-button>
-          <b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>
-          <b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>
-          <b-button @click="backToGameHome()" variant="primary" class="toolbar">Change Game</b-button>
         </b-button-group>
+
+
+          <!--<b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>-->
+          <!--<b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>-->
+          <!--<b-button @click="backToGameHome()" variant="primary" class="toolbar">Change Game</b-button>-->
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -588,9 +599,9 @@
   }
 
   .toolbar {
-    margin-left: 2px;
-    margin-right: 2px;
-    width: 200px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 150px;
     border-radius: 12px;
   }
 
@@ -618,5 +629,12 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .help {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 150px;
+    border-right: 12px;
   }
 </style>
