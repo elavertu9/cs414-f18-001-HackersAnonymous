@@ -1,5 +1,9 @@
 <template>
     <b-container>
+      <h4><b>How to play</b></h4>
+      <p> The first player begins by flipping any piece on the board over. the color of the first flipped over piece
+      will be assigned to player 1, and player 2 will be assigned to the opposing team. Player 2 will then begin their
+        first turn by flipping over any piece on the board.</p>
       <table class="table table-hover">
         <thead>
           <tr class="center">
