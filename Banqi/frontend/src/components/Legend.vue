@@ -15,6 +15,10 @@
           <td class="middle">Valid moves for selected piece</td>
         </tr>
         <tr class="center">
+          <td><img src="../images/arrow.png" class="icon"></td>
+          <td class="middle">Icon for piece moving to empty space</td>
+        </tr>
+        <tr class="center">
           <td><img src="../images/flip.png" class="icon"></td>
           <td class="middle">Icon for piece being flipped over</td>
         </tr>
@@ -25,6 +29,10 @@
         <tr class="center">
           <td><img src="../images/reveal.png" class="icon"></td>
           <td class="middle">Icon for an unknown piece to be revealed</td>
+        </tr>
+        <tr class="center">
+          <td><img src="../images/empty.png" class="icon"></td>
+          <td class="middle">Icon for an empty space</td>
         </tr>
         </tbody>
       </table>

@@ -950,8 +950,4 @@
     width: 150px;
     border-right: 12px;
   }
-
-  .middle {
-    justify-content: center;
-  }
 </style>
