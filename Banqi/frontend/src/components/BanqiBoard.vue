@@ -22,11 +22,6 @@
 
           <b-button @click="moveSubmit()" variant="success" class="toolbar">Submit Move</b-button>
         </b-button-group>
-
-
-          <!--<b-button @click="$bvModal.show('legend-modal')" variant="primary" class="toolbar">Legend</b-button>-->
-          <!--<b-button @click="$bvModal.show('rules-modal')" variant="primary" class="toolbar">Rules</b-button>-->
-          <!--<b-button @click="backToGameHome()" variant="primary" class="toolbar">Change Game</b-button>-->
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -178,7 +173,7 @@
       <br/>
       <b-card class="shadow full-size">
         <table class="table table-hover white-text">
-          <tbody>
+          <tbody v-if="noHistory == false">
           <tr v-for="(move, index) in moveHistory">
             <td>
               {{moveHistory.length - index}}
@@ -243,6 +238,9 @@
               <div v-else></div>
             </td>
           </tr>
+          </tbody>
+          <tbody v-else>
+
           </tbody>
         </table>
       </b-card>
@@ -336,6 +334,7 @@
               column: 9
             }
           ],
+          noHistory: true,
           moveHistory: [
             {
               gameId: "",
@@ -381,8 +380,13 @@
 
         getHistory() {
           API.getMoveHistory(this.gameId).then(response => {
-            this.moveHistory = response.data;
-            this.reverseArray();
+            if (response.data != "No Move History Yet") {
+              this.noHistory = false;
+              this.moveHistory = response.data;
+              this.reverseArray();
+            } else {
+              this.noHistory = true;
+            }
           });
         },
 
