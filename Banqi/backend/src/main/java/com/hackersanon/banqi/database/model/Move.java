@@ -1,9 +1,7 @@
 package com.hackersanon.banqi.database.model;
 
-import com.hackersanon.banqi.board.BoardFunctions;
 import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
-import com.hackersanon.banqi.board.SquareFunctions;
 import com.hackersanon.banqi.game.MoveType;
 
 import javax.persistence.*;
@@ -102,17 +100,11 @@ public class Move {
         this.executed = true;
     }
 
-
-    public boolean isValidMove(){
-
-        return this.attacker.getType().isValidMove(origin, destination);
-    }
-
     public Move executeMove(Board board) throws InvalidMoveException {
         try {
-            setAttacker(BoardFunctions.getSquare(board, origin).getPiece());
-            setCaptured(SquareFunctions.occupySquare(BoardFunctions.getSquare(board,destination),attacker));
-            SquareFunctions.vacateSquare(BoardFunctions.getSquare(board,getOrigin()));
+            setAttacker(board.getSquare(origin).getPiece());
+            setCaptured(board.getSquare(destination).occupySquare(attacker));
+            board.getSquare(getOrigin()).vacateSquare();
             this.setExecuted();
         } catch (InvalidCoordinateException e) {
             e.printStackTrace();
@@ -123,7 +115,7 @@ public class Move {
 
     public Move executeFlip(Board board) throws InvalidMoveException {
         try {
-            BoardFunctions.getSquare(board,getOrigin()).getPiece().setFaceUp(true);
+            board.getSquare(getOrigin()).getPiece().setFaceUp(true);
             this.setExecuted();
         } catch (InvalidCoordinateException e) {
             e.printStackTrace();
