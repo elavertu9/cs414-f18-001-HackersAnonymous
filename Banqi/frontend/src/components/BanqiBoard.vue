@@ -70,27 +70,29 @@
 
             <!-- CAPTURED -->
             <td>
-              <img v-if="movePreview.dest.type == 'SOLDIER' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Soldier.png">
-              <img v-else-if="movePreview.dest.type == 'SOLDIER' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Soldier.png">
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/reveal.png">
+              <img v-else-if="movePreview.dest.type === 'SOLDIER' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png">
+              <img v-else-if="movePreview.dest.type === 'SOLDIER' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png">
 
-              <img v-else-if="movePreview.dest.type == 'ADVISOR' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Advisor.png">
-              <img v-else-if="movePreview.dest.type == 'ADVISOR' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Advisor.png">
+              <img v-else-if="movePreview.dest.type === 'ADVISOR' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Advisor.png">
+              <img v-else-if="movePreview.dest.type === 'ADVISOR' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Advisor.png">
 
-              <img v-else-if="movePreview.dest.type == 'CANNON' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Cannon.png">
-              <img v-else-if="movePreview.dest.type == 'CANNON' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Cannon.png">
+              <img v-else-if="movePreview.dest.type === 'CANNON' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Cannon.png">
+              <img v-else-if="movePreview.dest.type === 'CANNON' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Cannon.png">
 
-              <img v-else-if="movePreview.dest.type == 'CHARIOT' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Chariot.png">
-              <img v-else-if="movePreview.dest.type == 'CHARIOT' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Chariot.png">
+              <img v-else-if="movePreview.dest.type === 'CHARIOT' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Chariot.png">
+              <img v-else-if="movePreview.dest.type === 'CHARIOT' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Chariot.png">
 
-              <img v-else-if="movePreview.dest.type == 'GENERAL' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_General.png">
-              <img v-else-if="movePreview.dest.type == 'GENERAL' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_General.png">
+              <img v-else-if="movePreview.dest.type === 'GENERAL' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_General.png">
+              <img v-else-if="movePreview.dest.type === 'GENERAL' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_General.png">
 
-              <img v-else-if="movePreview.dest.type == 'HORSE' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Horse.png">
-              <img v-else-if="movePreview.dest.type == 'HORSE' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Horse.png">
+              <img v-else-if="movePreview.dest.type === 'HORSE' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Horse.png">
+              <img v-else-if="movePreview.dest.type === 'HORSE' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Horse.png">
 
-              <img v-else-if="movePreview.dest.type == 'MINSTER' && movePreview.dest.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
-              <img v-else-if="movePreview.dest.type == 'MINSTER' && movePreview.dest.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+              <img v-else-if="movePreview.dest.type === 'MINSTER' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Elephant.png">
+              <img v-else-if="movePreview.dest.type === 'MINSTER' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
+              <img v-else-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/reveal.png">
               <div v-else></div>
             </td>
           </tr>
@@ -531,7 +533,7 @@
             if (index === this.selectedSquare[0].col && row - 1 === this.selectedSquare[0].row) {
               isFirstClick = true;
             }
-            if (index === this.selectedSquare[1].col && row - 1 === this.selectedSquare[1].row) {
+            if (index === this.selectedSquare[1].col && row - 1 === this.selectedSquare[1].row && this.selectedSquare[1].faceUp === true) {
               isSecondClick = true;
             }
           }
@@ -555,8 +557,14 @@
               return "second_click";
             } else if (isValid && isFirstClick) {
               return "selected_square";
-            } else if (!isValid && isFirstClick) {
+            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp === true && this.selectedSquare[1].faceUp === true && index === this.selectedSquare[0].col && row -  1 === this.selectedSquare[0].row) {
               return "selected_square";
+            } else if (!isValid && isFirstClick && this.selectedSquare.length < 2) {
+              return "selected_square";
+            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp === false) {
+              return "second_click";
+            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp && isSecondClick) {
+              return "second_click";
             } else {
               if (isValid && clicks < 2) {
                 return "valid_square";
@@ -619,6 +627,7 @@
             faceUp: false
           };
 
+
           // Get board slice for selected row
           if (row == 0) {
             selected.faceUp = this.row1[col].piece.faceUp;
@@ -633,7 +642,14 @@
           }
           if (this.selectedSquare.length <= 1) {
             if (this.selectedSquare.length < 1) {
-              this.selectedSquare.push(selected);
+              if (selected.faceUp === false) {
+                this.selectedSquare = [];
+                this.selectedSquare.push(selected);
+                this.selectedSquare.push(selected);
+                this.getMovePreview();
+              } else {
+                this.selectedSquare.push(selected);
+              }
             } else {
               let isValid = false;
               for (let i in this.validMoves) {
@@ -641,19 +657,31 @@
                   isValid = true;
                 }
               }
-
-              if (this.selectedSquare.length === 1 && isValid) {
-                this.selectedSquare.push(selected);
-                this.getMovePreview();
-              } else  {
+              if (this.selectedSquare.length === 1 && selected.faceUp === false) {
                 this.selectedSquare = [];
                 this.selectedSquare.push(selected);
+                this.selectedSquare.push(selected);
+                this.getMovePreview();
+              } else {
+                if (this.selectedSquare.length === 1 && isValid) {
+                  this.selectedSquare.push(selected);
+                  this.getMovePreview();
+                } else  {
+                  this.selectedSquare = [];
+                  this.selectedSquare.push(selected);
+                }
               }
             }
           } else {
             if (this.selectedSquare.length == 2) {
               this.selectedSquare = [];
-              this.selectedSquare.push(selected);
+              if (selected.faceUp === false) {
+                this.selectedSquare.push(selected);
+                this.selectedSquare.push(selected);
+                this.getMovePreview();
+              } else {
+                this.selectedSquare.push(selected);
+              }
             }
           }
 
