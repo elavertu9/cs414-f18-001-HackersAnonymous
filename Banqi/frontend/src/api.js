@@ -70,5 +70,9 @@ export default {
 
   executeMove(coordinates, id) {
     return AXIOS.post(`/game/${id}/executeMove`, coordinates);
+  },
+
+  getMoveHistory(id) {
+    return AXIOS.get(`/game/${id}/moveHistory`);
   }
 }
