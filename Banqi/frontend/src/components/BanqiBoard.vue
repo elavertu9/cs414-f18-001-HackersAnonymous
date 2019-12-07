@@ -362,7 +362,7 @@
         },
 
         getValidMoves() {
-          this.validMoves = this.validMoves.splice(0, this.validMoves.length);
+          this.validMoves = [];
           let selected = {
             row: this.selectedSquare.row,
             column: this.selectedSquare.col
