@@ -1,6 +1,6 @@
 <template>
     <b-container>
-      <table class="table">
+      <table class="table table-hover">
         <thead>
           <tr class="center">
             <td></td>
