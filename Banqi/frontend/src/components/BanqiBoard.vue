@@ -291,6 +291,7 @@
 
       mounted() {
         this.player1.userID = localStorage.getItem('userID');
+        this.selectedSquare = [];
         this.getGame();
         this.getHistory()
       },
@@ -313,11 +314,12 @@
               },
              }
           ],
-          selectedSquare: {
+          // [0] = 1st click, [1] = 2nd click
+          selectedSquare: [{
             row: 9,
             col: 9,
             faceUp: false
-          },
+          }],
           errors: [],
           player1: {
             userID: '',
@@ -411,14 +413,18 @@
         },
 
         getClass(index, row) {
+          let clicks = this.selectedSquare.length;
+          let isValid = false;
+          let isFirstClick = false;
+          let isSecondClick = false;
+
           for(let i in this.validMoves) {
             if ((this.validMoves[i].row === row - 1) && (this.validMoves[i].column === index)) {
-              return "valid_square";
+              isValid = true;
             }
           }
-          if (index === this.selectedSquare.col && row - 1 === this.selectedSquare.row) {
-            return "selected_square";
-          } else {
+
+          if (clicks < 1) {
             if (row % 2 == 0) {
               if (index % 2 == 0) {
                 return "orange_square";
@@ -432,7 +438,61 @@
                 return "orange_square";
               }
             }
+          } else if (clicks == 1) {
+            if (index === this.selectedSquare[0].col && row - 1 === this.selectedSquare[0].row) {
+              isFirstClick = true;
+            }
+          } else {
+            if (index === this.selectedSquare[0].col && row - 1 === this.selectedSquare[0].row) {
+              isFirstClick = true;
+            }
+            if (index === this.selectedSquare[1].col && row - 1 === this.selectedSquare[1].row) {
+              isSecondClick = true;
+            }
           }
+
+          if (!isValid && !isFirstClick && !isSecondClick) {
+            if (row % 2 == 0) {
+              if (index % 2 == 0) {
+                return "orange_square";
+              } else {
+                return "black_square";
+              }
+            } else {
+              if (index % 2 == 0) {
+                return "black_square";
+              } else {
+                return "orange_square";
+              }
+            }
+          } else {
+            if (isValid && isSecondClick) {
+              return "second_click";
+            } else if (isValid && isFirstClick) {
+              return "selected_square";
+            } else if (!isValid && isFirstClick) {
+              return "selected_square";
+            } else {
+              if (isValid && clicks < 2) {
+                return "valid_square";
+              } else {
+                if (row % 2 == 0) {
+                  if (index % 2 == 0) {
+                    return "orange_square";
+                  } else {
+                    return "black_square";
+                  }
+                } else {
+                  if (index % 2 == 0) {
+                    return "black_square";
+                  } else {
+                    return "orange_square";
+                  }
+                }
+              }
+            }
+          }
+
         },
 
         moveSubmit() {
@@ -486,8 +546,31 @@
           } else {
             console.log("Invalid Selection");
           }
+          // fist click and second click
+          if (this.selectedSquare.length <= 1) {
+            if (this.selectedSquare.length < 1) {
+              this.selectedSquare.push(selected);
+            } else {
+              let isValid = false;
+              for (let i in this.validMoves) {
+                if (this.validMoves[i].row === selected.row && this.validMoves[i].column === selected.col) {
+                  isValid = true;
+                }
+              }
 
-          this.selectedSquare = selected;
+              if (this.selectedSquare.length === 1 && isValid) {
+                this.selectedSquare.push(selected);
+              } else  {
+                this.selectedSquare = [];
+                this.selectedSquare.push(selected);
+              }
+            }
+          } else {
+            if (this.selectedSquare.length == 2) {
+              this.selectedSquare = [];
+              this.selectedSquare.push(selected);
+            }
+          }
 
           this.getValidMoves();
         },
@@ -495,8 +578,8 @@
         getValidMoves() {
           this.validMoves = [];
           let selected = {
-            row: this.selectedSquare.row,
-            column: this.selectedSquare.col
+            row: this.selectedSquare[0].row,
+            column: this.selectedSquare[0].col
           };
           API.getValidMoves(selected, this.gameId).then(response => {
             if (response.data != "No Valid Moves Found") {
@@ -550,6 +633,12 @@
     width: 75px;
     height: 75px;
     background-color: #d2b48c;
+  }
+
+  .second_click {
+    width: 75px;
+    height: 75px;
+    background-color: #008000;
   }
 
   .black_square {
