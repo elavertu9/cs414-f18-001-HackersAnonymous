@@ -14,8 +14,8 @@
           <td><img src="../images/Pieces/White_General.png"></td>
           <td>7</td>
           <td class="middle">General</td>
-          <td align="left" class="middle">The highest rank piece. The General can capture every piece except the soldier.
-            There is only one general per team</td>
+          <td align="left" class="middle">The highest rank piece. The General can capture every piece except the Soldier.
+            There is only one General per team</td>
         </tr>
         <tr class="center">
           <td><img src="../images/Pieces/White_Chariot.png"></td>
