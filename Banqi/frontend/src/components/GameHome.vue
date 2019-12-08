@@ -7,23 +7,38 @@
             <b-card-text>Create a New Game</b-card-text>
             <b-button variant="primary" id="show-btn" @click="$bvModal.show('newGameModal')">New Game</b-button>
           </b-card>
+          <br/>
+          <b-card title="Completed Games" class="shadow">
+            <table class="table">
+              <thead>
+              <th>Game ID</th>
+              <th>Player1</th>
+              <th>Player2</th>
+              </thead>
+              <tbody>
+              <tr v-for="game in gamesInProgress" v-if="game.gameOver">
+                <td>{{game.id}}</td>
+                <td>{{game.player1.username}}</td>
+                <td>{{game.player2.username}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </b-card>
         </b-col>
         <b-col class="center">
-          <b-card title="Existing Games" class="shadow">
+          <b-card title="Games in Progress" class="shadow">
             <table class="table">
               <thead>
                 <th>Game ID</th>
                 <th>Player1</th>
                 <th>Player2</th>
-                <th>Status</th>
                 <th></th>
               </thead>
               <tbody>
-                <tr v-for="game in gamesInProgress">
+                <tr v-for="game in gamesInProgress" v-if="!game.gameOver">
                   <td>{{game.id}}</td>
                   <td>{{game.player1.username}}</td>
                   <td>{{game.player2.username}}</td>
-                  <td>{{game.turn}}</td>
                   <td><b-button variant="success" @click="resumeGame(game.id)">Resume</b-button></td>
                 </tr>
               </tbody>
@@ -125,7 +140,8 @@
             error: '',
             showError: false,
             gamesInProgress: [],
-            turn: false
+            turn: false,
+            gameOver: false
           }
         },
 
@@ -190,7 +206,9 @@
                   player2: {
                     id: response.data[i].playerTwoId,
                     username: ''
-                  }
+                  },
+                  turn: response.data[i].turn,
+                  gameOver: response.data[i].gameOver
                 };
                 this.gamesInProgress.push(game);
               }
