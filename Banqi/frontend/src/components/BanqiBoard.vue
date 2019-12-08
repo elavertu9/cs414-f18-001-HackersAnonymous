@@ -2,7 +2,15 @@
   <div name="BanqiBoard">
     <b-row>
       <b-col></b-col>
-      <b-col class="center"><h1>Banqi Game</h1></b-col>
+      <b-col class="center"><h1>Banqi Game: {{gameId}}</h1></b-col>
+      <b-col></b-col>
+    </b-row>
+    <b-row>
+      <b-col></b-col>
+      <b-col class="center">
+        <h5 v-if="turn">Turn: {{player1.username}}</h5>
+        <h5 v-else>Turn: {{player2.username}}</h5>
+      </b-col>
       <b-col></b-col>
     </b-row>
     <br/>
@@ -110,6 +118,7 @@
         <b-card class="player-cards">
           <b-card-title class="center">{{this.player1.username}}</b-card-title>
           <b-card-text>
+            <h3>Color: {{this.player1.color}}</h3>
             Player 1 data to be placed here
           </b-card-text>
         </b-card>
@@ -243,6 +252,7 @@
         <b-card class="player-cards">
           <b-card-title class="center">{{this.player2.username}}</b-card-title>
           <b-card-text>
+            <h3>Color: {{this.player2.color}}</h3>
             Player 2 data to be placed here
           </b-card-text>
         </b-card>
@@ -378,7 +388,7 @@
         this.player1.userID = localStorage.getItem('userID');
         this.selectedSquare = [];
         this.getGame();
-        this.getHistory()
+        this.getHistory();
       },
 
       name: "BanqiBoard",
@@ -386,6 +396,7 @@
       data() {
         return {
           gameId: '',
+          turn: false,
           board: [
             {
               piece: {
@@ -409,11 +420,31 @@
           errors: [],
           player1: {
             userID: '',
-            username: ''
+            username: '',
+            color: 'RED',
+            pieces: {
+              general: 1,
+              chariot: 2,
+              horse: 2,
+              cannon: 2,
+              advisor: 2,
+              elephant: 2,
+              soldier: 5
+            }
           },
           player2: {
             userID: '',
-            username: ''
+            username: '',
+            color: 'BLACK',
+            pieces: {
+              general: 1,
+              chariot: 2,
+              horse: 2,
+              cannon: 2,
+              advisor: 2,
+              elephant: 2,
+              soldier: 5
+            }
           },
           loading: false,
           validMoves: [
@@ -472,10 +503,118 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
+                 this.turn = response.data.turn;
                  this.getPlayerInfo();
                  this.loading = false;
               });
           }
+        },
+
+        countPieces(color) {
+          let count = {
+            general: 0,
+            chariot: 0,
+            horse: 0,
+            cannon: 0,
+            advisor: 0,
+            elephant: 0,
+            soldier: 0
+          };
+
+          for (let i in this.row1) {
+            if (this.row1[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+              count.general++;
+            }
+            if (this.row1[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+              count.chariot++;
+            }
+            if (this.row1[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+              count.horse++;
+            }
+            if (this.row1[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+              count.cannon++;
+            }
+            if (this.row1[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+              count.advisor++;
+            }
+            if (this.row1[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+              count.elephant++;
+            }
+            if (this.row1[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+              count.soldier++;
+            }
+          }
+          for (let i in this.row2) {
+            if (this.row2[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+              count.general++;
+            }
+            if (this.row2[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+              count.chariot++;
+            }
+            if (this.row2[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+              count.horse++;
+            }
+            if (this.row2[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+              count.cannon++;
+            }
+            if (this.row2[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+              count.advisor++;
+            }
+            if (this.row2[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+              count.elephant++;
+            }
+            if (this.row2[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+              count.soldier++;
+            }
+          }
+          for (let i in this.row3) {
+            if (this.row3[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+              count.general++;
+            }
+            if (this.row3[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+              count.chariot++;
+            }
+            if (this.row3[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+              count.horse++;
+            }
+            if (this.row3[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+              count.cannon++;
+            }
+            if (this.row3[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+              count.advisor++;
+            }
+            if (this.row3[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+              count.elephant++;
+            }
+            if (this.row3[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+              count.soldier++;
+            }
+          }
+          for (let i in this.row4) {
+            if (this.row4[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+              count.general++;
+            }
+            if (this.row4[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+              count.chariot++;
+            }
+            if (this.row4[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+              count.horse++;
+            }
+            if (this.row4[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+              count.cannon++;
+            }
+            if (this.row4[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+              count.advisor++;
+            }
+            if (this.row4[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+              count.elephant++;
+            }
+            if (this.row4[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+              count.soldier++;
+            }
+          }
+          //console.log(count);
+          return count;
         },
 
         getHistory() {
@@ -491,11 +630,17 @@
         },
 
         getPlayerInfo() {
+          let p1Pieces = this.countPieces("RED");
+          let p2Pieces = this.countPieces("BLACK");
+          console.log(p1Pieces);
+          console.log(p2Pieces);
           // Assign player 1
           API.getUser(this.player1.userID).then(response => {
             let user1 = {
               userID: response.data.id,
-              username: response.data.username
+              username: response.data.username,
+              color: this.player1.color,
+              //pieces: p1Pieces
             };
             this.player1 = user1;
           });
@@ -504,7 +649,9 @@
           API.getUser(this.player2.userID).then(response => {
             let user2 = {
               userID: response.data.id,
-              username: response.data.username
+              username: response.data.username,
+              color: this.player2.color,
+              //pieces: p2Pieces
             };
             this.player2 = user2;
           });
@@ -596,7 +743,7 @@
         moveSubmit() {
           this.loading = true;
           // if the piece is not face up yet, flip it
-          if (this.selectedSquare[0].faceUp == false) {
+          if (!this.selectedSquare[0].faceUp && this.selectedSquare[1].type !== 'EMPTY') {
             this.flipPiece();
             this.selectedSquare = [];
             this.movePreview = {
