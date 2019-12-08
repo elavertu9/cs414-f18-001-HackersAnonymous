@@ -49,7 +49,7 @@ public class Square
     }
 
     Piece occupySquare(Piece piece){
-        Piece captured = null;
+        Piece captured = piece;
         if(this.checkOccupied()) {
             captured = this.getPiece();
         }
