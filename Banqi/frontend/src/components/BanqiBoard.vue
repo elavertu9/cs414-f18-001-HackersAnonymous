@@ -1,13 +1,13 @@
 <template>
   <div name="BanqiBoard">
     <b-row>
-      <b-col><Loader v-if="loading"></Loader></b-col>
+      <b-col></b-col>
       <b-col class="center"><h1>Banqi Game</h1></b-col>
       <b-col></b-col>
     </b-row>
     <br/>
     <b-row>
-      <b-col></b-col>
+      <b-col><Loader v-if="loading"></Loader></b-col>
       <b-col class="center">
         <b-button-group>
 
@@ -20,10 +20,87 @@
             <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
           </b-dropdown>
 
-          <b-button @click="moveSubmit()" variant="success" class="toolbar">Submit Move</b-button>
+          <b-button @click="moveSubmit()" :disabled="selectedSquare.length < 2" variant="success" class="toolbar">Submit Move</b-button>
         </b-button-group>
       </b-col>
       <b-col></b-col>
+    </b-row>
+    <br/>
+    <b-row>
+      <b-col class="center">
+        <h3>Move Preview: </h3>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col></b-col>
+      <b-col class="center">
+        <table>
+          <tr v-if="selectedSquare.length === 2">
+            <td>
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/Pieces/blank_piece.png">
+              <img v-else-if="movePreview.src.type === 'SOLDIER' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png">
+              <img v-else-if="movePreview.src.type === 'SOLDIER' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png">
+
+              <img v-else-if="movePreview.src.type === 'ADVISOR' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Advisor.png">
+              <img v-else-if="movePreview.src.type === 'ADVISOR' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Advisor.png">
+
+              <img v-else-if="movePreview.src.type === 'CANNON' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Cannon.png">
+              <img v-else-if="movePreview.src.type === 'CANNON' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Cannon.png">
+
+              <img v-else-if="movePreview.src.type === 'CHARIOT' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Chariot.png">
+              <img v-else-if="movePreview.src.type === 'CHARIOT' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Chariot.png">
+
+              <img v-else-if="movePreview.src.type === 'GENERAL' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_General.png">
+              <img v-else-if="movePreview.src.type === 'GENERAL' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_General.png">
+
+              <img v-else-if="movePreview.src.type === 'HORSE' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Horse.png">
+              <img v-else-if="movePreview.src.type === 'HORSE' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Horse.png">
+
+              <img v-else-if="movePreview.src.type === 'MINSTER' && movePreview.src.teamColor === 'RED'" src="../images/Pieces/Black_Elephant.png">
+              <img v-else-if="movePreview.src.type === 'MINSTER' && movePreview.src.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+              <img v-else-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/Pieces/blank_piece.png">
+              <div v-else></div>
+            </td>
+
+            <td>
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/flip.png" class="icon">
+              <img v-else-if="movePreview.dest.type === 'EMPTY'" src="../images/arrow.png" class="icon">
+              <img v-else src="../images/swords.png" class="icon">
+            </td>
+
+            <!-- CAPTURED -->
+            <td>
+              <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/reveal.png">
+              <img v-else-if="movePreview.dest.type === 'SOLDIER' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png">
+              <img v-else-if="movePreview.dest.type === 'SOLDIER' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png">
+
+              <img v-else-if="movePreview.dest.type === 'ADVISOR' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Advisor.png">
+              <img v-else-if="movePreview.dest.type === 'ADVISOR' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Advisor.png">
+
+              <img v-else-if="movePreview.dest.type === 'CANNON' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Cannon.png">
+              <img v-else-if="movePreview.dest.type === 'CANNON' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Cannon.png">
+
+              <img v-else-if="movePreview.dest.type === 'CHARIOT' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Chariot.png">
+              <img v-else-if="movePreview.dest.type === 'CHARIOT' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Chariot.png">
+
+              <img v-else-if="movePreview.dest.type === 'GENERAL' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_General.png">
+              <img v-else-if="movePreview.dest.type === 'GENERAL' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_General.png">
+
+              <img v-else-if="movePreview.dest.type === 'HORSE' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Horse.png">
+              <img v-else-if="movePreview.dest.type === 'HORSE' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Horse.png">
+
+              <img v-else-if="movePreview.dest.type === 'MINSTER' && movePreview.dest.teamColor === 'RED'" src="../images/Pieces/Black_Elephant.png">
+              <img v-else-if="movePreview.dest.type === 'MINSTER' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+              <img v-else-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/reveal.png">
+              <img v-else-if="movePreview.dest.type === 'EMPTY'" src="../images/empty.png">
+              <div v-else></div>
+            </td>
+          </tr>
+        </table>
+      </b-col>
+      <b-col/>
     </b-row>
     <br/>
     <b-row>
@@ -66,6 +143,8 @@
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
+
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
               </tr>
@@ -91,6 +170,8 @@
 
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
 
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
@@ -118,6 +199,8 @@
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
+
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
               </tr>
@@ -143,6 +226,8 @@
 
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'RED'" src="../images/Pieces/Black_Elephant.png">
                   <img v-else-if="i.piece.type == 'MINSTER' && i.piece.faceUp && i.piece.teamColor == 'BLACK'" src="../images/Pieces/White_Elephant.png">
+
+                  <p v-else-if="i.piece.type == 'EMPTY'"></p>
 
                   <img v-else src="../images/Pieces/blank_piece.png">
                 </td>
@@ -291,6 +376,7 @@
 
       mounted() {
         this.player1.userID = localStorage.getItem('userID');
+        this.selectedSquare = [];
         this.getGame();
         this.getHistory()
       },
@@ -313,11 +399,13 @@
               },
              }
           ],
-          selectedSquare: {
+          // [0] = 1st click, [1] = 2nd click
+          selectedSquare: [{
             row: 9,
             col: 9,
-            faceUp: false
-          },
+            faceUp: false,
+            type: ''
+          }],
           errors: [],
           player1: {
             userID: '',
@@ -360,7 +448,19 @@
               executed: false,
               validMove: false
             }
-          ]
+          ],
+            movePreview: {
+              src: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+              },
+              dest: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+              }
+            }
         }
       },
 
@@ -410,36 +510,136 @@
           });
         },
 
-        getClass(index, row) {
-          for(let i in this.validMoves) {
-            if ((this.validMoves[i].row === row - 1) && (this.validMoves[i].column === index)) {
-              return "valid_square";
-            }
-          }
-          if (index === this.selectedSquare.col && row - 1 === this.selectedSquare.row) {
-            return "selected_square";
-          } else {
-            if (row % 2 == 0) {
-              if (index % 2 == 0) {
-                return "orange_square";
-              } else {
-                return "black_square";
-              }
+        orangeOrBlack(row, col) {
+          row = row + 1;
+          col = col + 1;
+          let square = '';
+          if (row % 2 == 0) {
+            if (col % 2 == 0) {
+              square = "orange_square";
             } else {
-              if (index % 2 == 0) {
-                return "black_square";
-              } else {
-                return "orange_square";
-              }
+              square =  "black_square";
+            }
+          } else {
+            if (col % 2 == 0) {
+              square = "black_square";
+            } else {
+              square = "orange_square";
             }
           }
+          return square;
+        },
+
+        checkIfValid(row, col) {
+          let isValid = false;
+          for(let i in this.validMoves) {
+            if ((this.validMoves[i].row === row ) && (this.validMoves[i].column === col)) {
+              isValid = true;
+            }
+          }
+          return isValid;
+        },
+
+        checkIfFirstClick(row, col) {
+          let isFirstClick = false;
+          if (col === this.selectedSquare[0].col && row === this.selectedSquare[0].row) {
+            isFirstClick = true;
+          }
+          return isFirstClick;
+        },
+
+        checkIfSecondClick(row, col) {
+          let isSecondClick = false;
+          if (col === this.selectedSquare[1].col && row === this.selectedSquare[1].row) {
+            isSecondClick = true;
+          }
+          return isSecondClick;
+        },
+
+        getClass(col, row) {
+          row = row - 1;
+
+          let numSelected = this.selectedSquare.length;
+
+          if (numSelected < 1) {
+            let square = this.orangeOrBlack(row, col);
+            return square;
+          } else if (numSelected == 1) {
+            let isValidSquare = this.checkIfValid(row, col);
+
+            if (row === this.selectedSquare[0].row && col === this.selectedSquare[0].col) {
+              return "selected_square";
+            } else if (isValidSquare) {
+              return "valid_square";
+            } else {
+              let square = this.orangeOrBlack(row, col);
+              return square;
+            }
+          } else if (numSelected === 2) {
+            let isFirstClick = this.checkIfFirstClick(row, col);
+            let isSecondClick = this.checkIfSecondClick(row, col);
+
+            if (isFirstClick && !isSecondClick) {
+              return "selected_square";
+            } else if (isFirstClick && isSecondClick) {
+              return "second_click";
+            } else if (isSecondClick) {
+              return "second_click";
+            } else {
+              let square = this.orangeOrBlack(row, col);
+              return square;
+            }
+          }
+
         },
 
         moveSubmit() {
           this.loading = true;
           // if the piece is not face up yet, flip it
-          if (this.selectedSquare.faceUp == false) {
+          if (this.selectedSquare[0].faceUp == false) {
             this.flipPiece();
+            this.selectedSquare = [];
+            this.movePreview = {
+              src: {
+                type: '',
+                teamColor: '',
+                faceUp: false
+              },
+              dest: {
+                type: '',
+                teamColor: '',
+                faceUp: false
+              }
+            };
+          } else {
+            let execute = {
+              gameId: this.gameId,
+              origin: {
+                row: this.selectedSquare[0].row,
+                column: this.selectedSquare[0].col
+              },
+              destination: {
+                row: this.selectedSquare[1].row,
+                column: this.selectedSquare[1].col
+              }
+            };
+            API.executeMove(execute, this.gameId).then(response => {
+              this.getGame();
+              this.getHistory();
+              this.selectedSquare = [];
+              this.movePreview = {
+                src: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+                },
+                dest: {
+                  type: '',
+                  teamColor: '',
+                  faceUp: false
+                }
+              };
+            });
           }
 
         },
@@ -448,12 +648,12 @@
           let flip = {
             gameId: this.gameId,
             origin: {
-              row: this.selectedSquare.row,
-              column: this.selectedSquare.col
+              row: this.selectedSquare[0].row,
+              column: this.selectedSquare[0].col
             },
             destination: {
-              row: this.selectedSquare.row,
-              column: this.selectedSquare.col
+              row: this.selectedSquare[1].row,
+              column: this.selectedSquare[1].col
             }
           };
           API.executeMove(flip, this.gameId).then((response) => {
@@ -467,36 +667,153 @@
           window.location.pathname = "/gameHome";
         },
 
+        getPiece(row, col) {
+          if (row === 0) {
+            return this.row1[col].piece;
+          } else if (row === 1) {
+            return this.row2[col].piece;
+          } else if (row === 2) {
+            return this.row3[col].piece;
+          } else {
+            return this.row4[col].piece;
+          }
+        },
+
+        isValid(selected) {
+          let isValidMove = false;
+          for (let i in this.validMoves) {
+            if (this.validMoves[i].row === selected.row && this.validMoves[i].column === selected.col) {
+              isValidMove = true;
+            }
+          }
+          return isValidMove;
+        },
+
+        // handle board clicks
         clicked(row, col) {
+          let numSelected = this.selectedSquare.length;
+          let pieceDetails = this.getPiece(row, col);
           let selected = {
             row: row,
             col: col,
-            faceUp: false
+            faceUp: pieceDetails.faceUp,
+            type: pieceDetails.type
           };
 
-          // Get board slice for selected row
-          if (row == 0) {
-            selected.faceUp = this.row1[col].piece.faceUp;
-          } else if (row == 1) {
-            selected.faceUp = this.row2[col].piece.faceUp;
-          } else if(row == 2) {
-            selected.faceUp = this.row3[col].piece.faceUp;
-          }else if(row == 3) {
-            selected.faceUp = this.row4[col].piece.faceUp;
+          if (numSelected < 1) {
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.clearSelected();
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else if (pieceDetails.type !== 'EMPTY') {
+              this.addSelection(selected);
+              this.getValidMoves();
+            } else {
+              console.log("INVALID");
+            }
+          } else if (numSelected === 1) {
+            let isValidMove = this.isValid(selected);
+
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.clearSelected();
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else if (pieceDetails.type === "EMPTY") {
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else {
+
+              if (isValidMove || pieceDetails.type === "EMPTY") {
+                this.addSelection(selected);
+                this.getMovePreview();
+              } else  {
+                this.clearSelected();
+                this.addSelection(selected);
+                this.getValidMoves();
+              }
+            }
+          } else if (numSelected === 2) {
+            this.clearSelected();
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else {
+              if (pieceDetails.type !== 'EMPTY') {
+                this.addSelection(selected);
+                this.getValidMoves();
+              }
+            }
           } else {
-            console.log("Invalid Selection");
+            // numSelected > 2
+            console.log("overflow! ", numSelected);
           }
+        },
 
-          this.selectedSquare = selected;
+        clearSelected() {
+          this.selectedSquare = [];
+        },
 
-          this.getValidMoves();
+        addSelection(selected) {
+          this.selectedSquare.push(selected);
+        },
+
+        getMovePreview() {
+            let srcClick = this.selectedSquare[0];
+            let destClick = this.selectedSquare[1];
+
+            let movePrev = {
+                src: {
+                    type: '',
+                    teamColor: '',
+                    faceUp: false
+                },
+                dest: {
+                    type: '',
+                    teamColor: '',
+                    faceUp: false
+                }
+            };
+
+            if (srcClick.row === 0) {
+                let piece = this.row1[srcClick.col];
+                movePrev.src = piece.piece;
+            }else if (srcClick.row === 1)   {
+                let piece = this.row2[srcClick.col];
+                movePrev.src = piece.piece;
+            } else if (srcClick.row === 2) {
+                let piece = this.row3[srcClick.col];
+                movePrev.src = piece.piece;
+            } else {
+                let piece = this.row4[srcClick.col];
+                movePrev.src =  piece.piece;
+            }
+
+            if (destClick.row === 0) {
+                let piece = this.row1[destClick.col];
+                movePrev.dest = piece.piece;
+            }else if (destClick.row === 1)   {
+                let piece = this.row2[destClick.col];
+                movePrev.dest = piece.piece;
+            } else if (destClick.row === 2) {
+                let piece = this.row3[destClick.col];
+                movePrev.dest = piece.piece;
+            } else {
+                let piece = this.row4[destClick.col];
+                movePrev.dest =  piece.piece;
+            }
+
+            this.movePreview = movePrev;
+
         },
 
         getValidMoves() {
           this.validMoves = [];
           let selected = {
-            row: this.selectedSquare.row,
-            column: this.selectedSquare.col
+            row: this.selectedSquare[0].row,
+            column: this.selectedSquare[0].col
           };
           API.getValidMoves(selected, this.gameId).then(response => {
             if (response.data != "No Valid Moves Found") {
@@ -515,13 +832,20 @@
         },
 
         clear() {
-          let clear = {
-            row: 9,
-            col: 9,
-            faceUp: false
-          };
-          this.selectedSquare = clear;
+          this.selectedSquare = [];
           this.validMoves = [];
+          this.movePreview = {
+            src: {
+              type: '',
+              teamColor: '',
+              faceUp: false
+            },
+            dest: {
+              type: '',
+              teamColor: '',
+              faceUp: false
+            }
+          }
         }
       },
 
@@ -550,6 +874,12 @@
     width: 75px;
     height: 75px;
     background-color: #d2b48c;
+  }
+
+  .second_click {
+    width: 75px;
+    height: 75px;
+    background-color: #008000;
   }
 
   .black_square {
