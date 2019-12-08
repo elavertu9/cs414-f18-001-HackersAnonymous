@@ -950,7 +950,9 @@
         // handle board clicks
         clicked(row, col) {
           if (!this.turn) {
-            if (localStorage.getItem('userID') === this.player1.userID) {
+            console.log("storage ", localStorage.getItem('userID'));
+            console.log("player1 ", this.player1.userID);
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
               // p1 goes
               // p2 disabled
               let numSelected = this.selectedSquare.length;
