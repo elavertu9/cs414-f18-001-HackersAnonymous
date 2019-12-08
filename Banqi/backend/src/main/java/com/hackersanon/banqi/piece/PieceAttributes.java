@@ -25,7 +25,7 @@ public enum PieceAttributes {
     SOLDIER(){
        @Override
        public boolean canCapture(Piece enemy){
-           return enemy.getType().ordinal() == 6 || enemy.getType().ordinal() == 0;
+           return enemy.getType().ordinal() == 6 || enemy.getType().ordinal() == 0 || enemy.getType().ordinal() == 7;
        }
     },
     EMPTY(){
