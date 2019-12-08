@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <h2><b>Piece Descriptions</b></h2>
     <table class="table table-hover">
       <thead>
         <tr class="center">
