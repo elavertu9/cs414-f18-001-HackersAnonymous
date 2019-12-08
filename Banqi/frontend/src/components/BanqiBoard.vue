@@ -18,6 +18,7 @@
       <b-col><Loader v-if="loading"></Loader></b-col>
       <b-col class="center">
         <b-button-group>
+          <b-button @click="refresh()" variant="primary" class="toolbar">Refresh</b-button>
 
           <b-dropdown id="dropdown-1" class="help" variant="primary" text="Help">
             <b-dropdown-item @click="$bvModal.show('legend-modal')">Legend</b-dropdown-item>
@@ -611,6 +612,10 @@
                  this.loading = false;
               });
           }
+        },
+
+        refresh() {
+          this.getGame();
         },
 
         countPieces(color) {
