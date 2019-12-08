@@ -17,50 +17,49 @@
           <td class="middle">7</td>
           <td class="middle">x1</td>
           <td class="middle-left">General</td>
-          <td class="left">The highest ranked piece. The General can capture every piece except the Soldier.
-            There is only one General per team</td>
+          <td class="middle-left">The highest ranked piece. The General can capture every piece except the Soldier.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Chariot.png"></td>
           <td class="middle">6</td>
           <td class="middle">x2</td>
           <td class="middle-left">Chariot</td>
-          <td class="left">The Chariot can capture every piece except the General. There are two Chariots per team</td>
+          <td class="middle-left">The Chariot can capture every piece except the General.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Horse.png"></td>
           <td class="middle">5</td>
           <td class="middle">x2</td>
           <td class="middle-left">Horse</td>
-          <td class="left">The Horse can capture every piece except the General and the Chariot. There are two Horses per team</td>
+          <td class="middle-left">The Horse can capture every piece except the General and the Chariot.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Cannon.png"></td>
           <td class="middle">4</td>
           <td class="middle">x2</td>
           <td class="middle-left">Cannon</td>
-          <td class="left">The Cannon can capture every piece except the General, Chariot, and Horse pieces. There are two Cannons per team.</td>
+          <td class="middle-left">The Cannon can capture every piece except the General, Chariot, and Horse pieces.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Advisor.png"></td>
           <td class="middle">3</td>
           <td class="middle">x2</td>
           <td class="middle-left">Advisor</td>
-          <td class="left">The Advisor can capture other Advisors, Elephants, and Soldiers. There are two Advisors per team.</td>
+          <td class="middle-left">The Advisor can capture other Advisors, Elephants, and Soldiers.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Elephant.png"></td>
           <td class="middle">2</td>
           <td class="middle">x2</td>
           <td class="middle-left">Elephant</td>
-          <td class="left">The Elephant can capture other Elephants and Soldiers. There are two Elephants per team.</td>
+          <td class="middle-left">The Elephant can capture other Elephants and Soldiers.</td>
         </tr>
         <tr class="center">
           <td class="middle"><img src="../images/Pieces/White_Soldier.png"></td>
           <td class="middle">1</td>
           <td class="middle">x5</td>
           <td class="middle-left">Soldier</td>
-          <td class="left">The Soldier can capture other Soldiers and the General. There are five Soldiers per team.</td>
+          <td class="middle-left">The Soldier can capture other Soldiers and the General.</td>
         </tr>
       </tbody>
     </table>
@@ -100,10 +99,6 @@
 
   .middle-left {
     vertical-align: middle;
-    text-align: left;
-  }
-
-  .left {
     text-align: left;
   }
 </style>
