@@ -6,22 +6,21 @@
           <b-card title="Recent Games" class="shadow center">
             <table class="table">
               <thead>
-                <th>Opponent</th>
-                <th>Result</th>
+              <th>Game ID</th>
+              <th>Player1</th>
+              <th>Player2</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>Player 2</td>
-                  <td>Win</td>
-                </tr>
-                <tr>
-                  <td>Player 2</td>
-                  <td>Loss</td>
-                </tr>
+              <tr v-for="game in gamesInProgress" v-if="game.gameOver">
+                <td>{{game.id}}</td>
+                <td>{{game.player1.username}}</td>
+                <td>{{game.player2.username}}</td>
+              </tr>
               </tbody>
             </table>
           </b-card>
         </b-col>
+
         <b-col>
           <b-card title="My Account" class="shadow center">
             <h2><b>{{this.userInfo.username}}</b></h2>
@@ -35,6 +34,9 @@
           <b-card class="shadow center">
             <div v-if="gameLoaded">
               <h5>{{this.gameInfo.player1.username}} <b>vs.</b> {{this.gameInfo.player2.username}}</h5>
+            </div>
+            <div v-else>
+              <h5>Let's get started!</h5>
             </div>
             <br/>
 
@@ -126,7 +128,8 @@
               id: '',
               username: ''
             }
-          }
+          },
+          gamesInProgress: []
         }
       },
 
@@ -139,6 +142,7 @@
           this.gameLoaded = false;
         }
         this.getUserInfo();
+        this.getGameList();
       },
 
       methods: {
@@ -206,6 +210,40 @@
             };
             this.gameInfo.player2 = user2;
           });
+        },
+
+        getGameList() {
+          API.getUsersGames(this.userInfo.userID).then(response => {
+            for (let i in response.data) {
+              let game = {
+                id: response.data[i].id,
+                player1: {
+                  id: response.data[i].playerOneId,
+                  username: ''
+                },
+                player2: {
+                  id: response.data[i].playerTwoId,
+                  username: ''
+                },
+                turn: response.data[i].turn,
+                gameOver: response.data[i].gameOver
+              };
+              this.gamesInProgress.push(game);
+            }
+            this.populateUsernames();
+          });
+        },
+
+        populateUsernames() {
+          for (let i in this.gamesInProgress) {
+            API.getUser(this.gamesInProgress[i].player1.id).then(response => {
+              this.gamesInProgress[i].player1.username = response.data.username;
+            });
+
+            API.getUser(this.gamesInProgress[i].player2.id).then(response => {
+              this.gamesInProgress[i].player2.username = response.data.username;
+            });
+          }
         }
       }
     }
