@@ -12,7 +12,7 @@
           </b-dropdown>
           <br/>
           <br/>
-          <div v-if="this.loading" class="loader"></div>
+          <Loader v-if="this.loading"></Loader>
           <br/>
           <b-alert v-if="this.showResponse == true" show variant="success">{{this.response}}</b-alert>
         </b-col>
@@ -124,9 +124,13 @@
 
 <script>
     import API from '../api';
+    import Loader from './Loader';
+
     export default {
         name: "Admin",
-
+        components: {
+          Loader
+        },
         mounted() {
           this.getUserList();
           this.getGameList();
@@ -276,22 +280,5 @@
 
   .full-size {
     width: 100%;
-  }
-
-  .loader {
-    border: 10px solid #1E4D2B; /* Light grey */
-    border-top: 10px solid #D9782D; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
   }
 </style>
