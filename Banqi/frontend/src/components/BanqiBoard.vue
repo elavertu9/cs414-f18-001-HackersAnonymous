@@ -8,8 +8,7 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center">
-        <h5 v-if="!turn">Turn: {{player1.username}}</h5>
-        <h5 v-else>Turn: {{player2.username}}</h5>
+        <h5>Turn: {{turn === false ? player1.username : player2.username}}</h5>
       </b-col>
       <b-col></b-col>
     </b-row>
