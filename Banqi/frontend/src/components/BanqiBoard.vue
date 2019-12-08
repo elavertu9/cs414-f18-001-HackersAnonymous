@@ -3,7 +3,7 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center"><h1>Banqi Game: {{gameId}}</h1></b-col>
-      <b-col></b-col>
+      <b-col><h3 v-if="gameOver">GAME OVER</h3></b-col>
     </b-row>
     <b-row>
       <b-col></b-col>
@@ -368,9 +368,14 @@
               {{moveHistory.length - index}}
             </td>
 
+            <td>
+              <p v-if="move.attacker.teamColor === 'BLACK'">{{player2.username}}</p>
+              <p v-else>{{player1.username}}</p>
+            </td>
+
             <!-- ATTACKER -->
             <td class="center">
-              <img v-if="move.attacker.type === move.captured.type && move.attacker.teamColor === move.captured.teamColor" src="../images/Pieces/blank_piece.png" width="45" height="45">
+              <img v-if="move.moveType === 'FLIP'" src="../images/Pieces/blank_piece.png" width="45" height="45">
               <img v-else-if="move.attacker.type === 'SOLDIER' && move.attacker.teamColor === 'RED'" src="../images/Pieces/Black_Soldier.png" width="45" height="45">
               <img v-else-if="move.attacker.type === 'SOLDIER' && move.attacker.teamColor === 'BLACK'" src="../images/Pieces/White_Soldier.png" width="45" height="45">
 
@@ -397,13 +402,15 @@
             </td>
 
             <td class="center">
-              <img v-if="move.attacker.type === move.captured.type && move.attacker.teamColor === move.captured.teamColor" src="../images/flip.png" width="45" height="45">
-              <img v-else src="../images/swords.png" width="45" height="45">
+              <img v-if="move.moveType === 'FLIP'" src="../images/flip.png" width="45" height="45">
+              <img v-else-if="move.moveType === 'TRAVEL'" src="../images/arrow.png" width="45" height="45">
+              <img v-else src="../images/swords.png" cwidth="45" height="45">
             </td>
 
             <!-- CAPTURED -->
             <td class="center">
-              <img v-if="move.captured.type == 'SOLDIER' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Soldier.png" width="45" height="45">
+              <img v-if="move.moveType === 'TRAVEL'" src="../images/empty.png" width="45" height="45">
+              <img v-else-if="move.captured.type == 'SOLDIER' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Soldier.png" width="45" height="45">
               <img v-else-if="move.captured.type == 'SOLDIER' && move.captured.teamColor == 'BLACK'" src="../images/Pieces/White_Soldier.png" width="45" height="45">
 
               <img v-else-if="move.captured.type == 'ADVISOR' && move.captured.teamColor == 'RED'" src="../images/Pieces/Black_Advisor.png" width="45" height="45">
@@ -491,6 +498,7 @@
         return {
           gameId: '',
           turn: false,
+          gameOver: false,
           board: [
             {
               piece: {
@@ -598,6 +606,7 @@
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
                  this.turn = response.data.turn;
+                 this.gameOver = response.data.gameOver;
                  this.getPlayerInfo();
                  this.loading = false;
               });
