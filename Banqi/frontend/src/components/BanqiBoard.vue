@@ -8,7 +8,7 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center">
-        <h5 v-if="turn">Turn: {{player1.username}}</h5>
+        <h5 v-if="!turn">Turn: {{player1.username}}</h5>
         <h5 v-else>Turn: {{player2.username}}</h5>
       </b-col>
       <b-col></b-col>
@@ -118,8 +118,55 @@
         <b-card class="player-cards">
           <b-card-title class="center">{{this.player1.username}}</b-card-title>
           <b-card-text>
-            <h3>Color: {{this.player1.color}}</h3>
-            Player 1 data to be placed here
+            <b-row class="center">
+              <b-col class="center">
+                <h5>Color:</h5>
+              </b-col>
+              <b-col class="center">
+                <img src="../images/Pieces/Black_General.png" width="45" height="45">
+              </b-col>
+            </b-row>
+            <br/>
+            <h6 class="center">Pieces Remaining</h6>
+            <div class="overflow">
+              <table>
+                <tr>
+                  <td v-for="piece in player1.pieces.general">
+                    <img src="../images/Pieces/Black_General.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.chariot">
+                    <img src="../images/Pieces/Black_Chariot.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.horse">
+                    <img src="../images/Pieces/Black_Horse.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.cannon">
+                    <img src="../images/Pieces/Black_Cannon.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.advisor">
+                    <img src="../images/Pieces/Black_Advisor.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.elephant">
+                    <img src="../images/Pieces/Black_Elephant.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player1.pieces.soldier">
+                    <img src="../images/Pieces/Black_Soldier.png" width="30" height="30">
+                  </td>
+                </tr>
+              </table>
+            </div>
           </b-card-text>
         </b-card>
       </b-col>
@@ -252,8 +299,55 @@
         <b-card class="player-cards">
           <b-card-title class="center">{{this.player2.username}}</b-card-title>
           <b-card-text>
-            <h3>Color: {{this.player2.color}}</h3>
-            Player 2 data to be placed here
+            <b-row class="center">
+              <b-col class="center">
+                <h5>Color:</h5>
+              </b-col>
+              <b-col class="center">
+                <img src="../images/Pieces/White_General.png" width="45" height="45">
+              </b-col>
+            </b-row>
+            <br/>
+            <h6 class="center">Pieces Remaining</h6>
+            <div class="overflow">
+              <table>
+                <tr>
+                  <td v-for="piece in player2.pieces.general">
+                    <img src="../images/Pieces/White_General.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.chariot">
+                    <img src="../images/Pieces/White_Chariot.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.horse">
+                    <img src="../images/Pieces/White_Horse.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.cannon">
+                    <img src="../images/Pieces/White_Cannon.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.advisor">
+                    <img src="../images/Pieces/White_Advisor.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.elephant">
+                    <img src="../images/Pieces/White_Elephant.png" width="30" height="30">
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for="piece in player2.pieces.soldier">
+                    <img src="../images/Pieces/White_Soldier.png" width="30" height="30">
+                  </td>
+                </tr>
+              </table>
+            </div>
           </b-card-text>
         </b-card>
       </b-col>
@@ -537,7 +631,7 @@
             if (this.row1[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
               count.advisor++;
             }
-            if (this.row1[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+            if (this.row1[i].piece.type === "MINSTER" && this.row1[i].piece.teamColor === color) {
               count.elephant++;
             }
             if (this.row1[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
@@ -545,75 +639,74 @@
             }
           }
           for (let i in this.row2) {
-            if (this.row2[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "GENERAL" && this.row2[i].piece.teamColor === color) {
               count.general++;
             }
-            if (this.row2[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "CHARIOT" && this.row2[i].piece.teamColor === color) {
               count.chariot++;
             }
-            if (this.row2[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "HORSE" && this.row2[i].piece.teamColor === color) {
               count.horse++;
             }
-            if (this.row2[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "CANNON" && this.row2[i].piece.teamColor === color) {
               count.cannon++;
             }
-            if (this.row2[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "ADVISOR" && this.row2[i].piece.teamColor === color) {
               count.advisor++;
             }
-            if (this.row2[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "MINSTER" && this.row2[i].piece.teamColor === color) {
               count.elephant++;
             }
-            if (this.row2[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+            if (this.row2[i].piece.type === "SOLDIER" && this.row2[i].piece.teamColor === color) {
               count.soldier++;
             }
           }
           for (let i in this.row3) {
-            if (this.row3[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "GENERAL" && this.row3[i].piece.teamColor === color) {
               count.general++;
             }
-            if (this.row3[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "CHARIOT" && this.row3[i].piece.teamColor === color) {
               count.chariot++;
             }
-            if (this.row3[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "HORSE" && this.row3[i].piece.teamColor === color) {
               count.horse++;
             }
-            if (this.row3[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "CANNON" && this.row3[i].piece.teamColor === color) {
               count.cannon++;
             }
-            if (this.row3[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "ADVISOR" && this.row3[i].piece.teamColor === color) {
               count.advisor++;
             }
-            if (this.row3[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "MINSTER" && this.row3[i].piece.teamColor === color) {
               count.elephant++;
             }
-            if (this.row3[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+            if (this.row3[i].piece.type === "SOLDIER" && this.row3[i].piece.teamColor === color) {
               count.soldier++;
             }
           }
           for (let i in this.row4) {
-            if (this.row4[i].piece.type === "GENERAL" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "GENERAL" && this.row4[i].piece.teamColor === color) {
               count.general++;
             }
-            if (this.row4[i].piece.type === "CHARIOT" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "CHARIOT" && this.row4[i].piece.teamColor === color) {
               count.chariot++;
             }
-            if (this.row4[i].piece.type === "HORSE" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "HORSE" && this.row4[i].piece.teamColor === color) {
               count.horse++;
             }
-            if (this.row4[i].piece.type === "CANNON" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "CANNON" && this.row4[i].piece.teamColor === color) {
               count.cannon++;
             }
-            if (this.row4[i].piece.type === "ADVISOR" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "ADVISOR" && this.row4[i].piece.teamColor === color) {
               count.advisor++;
             }
-            if (this.row4[i].piece.type === "ELEPHANT" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "MINSTER" && this.row4[i].piece.teamColor === color) {
               count.elephant++;
             }
-            if (this.row4[i].piece.type === "SOLDIER" && this.row1[i].piece.teamColor === color) {
+            if (this.row4[i].piece.type === "SOLDIER" && this.row4[i].piece.teamColor === color) {
               count.soldier++;
             }
           }
-          //console.log(count);
           return count;
         },
 
@@ -632,15 +725,14 @@
         getPlayerInfo() {
           let p1Pieces = this.countPieces("RED");
           let p2Pieces = this.countPieces("BLACK");
-          console.log(p1Pieces);
-          console.log(p2Pieces);
+
           // Assign player 1
           API.getUser(this.player1.userID).then(response => {
             let user1 = {
               userID: response.data.id,
               username: response.data.username,
               color: this.player1.color,
-              //pieces: p1Pieces
+              pieces: p1Pieces
             };
             this.player1 = user1;
           });
@@ -651,7 +743,7 @@
               userID: response.data.id,
               username: response.data.username,
               color: this.player2.color,
-              //pieces: p2Pieces
+              pieces: p2Pieces
             };
             this.player2 = user2;
           });
@@ -1069,7 +1161,7 @@
   }
 
   .player-cards {
-    height: 300px;
+    height: 350px;
     background-color: #1E4D2B;
     color: white;
     box-shadow: 10px 10px 5px grey;
@@ -1118,4 +1210,13 @@
     width: 150px;
     border-right: 12px;
   }
+
+  .overflow {
+    height: 175px;
+    overflow: scroll;
+    border: 3px solid black;
+    background-color: #A8A8A8;
+    color: black;
+  }
+
 </style>
