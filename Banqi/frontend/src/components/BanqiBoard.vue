@@ -618,7 +618,9 @@
         },
 
         refresh() {
+          this.loading = true;
           this.getGame();
+          this.getHistory();
         },
 
         countPieces(color) {
@@ -948,68 +950,66 @@
         // handle board clicks
         clicked(row, col) {
           if (!this.turn) {
+            let numSelected = this.selectedSquare.length;
+            let pieceDetails = this.getPiece(row, col);
+            let selected = {
+              row: row,
+              col: col,
+              faceUp: pieceDetails.faceUp,
+              type: pieceDetails.type
+            };
             if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
-              // p1 goes
-              // p2 disabled
-              let numSelected = this.selectedSquare.length;
-              let pieceDetails = this.getPiece(row, col);
-              let selected = {
-                row: row,
-                col: col,
-                faceUp: pieceDetails.faceUp,
-                type: pieceDetails.type
-              };
 
-              if (numSelected < 1) {
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.clearSelected();
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else if (pieceDetails.type !== 'EMPTY') {
-                  this.addSelection(selected);
-                  this.getValidMoves();
-                } else {
-                  console.log("INVALID");
-                }
-              } else if (numSelected === 1) {
-                let isValidMove = this.isValid(selected);
-
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.clearSelected();
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else if (pieceDetails.type === "EMPTY") {
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else {
-
-                  if (isValidMove || pieceDetails.type === "EMPTY") {
-                    this.addSelection(selected);
-                    this.getMovePreview();
-                  } else  {
+                if (numSelected < 1) {
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                     this.clearSelected();
                     this.addSelection(selected);
-                    this.getValidMoves();
-                  }
-                }
-              } else if (numSelected === 2) {
-                this.clearSelected();
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else {
-                  if (pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else if (pieceDetails.type !== 'EMPTY') {
                     this.addSelection(selected);
                     this.getValidMoves();
+                  } else {
+                    console.log("INVALID");
                   }
+                } else if (numSelected === 1) {
+                  let isValidMove = this.isValid(selected);
+
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                    this.clearSelected();
+                    this.addSelection(selected);
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else if (pieceDetails.type === "EMPTY") {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else {
+
+                    if (isValidMove || pieceDetails.type === "EMPTY") {
+                      this.addSelection(selected);
+                      this.getMovePreview();
+                    } else  {
+                      this.clearSelected();
+                      this.addSelection(selected);
+                      this.getValidMoves();
+                    }
+                  }
+                } else if (numSelected === 2) {
+                  this.clearSelected();
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else {
+                    if (pieceDetails.type !== 'EMPTY') {
+                      this.addSelection(selected);
+                      this.getValidMoves();
+                    }
+                  }
+                } else {
+                  // numSelected > 2
+                  console.log("overflow! ", numSelected);
                 }
-              } else {
-                // numSelected > 2
-                console.log("overflow! ", numSelected);
-              }
             } else {
               // p1 disabled
               // p2 goes
@@ -1019,68 +1019,65 @@
               }, 5000);
             }
           } else {
+            let numSelected = this.selectedSquare.length;
+            let pieceDetails = this.getPiece(row, col);
+            let selected = {
+              row: row,
+              col: col,
+              faceUp: pieceDetails.faceUp,
+              type: pieceDetails.type
+            };
             if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
-              // p1 goes
-              // p2 disabled
-              let numSelected = this.selectedSquare.length;
-              let pieceDetails = this.getPiece(row, col);
-              let selected = {
-                row: row,
-                col: col,
-                faceUp: pieceDetails.faceUp,
-                type: pieceDetails.type
-              };
-
-              if (numSelected < 1) {
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.clearSelected();
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else if (pieceDetails.type !== 'EMPTY') {
-                  this.addSelection(selected);
-                  this.getValidMoves();
-                } else {
-                  console.log("INVALID");
-                }
-              } else if (numSelected === 1) {
-                let isValidMove = this.isValid(selected);
-
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.clearSelected();
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else if (pieceDetails.type === "EMPTY") {
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else {
-
-                  if (isValidMove || pieceDetails.type === "EMPTY") {
-                    this.addSelection(selected);
-                    this.getMovePreview();
-                  } else  {
+                if (numSelected < 1) {
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                     this.clearSelected();
                     this.addSelection(selected);
-                    this.getValidMoves();
-                  }
-                }
-              } else if (numSelected === 2) {
-                this.clearSelected();
-                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                  this.addSelection(selected);
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else {
-                  if (pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else if (pieceDetails.type !== 'EMPTY') {
                     this.addSelection(selected);
                     this.getValidMoves();
+                  } else {
+                    console.log("INVALID");
                   }
+                } else if (numSelected === 1) {
+                  let isValidMove = this.isValid(selected);
+
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                    this.clearSelected();
+                    this.addSelection(selected);
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else if (pieceDetails.type === "EMPTY") {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else {
+
+                    if (isValidMove || pieceDetails.type === "EMPTY") {
+                      this.addSelection(selected);
+                      this.getMovePreview();
+                    } else  {
+                      this.clearSelected();
+                      this.addSelection(selected);
+                      this.getValidMoves();
+                    }
+                  }
+                } else if (numSelected === 2) {
+                  this.clearSelected();
+                  if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else {
+                    if (pieceDetails.type !== 'EMPTY') {
+                      this.addSelection(selected);
+                      this.getValidMoves();
+                    }
+                  }
+                } else {
+                  // numSelected > 2
+                  console.log("overflow! ", numSelected);
                 }
-              } else {
-                // numSelected > 2
-                console.log("overflow! ", numSelected);
-              }
             } else {
               this.showTurnError = true;
               setTimeout(() => {
