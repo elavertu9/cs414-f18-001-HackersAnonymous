@@ -52,6 +52,7 @@ public class GameService implements IGameService
 		Move attemptedMove =  MoveFunctions.makeMove(board,move);
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
+			game.setTurn(!game.isTurn());
 		}
 		return attemptedMove;
 
@@ -67,7 +68,7 @@ public class GameService implements IGameService
 		ArrayList<Coordinate> validTrips = new ArrayList<>();
 		possibleTrips.forEach(coordinate1 -> {
 			try {
-				if (piece.canCapture(board.getSquare(coordinate1).getPiece())){
+				if (piece.canCapture(board.getSquare(coordinate1).getPiece()) && board.getSquare(coordinate1).getPiece().getFaceUp()){
 					validTrips.add(coordinate1);
 				}
 			} catch (InvalidCoordinateException e) {
