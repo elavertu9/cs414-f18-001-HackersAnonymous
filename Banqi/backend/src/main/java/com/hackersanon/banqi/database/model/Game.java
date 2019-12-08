@@ -15,6 +15,8 @@ public class Game extends ModelBase
 	@Embedded
 	private Board board;
 
+	private boolean turn = false;
+
 	@ElementCollection
 	@AttributeOverride(name = "valid", column = @Column(name = "validCoord"))
 	private Collection<Move> moveHistory = new ArrayList<>();
@@ -53,12 +55,20 @@ public class Game extends ModelBase
 	public void setPlayerOneId(Long playerOneId){
 		this.playerOneId = playerOneId;
 	}
+
 	public Long getPlayerOneId(){
 		return this.playerOneId;
 	}
-
 	public void setPlayerTwoId(Long playerTwoId){
 		this.playerTwoId = playerTwoId;
+	}
+
+	public boolean isTurn() {
+		return turn;
+	}
+
+	public void setTurn(boolean turn) {
+		this.turn = turn;
 	}
 
 	public Long getPlayerTwoId(){

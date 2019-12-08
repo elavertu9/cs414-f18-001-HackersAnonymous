@@ -52,6 +52,7 @@ public class GameService implements IGameService
 		Move attemptedMove =  MoveFunctions.makeMove(board,move);
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
+			game.setTurn(!game.isTurn());
 		}
 		return attemptedMove;
 
