@@ -38,6 +38,7 @@
     <b-row>
       <b-col class="center">
         <h3>Move Preview: </h3>
+        <b-alert v-if="showTurnError" show variant="danger">{{turnError}}</b-alert>
       </b-col>
     </b-row>
     <b-row>
@@ -500,6 +501,8 @@
           gameId: '',
           turn: false,
           gameOver: false,
+          turnError: 'Please wait your turn',
+          showTurnError: false,
           board: [
             {
               piece: {
@@ -944,65 +947,74 @@
 
         // handle board clicks
         clicked(row, col) {
-          let numSelected = this.selectedSquare.length;
-          let pieceDetails = this.getPiece(row, col);
-          let selected = {
-            row: row,
-            col: col,
-            faceUp: pieceDetails.faceUp,
-            type: pieceDetails.type
-          };
+          if (!this.turn) {
+            let numSelected = this.selectedSquare.length;
+            let pieceDetails = this.getPiece(row, col);
+            let selected = {
+              row: row,
+              col: col,
+              faceUp: pieceDetails.faceUp,
+              type: pieceDetails.type
+            };
 
-          if (numSelected < 1) {
-            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-              this.clearSelected();
-              this.addSelection(selected);
-              this.addSelection(selected);
-              this.getMovePreview();
-            } else if (pieceDetails.type !== 'EMPTY') {
-              this.addSelection(selected);
-              this.getValidMoves();
-            } else {
-              console.log("INVALID");
-            }
-          } else if (numSelected === 1) {
-            let isValidMove = this.isValid(selected);
-
-            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-              this.clearSelected();
-              this.addSelection(selected);
-              this.addSelection(selected);
-              this.getMovePreview();
-            } else if (pieceDetails.type === "EMPTY") {
-              this.addSelection(selected);
-              this.getMovePreview();
-            } else {
-
-              if (isValidMove || pieceDetails.type === "EMPTY") {
-                this.addSelection(selected);
-                this.getMovePreview();
-              } else  {
+            if (numSelected < 1) {
+              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                 this.clearSelected();
                 this.addSelection(selected);
-                this.getValidMoves();
-              }
-            }
-          } else if (numSelected === 2) {
-            this.clearSelected();
-            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-              this.addSelection(selected);
-              this.addSelection(selected);
-              this.getMovePreview();
-            } else {
-              if (pieceDetails.type !== 'EMPTY') {
+                this.addSelection(selected);
+                this.getMovePreview();
+              } else if (pieceDetails.type !== 'EMPTY') {
                 this.addSelection(selected);
                 this.getValidMoves();
+              } else {
+                console.log("INVALID");
               }
+            } else if (numSelected === 1) {
+              let isValidMove = this.isValid(selected);
+
+              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                this.clearSelected();
+                this.addSelection(selected);
+                this.addSelection(selected);
+                this.getMovePreview();
+              } else if (pieceDetails.type === "EMPTY") {
+                this.addSelection(selected);
+                this.getMovePreview();
+              } else {
+
+                if (isValidMove || pieceDetails.type === "EMPTY") {
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else  {
+                  this.clearSelected();
+                  this.addSelection(selected);
+                  this.getValidMoves();
+                }
+              }
+            } else if (numSelected === 2) {
+              this.clearSelected();
+              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                this.addSelection(selected);
+                this.addSelection(selected);
+                this.getMovePreview();
+              } else {
+                if (pieceDetails.type !== 'EMPTY') {
+                  this.addSelection(selected);
+                  this.getValidMoves();
+                }
+              }
+            } else {
+              // numSelected > 2
+              console.log("overflow! ", numSelected);
             }
           } else {
-            // numSelected > 2
-            console.log("overflow! ", numSelected);
+            console.log("please wait your turn");
+            this.showTurnError = true;
+            setTimeout(() => {
+              this.showTurnError = false;
+            }, 5000);
           }
+
         },
 
         clearSelected() {
