@@ -20,7 +20,7 @@ public class Board
 	private int colDimension = 8;
 
 	private int rowDimension = 4;
-    private boolean gameOver = false;
+
 
 	public Board(){
 		initialize();
@@ -41,14 +41,6 @@ public class Board
 
 	public void setRowDimension(int rowDimension) {
 		this.rowDimension = rowDimension;
-	}
-
-	public boolean isGameOver() {
-		return gameOver;
-	}
-
-	public void setGameOver(boolean gameOver) {
-		this.gameOver = gameOver;
 	}
 
 	public void setBoard(Collection<Square> board)
