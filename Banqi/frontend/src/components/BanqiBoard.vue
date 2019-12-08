@@ -609,6 +609,8 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
+                 console.log(this.player1.userID);
+                 console.log(this.player2.userID);
                  this.turn = response.data.turn;
                  this.gameOver = response.data.gameOver;
                  this.getPlayerInfo();
@@ -744,9 +746,9 @@
           let p2Pieces = this.countPieces("BLACK");
 
           // Assign player 1
-          API.getUser(this.player1.userID).then(response => {
+          API.getUser(localStorage.getItem('userID')).then(response => {
             let user1 = {
-              userID: response.data.id,
+              userID: response.id,
               username: response.data.username,
               color: this.player1.color,
               pieces: p1Pieces
@@ -757,7 +759,7 @@
           // Assign player 2
           API.getUser(this.player2.userID).then(response => {
             let user2 = {
-              userID: response.data.id,
+              userID: response.id,
               username: response.data.username,
               color: this.player2.color,
               pieces: p2Pieces
@@ -947,76 +949,148 @@
 
         // handle board clicks
         clicked(row, col) {
-          if (!this.turn && localStorage.getItem('userID') !== this.player2.userID) {
-            // p1 goes
-            // p2 disabled
-            let numSelected = this.selectedSquare.length;
-            let pieceDetails = this.getPiece(row, col);
-            let selected = {
-              row: row,
-              col: col,
-              faceUp: pieceDetails.faceUp,
-              type: pieceDetails.type
-            };
+          if (!this.turn) {
+            if (localStorage.getItem('userID') === this.player1.userID) {
+              // p1 goes
+              // p2 disabled
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
 
-            if (numSelected < 1) {
-              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                this.clearSelected();
-                this.addSelection(selected);
-                this.addSelection(selected);
-                this.getMovePreview();
-              } else if (pieceDetails.type !== 'EMPTY') {
-                this.addSelection(selected);
-                this.getValidMoves();
-              } else {
-                console.log("INVALID");
-              }
-            } else if (numSelected === 1) {
-              let isValidMove = this.isValid(selected);
-
-              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                this.clearSelected();
-                this.addSelection(selected);
-                this.addSelection(selected);
-                this.getMovePreview();
-              } else if (pieceDetails.type === "EMPTY") {
-                this.addSelection(selected);
-                this.getMovePreview();
-              } else {
-
-                if (isValidMove || pieceDetails.type === "EMPTY") {
-                  this.addSelection(selected);
-                  this.getMovePreview();
-                } else  {
+              if (numSelected < 1) {
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                   this.clearSelected();
                   this.addSelection(selected);
-                  this.getValidMoves();
-                }
-              }
-            } else if (numSelected === 2) {
-              this.clearSelected();
-              if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
-                this.addSelection(selected);
-                this.addSelection(selected);
-                this.getMovePreview();
-              } else {
-                if (pieceDetails.type !== 'EMPTY') {
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else if (pieceDetails.type !== 'EMPTY') {
                   this.addSelection(selected);
                   this.getValidMoves();
+                } else {
+                  console.log("INVALID");
                 }
+              } else if (numSelected === 1) {
+                let isValidMove = this.isValid(selected);
+
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                  this.clearSelected();
+                  this.addSelection(selected);
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else if (pieceDetails.type === "EMPTY") {
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else {
+
+                  if (isValidMove || pieceDetails.type === "EMPTY") {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else  {
+                    this.clearSelected();
+                    this.addSelection(selected);
+                    this.getValidMoves();
+                  }
+                }
+              } else if (numSelected === 2) {
+                this.clearSelected();
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                  this.addSelection(selected);
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else {
+                  if (pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.getValidMoves();
+                  }
+                }
+              } else {
+                // numSelected > 2
+                console.log("overflow! ", numSelected);
               }
             } else {
-              // numSelected > 2
-              console.log("overflow! ", numSelected);
+              // p1 disabled
+              // p2 goes
+              console.log("please wait your turn");
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
             }
           } else {
-            // p1 disabled
-            // p2 goes
-            console.log("please wait your turn");
-            this.showTurnError = true;
-            setTimeout(() => {
-              this.showTurnError = false;
-            }, 5000);
+            if (localStorage.getItem('userID') === this.player2.userID) {
+              // p1 goes
+              // p2 disabled
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
+
+              if (numSelected < 1) {
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                  this.clearSelected();
+                  this.addSelection(selected);
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else if (pieceDetails.type !== 'EMPTY') {
+                  this.addSelection(selected);
+                  this.getValidMoves();
+                } else {
+                  console.log("INVALID");
+                }
+              } else if (numSelected === 1) {
+                let isValidMove = this.isValid(selected);
+
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                  this.clearSelected();
+                  this.addSelection(selected);
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else if (pieceDetails.type === "EMPTY") {
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else {
+
+                  if (isValidMove || pieceDetails.type === "EMPTY") {
+                    this.addSelection(selected);
+                    this.getMovePreview();
+                  } else  {
+                    this.clearSelected();
+                    this.addSelection(selected);
+                    this.getValidMoves();
+                  }
+                }
+              } else if (numSelected === 2) {
+                this.clearSelected();
+                if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+                  this.addSelection(selected);
+                  this.addSelection(selected);
+                  this.getMovePreview();
+                } else {
+                  if (pieceDetails.type !== 'EMPTY') {
+                    this.addSelection(selected);
+                    this.getValidMoves();
+                  }
+                }
+              } else {
+                // numSelected > 2
+                console.log("overflow! ", numSelected);
+              }
+            } else {
+              console.log("please wait your turn");
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
+            }
           }
 
         },
