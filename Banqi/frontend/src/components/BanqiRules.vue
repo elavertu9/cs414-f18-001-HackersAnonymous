@@ -89,4 +89,13 @@
   .middle {
     vertical-align: middle;
   }
+
+  .middle-left {
+    vertical-align: middle;
+    text-align: left;
+  }
+
+  .left {
+    text-align: left;
+  }
 </style>
