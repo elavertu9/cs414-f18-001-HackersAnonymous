@@ -1024,7 +1024,7 @@
               }, 5000);
             }
           } else {
-            if (localStorage.getItem('userID') === this.player2.userID) {
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
               // p1 goes
               // p2 disabled
               let numSelected = this.selectedSquare.length;
