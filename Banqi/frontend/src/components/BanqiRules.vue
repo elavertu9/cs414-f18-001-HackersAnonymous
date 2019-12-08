@@ -65,6 +65,9 @@
     </table>
     <h3><b>How to play</b></h3>
     <br/>
+    <h5><b>Teams</b></h5>
+    <p>Player 1 is on team RED, player 2 is on team BLACK.</p>
+    <br/>
     <h5><b>Start</b></h5>
     <p> The first player begins by flipping any piece on the board over. the color of the first flipped over piece
       will be assigned to player 1, and player 2 will be assigned to the opposing team. Player 2 will then begin their
