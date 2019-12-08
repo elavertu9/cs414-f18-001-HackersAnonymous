@@ -54,7 +54,7 @@ public class GameService implements IGameService
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
 			game.setTurn(!game.isTurn());
-			game.setGameOver(game.isGameOver());
+			game.setGameOver(true);
 		}
 		return attemptedMove;
 	}
