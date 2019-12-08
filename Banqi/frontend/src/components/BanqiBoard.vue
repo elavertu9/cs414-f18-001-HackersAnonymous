@@ -487,7 +487,6 @@
       },
 
       mounted() {
-        this.player1.userID = localStorage.getItem('userID');
         this.selectedSquare = [];
         this.getGame();
         this.getHistory();
@@ -745,7 +744,7 @@
           let p2Pieces = this.countPieces("BLACK");
 
           // Assign player 1
-          API.getUser(localStorage.getItem('userID')).then(response => {
+          API.getUser(this.player1.userID).then(response => {
             let user1 = {
               userID: this.player1.userID,
               username: response.data.username,
