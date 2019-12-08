@@ -65,6 +65,7 @@
 
             <td>
               <img v-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/flip.png" class="icon">
+              <img v-else-if="movePreview.dest.type === 'EMPTY'" src="../images/arrow.png" class="icon">
               <img v-else src="../images/swords.png" class="icon">
             </td>
 
@@ -93,6 +94,7 @@
               <img v-else-if="movePreview.dest.type === 'MINSTER' && movePreview.dest.teamColor === 'BLACK'" src="../images/Pieces/White_Elephant.png">
 
               <img v-else-if="movePreview.src.type === movePreview.dest.type && movePreview.src.teamColor === movePreview.dest.teamColor" src="../images/reveal.png">
+              <img v-else-if="movePreview.dest.type === 'EMPTY'" src="../images/empty.png">
               <div v-else></div>
             </td>
           </tr>
@@ -401,7 +403,8 @@
           selectedSquare: [{
             row: 9,
             col: 9,
-            faceUp: false
+            faceUp: false,
+            type: ''
           }],
           errors: [],
           player1: {
@@ -507,90 +510,84 @@
           });
         },
 
-        getClass(index, row) {
-          let clicks = this.selectedSquare.length;
-          let isValid = false;
-          let isFirstClick = false;
-          let isSecondClick = false;
+        orangeOrBlack(row, col) {
+          row = row + 1;
+          col = col + 1;
+          let square = '';
+          if (row % 2 == 0) {
+            if (col % 2 == 0) {
+              square = "orange_square";
+            } else {
+              square =  "black_square";
+            }
+          } else {
+            if (col % 2 == 0) {
+              square = "black_square";
+            } else {
+              square = "orange_square";
+            }
+          }
+          return square;
+        },
 
+        checkIfValid(row, col) {
+          let isValid = false;
           for(let i in this.validMoves) {
-            if ((this.validMoves[i].row === row - 1) && (this.validMoves[i].column === index)) {
+            if ((this.validMoves[i].row === row ) && (this.validMoves[i].column === col)) {
               isValid = true;
             }
           }
+          return isValid;
+        },
 
-          if (clicks < 1) {
-            if (row % 2 == 0) {
-              if (index % 2 == 0) {
-                return "orange_square";
-              } else {
-                return "black_square";
-              }
-            } else {
-              if (index % 2 == 0) {
-                return "black_square";
-              } else {
-                return "orange_square";
-              }
-            }
-          } else if (clicks == 1) {
-            if (index === this.selectedSquare[0].col && row - 1 === this.selectedSquare[0].row) {
-              isFirstClick = true;
-            }
-          } else {
-            if (index === this.selectedSquare[0].col && row - 1 === this.selectedSquare[0].row) {
-              isFirstClick = true;
-            }
-            if (index === this.selectedSquare[1].col && row - 1 === this.selectedSquare[1].row && this.selectedSquare[1].faceUp === true) {
-              isSecondClick = true;
-            }
+        checkIfFirstClick(row, col) {
+          let isFirstClick = false;
+          if (col === this.selectedSquare[0].col && row === this.selectedSquare[0].row) {
+            isFirstClick = true;
           }
+          return isFirstClick;
+        },
 
-          if (!isValid && !isFirstClick && !isSecondClick) {
-            if (row % 2 == 0) {
-              if (index % 2 == 0) {
-                return "orange_square";
-              } else {
-                return "black_square";
-              }
+        checkIfSecondClick(row, col) {
+          let isSecondClick = false;
+          if (col === this.selectedSquare[1].col && row === this.selectedSquare[1].row) {
+            isSecondClick = true;
+          }
+          return isSecondClick;
+        },
+
+        getClass(col, row) {
+          row = row - 1;
+
+          let numSelected = this.selectedSquare.length;
+
+          if (numSelected < 1) {
+            let square = this.orangeOrBlack(row, col);
+            return square;
+          } else if (numSelected == 1) {
+            let isValidSquare = this.checkIfValid(row, col);
+
+            if (row === this.selectedSquare[0].row && col === this.selectedSquare[0].col) {
+              return "selected_square";
+            } else if (isValidSquare) {
+              return "valid_square";
             } else {
-              if (index % 2 == 0) {
-                return "black_square";
-              } else {
-                return "orange_square";
-              }
+              let square = this.orangeOrBlack(row, col);
+              return square;
             }
-          } else {
-            if (isValid && isSecondClick) {
+          } else if (numSelected === 2) {
+            let isFirstClick = this.checkIfFirstClick(row, col);
+            let isSecondClick = this.checkIfSecondClick(row, col);
+
+            if (isFirstClick && !isSecondClick) {
+              return "selected_square";
+            } else if (isFirstClick && isSecondClick) {
               return "second_click";
-            } else if (isValid && isFirstClick) {
-              return "selected_square";
-            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp === true && this.selectedSquare[1].faceUp === true && index === this.selectedSquare[0].col && row -  1 === this.selectedSquare[0].row) {
-              return "selected_square";
-            } else if (!isValid && isFirstClick && this.selectedSquare.length < 2) {
-              return "selected_square";
-            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp === false) {
-              return "second_click";
-            } else if (this.selectedSquare.length == 2 && this.selectedSquare[0].faceUp && isSecondClick) {
+            } else if (isSecondClick) {
               return "second_click";
             } else {
-              if (isValid && clicks < 2) {
-                return "valid_square";
-              } else {
-                if (row % 2 == 0) {
-                  if (index % 2 == 0) {
-                    return "orange_square";
-                  } else {
-                    return "black_square";
-                  }
-                } else {
-                  if (index % 2 == 0) {
-                    return "black_square";
-                  } else {
-                    return "orange_square";
-                  }
-                }
-              }
+              let square = this.orangeOrBlack(row, col);
+              return square;
             }
           }
 
@@ -627,7 +624,6 @@
               }
             };
             API.executeMove(execute, this.gameId).then(response => {
-              console.log(response.data);
               this.getGame();
               this.getHistory();
               this.selectedSquare = [];
@@ -671,72 +667,97 @@
           window.location.pathname = "/gameHome";
         },
 
+        getPiece(row, col) {
+          if (row === 0) {
+            return this.row1[col].piece;
+          } else if (row === 1) {
+            return this.row2[col].piece;
+          } else if (row === 2) {
+            return this.row3[col].piece;
+          } else {
+            return this.row4[col].piece;
+          }
+        },
+
+        isValid(selected) {
+          let isValidMove = false;
+          for (let i in this.validMoves) {
+            if (this.validMoves[i].row === selected.row && this.validMoves[i].column === selected.col) {
+              isValidMove = true;
+            }
+          }
+          return isValidMove;
+        },
+
+        // handle board clicks
         clicked(row, col) {
+          let numSelected = this.selectedSquare.length;
+          let pieceDetails = this.getPiece(row, col);
           let selected = {
             row: row,
             col: col,
-            faceUp: false
+            faceUp: pieceDetails.faceUp,
+            type: pieceDetails.type
           };
 
-
-          // Get board slice for selected row
-          if (row == 0) {
-            selected.faceUp = this.row1[col].piece.faceUp;
-          } else if (row == 1) {
-            selected.faceUp = this.row2[col].piece.faceUp;
-          } else if(row == 2) {
-            selected.faceUp = this.row3[col].piece.faceUp;
-          }else if(row == 3) {
-            selected.faceUp = this.row4[col].piece.faceUp;
-          } else {
-            console.log("Invalid Selection");
-          }
-          if (this.selectedSquare.length <= 1) {
-            if (this.selectedSquare.length < 1) {
-              if (selected.faceUp === false) {
-                this.selectedSquare = [];
-                this.selectedSquare.push(selected);
-                this.selectedSquare.push(selected);
-                this.getMovePreview();
-              } else {
-                this.selectedSquare.push(selected);
-              }
+          if (numSelected < 1) {
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.clearSelected();
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else if (pieceDetails.type !== 'EMPTY') {
+              this.addSelection(selected);
+              this.getValidMoves();
             } else {
-              let isValid = false;
-              for (let i in this.validMoves) {
-                if (this.validMoves[i].row === selected.row && this.validMoves[i].column === selected.col) {
-                  isValid = true;
-                }
-              }
-              if (this.selectedSquare.length === 1 && selected.faceUp === false) {
-                this.selectedSquare = [];
-                this.selectedSquare.push(selected);
-                this.selectedSquare.push(selected);
+              console.log("INVALID");
+            }
+          } else if (numSelected === 1) {
+            let isValidMove = this.isValid(selected);
+
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.clearSelected();
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else if (pieceDetails.type === "EMPTY") {
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else {
+
+              if (isValidMove || pieceDetails.type === "EMPTY") {
+                this.addSelection(selected);
                 this.getMovePreview();
-              } else {
-                if (this.selectedSquare.length === 1 && isValid) {
-                  this.selectedSquare.push(selected);
-                  this.getMovePreview();
-                } else  {
-                  this.selectedSquare = [];
-                  this.selectedSquare.push(selected);
-                }
+              } else  {
+                this.clearSelected();
+                this.addSelection(selected);
+                this.getValidMoves();
+              }
+            }
+          } else if (numSelected === 2) {
+            this.clearSelected();
+            if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
+              this.addSelection(selected);
+              this.addSelection(selected);
+              this.getMovePreview();
+            } else {
+              if (pieceDetails.type !== 'EMPTY') {
+                this.addSelection(selected);
+                this.getValidMoves();
               }
             }
           } else {
-            if (this.selectedSquare.length == 2) {
-              this.selectedSquare = [];
-              if (selected.faceUp === false) {
-                this.selectedSquare.push(selected);
-                this.selectedSquare.push(selected);
-                this.getMovePreview();
-              } else {
-                this.selectedSquare.push(selected);
-              }
-            }
+            // numSelected > 2
+            console.log("overflow! ", numSelected);
           }
+        },
 
-          this.getValidMoves();
+        clearSelected() {
+          this.selectedSquare = [];
+        },
+
+        addSelection(selected) {
+          this.selectedSquare.push(selected);
         },
 
         getMovePreview() {
