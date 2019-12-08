@@ -5,6 +5,7 @@ import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.*;
 import com.hackersanon.banqi.game.MoveFunctions;
+import com.hackersanon.banqi.piece.PieceAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,6 @@ public class GameService implements IGameService
 			game.setTurn(!game.isTurn());
 		}
 		return attemptedMove;
-
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class GameService implements IGameService
 		ArrayList<Coordinate> validTrips = new ArrayList<>();
 		possibleTrips.forEach(coordinate1 -> {
 			try {
-				if (piece.canCapture(board.getSquare(coordinate1).getPiece()) && board.getSquare(coordinate1).getPiece().getFaceUp()){
+				if (piece.canCapture(board.getSquare(coordinate1).getPiece()) && (board.getSquare(coordinate1).getPiece().getFaceUp() || board.getSquare(coordinate1).getPiece().getType() == PieceAttributes.EMPTY)){
 					validTrips.add(coordinate1);
 				}
 			} catch (InvalidCoordinateException e) {
