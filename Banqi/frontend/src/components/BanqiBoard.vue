@@ -948,8 +948,6 @@
         // handle board clicks
         clicked(row, col) {
           if (!this.turn) {
-            console.log("storage ", localStorage.getItem('userID'));
-            console.log("player1 ", this.player1.userID);
             if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
               // p1 goes
               // p2 disabled
@@ -1015,7 +1013,6 @@
             } else {
               // p1 disabled
               // p2 goes
-              console.log("please wait your turn");
               this.showTurnError = true;
               setTimeout(() => {
                 this.showTurnError = false;
@@ -1085,7 +1082,6 @@
                 console.log("overflow! ", numSelected);
               }
             } else {
-              console.log("please wait your turn");
               this.showTurnError = true;
               setTimeout(() => {
                 this.showTurnError = false;
