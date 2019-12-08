@@ -1,8 +1,11 @@
 package com.hackersanon.banqi.database.model;
 
+import com.hackersanon.banqi.piece.TeamColor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "game")
@@ -14,6 +17,24 @@ public class Game extends ModelBase
 
 	@Embedded
 	private Board board;
+
+	private boolean gameOver = false;
+
+	public boolean isGameOver() {
+		List<TeamColor> teamOnBoard = new ArrayList<>();
+		board.getBoard().forEach(square -> {if(square.getPiece().getTeamColor() == TeamColor.RED){teamOnBoard.add(TeamColor.RED);}if (square.getPiece().getTeamColor() == TeamColor.BLACK){teamOnBoard.add(TeamColor.BLACK);};
+		});
+		if(!(teamOnBoard.contains(TeamColor.RED)&&teamOnBoard.contains(TeamColor.BLACK))){
+			gameOver = true;
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
 
 	private boolean turn = false;
 
