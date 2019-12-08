@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr class="center">
-          <td><img src="../images/Pieces/White_General.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_General.png"></td>
           <td class="middle">7</td>
           <td class="middle">x1</td>
           <td class="middle-left">General</td>
@@ -21,42 +21,42 @@
             There is only one General per team</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Chariot.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Chariot.png"></td>
           <td class="middle">6</td>
           <td class="middle">x2</td>
           <td class="middle-left">Chariot</td>
           <td class="left">The Chariot can capture every piece except the General. There are two Chariots per team</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Horse.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Horse.png"></td>
           <td class="middle">5</td>
           <td class="middle">x2</td>
           <td class="middle-left">Horse</td>
           <td class="left">The Horse can capture every piece except the General and the Chariot. There are two Horses per team</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Cannon.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Cannon.png"></td>
           <td class="middle">4</td>
           <td class="middle">x2</td>
           <td class="middle-left">Cannon</td>
           <td class="left">The Cannon can capture every piece except the General, Chariot, and Horse pieces. There are two Cannons per team.</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Advisor.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Advisor.png"></td>
           <td class="middle">3</td>
           <td class="middle">x2</td>
           <td class="middle-left">Advisor</td>
           <td class="left">The Advisor can capture other Advisors, Elephants, and Soldiers. There are two Advisors per team.</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Elephant.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Elephant.png"></td>
           <td class="middle">2</td>
           <td class="middle">x2</td>
           <td class="middle-left">Elephant</td>
           <td class="left">The Elephant can capture other Elephants and Soldiers. There are two Elephants per team.</td>
         </tr>
         <tr class="center">
-          <td><img src="../images/Pieces/White_Soldier.png"></td>
+          <td class="middle"><img src="../images/Pieces/White_Soldier.png"></td>
           <td class="middle">1</td>
           <td class="middle">x5</td>
           <td class="middle-left">Soldier</td>
