@@ -15,6 +15,7 @@
                 <th>Game ID</th>
                 <th>Player1</th>
                 <th>Player2</th>
+                <th>Status</th>
                 <th></th>
               </thead>
               <tbody>
@@ -22,6 +23,7 @@
                   <td>{{game.id}}</td>
                   <td>{{game.player1.username}}</td>
                   <td>{{game.player2.username}}</td>
+                  <td>{{game.turn}}</td>
                   <td><b-button variant="success" @click="resumeGame(game.id)">Resume</b-button></td>
                 </tr>
               </tbody>
@@ -123,6 +125,7 @@
             error: '',
             showError: false,
             gamesInProgress: [],
+            turn: false
           }
         },
 

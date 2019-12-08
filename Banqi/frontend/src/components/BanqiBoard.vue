@@ -2,7 +2,15 @@
   <div name="BanqiBoard">
     <b-row>
       <b-col></b-col>
-      <b-col class="center"><h1>Banqi Game</h1></b-col>
+      <b-col class="center"><h1>Banqi Game: {{gameId}}</h1></b-col>
+      <b-col></b-col>
+    </b-row>
+    <b-row>
+      <b-col></b-col>
+      <b-col class="center">
+        <h5 v-if="turn">Turn: {{player1.username}}</h5>
+        <h5 v-else>Turn: {{player2.username}}</h5>
+      </b-col>
       <b-col></b-col>
     </b-row>
     <br/>
@@ -388,6 +396,7 @@
       data() {
         return {
           gameId: '',
+          turn: false,
           board: [
             {
               piece: {
@@ -494,6 +503,7 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
+                 this.turn = response.data.turn;
                  this.getPlayerInfo();
                  this.loading = false;
               });
