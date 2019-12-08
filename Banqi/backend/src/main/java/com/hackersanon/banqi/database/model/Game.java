@@ -21,19 +21,22 @@ public class Game extends ModelBase
 	private boolean gameOver = false;
 
 	public boolean isGameOver() {
-		List<TeamColor> teamOnBoard = new ArrayList<>();
-		board.getBoard().forEach(square -> {if(square.getPiece().getTeamColor() == TeamColor.RED){teamOnBoard.add(TeamColor.RED);}if (square.getPiece().getTeamColor() == TeamColor.BLACK){teamOnBoard.add(TeamColor.BLACK);};
-		});
-		if(!(teamOnBoard.contains(TeamColor.RED)&&teamOnBoard.contains(TeamColor.BLACK))){
-			gameOver = true;
-			return true;
-		}else {
-			return false;
-		}
+		return this.gameOver;
 	}
 
 	public void setGameOver(boolean gameOver) {
-		this.gameOver = gameOver;
+		List<TeamColor> teamOnBoard = new ArrayList<>();
+		board.getBoard().forEach(square -> {
+			if (square.getPiece().getTeamColor() == TeamColor.RED) {
+				teamOnBoard.add(TeamColor.RED);
+			}
+			if (square.getPiece().getTeamColor() == TeamColor.BLACK) {
+				teamOnBoard.add(TeamColor.BLACK);
+			}
+		});
+		if (!(teamOnBoard.contains(TeamColor.RED) && teamOnBoard.contains(TeamColor.BLACK))) {
+			this.gameOver = true;
+		}
 	}
 
 	private boolean turn = false;
