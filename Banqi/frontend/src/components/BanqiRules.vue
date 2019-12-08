@@ -65,14 +65,17 @@
     </table>
     <h3><b>How to play</b></h3>
     <br/>
+    <h5><b>Teams</b></h5>
+    <p>Player 1 is on team RED, player 2 is on team BLACK.</p>
+    <br/>
     <h5><b>Start</b></h5>
-    <p> The first player begins by flipping any piece on the board over. the color of the first flipped over piece
-      will be assigned to player 1, and player 2 will be assigned to the opposing team. Player 2 will then begin their
-      first turn by flipping over any piece on the board.</p>
+    <p>The first player begins by flipping over any piece on the board. Player 2 will then begin their
+      first turn by flipping over any other piece on the board.</p>
     <br/>
     <h5><b>Moving pieces</b></h5>
     <p>All pieces can move up, down, left, and right as long as there is an empty square to move to,
-      or the piece that is occupying the square can be legally captured.</p>
+      or the piece that is occupying the square can be legally captured. A piece must be flipped over before
+    it can be moved.</p>
     <br/>
     <h5><b>Win conditions</b></h5>
     <ul>
