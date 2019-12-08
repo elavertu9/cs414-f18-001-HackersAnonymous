@@ -748,7 +748,7 @@
           // Assign player 1
           API.getUser(localStorage.getItem('userID')).then(response => {
             let user1 = {
-              userID: response.id,
+              userID: this.player1.userID,
               username: response.data.username,
               color: this.player1.color,
               pieces: p1Pieces
@@ -759,7 +759,7 @@
           // Assign player 2
           API.getUser(this.player2.userID).then(response => {
             let user2 = {
-              userID: response.id,
+              userID: this.player2.userID,
               username: response.data.username,
               color: this.player2.color,
               pieces: p2Pieces
