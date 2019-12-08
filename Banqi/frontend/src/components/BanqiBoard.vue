@@ -525,29 +525,29 @@
           }],
           errors: [],
           player1: {
-            userID: '',
-            username: '',
-            color: 'RED',
-            pieces: {
-              general: 1,
-              chariot: 2,
-              horse: 2,
-              cannon: 2,
-              advisor: 2,
-              elephant: 2,
-              soldier: 5
-            }
-          },
-          player2: {
-            userID: '',
-            username: '',
-            color: 'BLACK',
-            pieces: {
-              general: 1,
-              chariot: 2,
-              horse: 2,
-              cannon: 2,
-              advisor: 2,
+                userID: '',
+                username: '',
+                color: 'RED',
+                pieces: {
+                  general: 1,
+                  chariot: 2,
+                  horse: 2,
+                  cannon: 2,
+                  advisor: 2,
+                  elephant: 2,
+                  soldier: 5
+                }
+              },
+              player2: {
+                userID: '',
+                username: '',
+                color: 'BLACK',
+                pieces: {
+                  general: 1,
+                  chariot: 2,
+                  horse: 2,
+                  cannon: 2,
+                  advisor: 2,
               elephant: 2,
               soldier: 5
             }
@@ -947,7 +947,9 @@
 
         // handle board clicks
         clicked(row, col) {
-          if (!this.turn) {
+          if (!this.turn && localStorage.getItem('userID') !== this.player2.userID) {
+            // p1 goes
+            // p2 disabled
             let numSelected = this.selectedSquare.length;
             let pieceDetails = this.getPiece(row, col);
             let selected = {
@@ -1008,6 +1010,8 @@
               console.log("overflow! ", numSelected);
             }
           } else {
+            // p1 disabled
+            // p2 goes
             console.log("please wait your turn");
             this.showTurnError = true;
             setTimeout(() => {
