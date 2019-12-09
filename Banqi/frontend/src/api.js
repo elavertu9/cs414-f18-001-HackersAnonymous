@@ -49,7 +49,7 @@ export default {
   },
 
   getAllGames() {
-    return AXIOS.get('/admin/game/list/all');
+    return AXIOS.get('game/admin/game/list/all');
   },
 
   deleteGame(id) {
