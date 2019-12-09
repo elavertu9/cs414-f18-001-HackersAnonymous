@@ -46,6 +46,7 @@ public class UserService implements IUserService
 
 	@Override
 	public User updateUser(User updatedUser) {
+		System.out.printf("HERE");
 		return userDAO.save(updatedUser);
 	}
 	

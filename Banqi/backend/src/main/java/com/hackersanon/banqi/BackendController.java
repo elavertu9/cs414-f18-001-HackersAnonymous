@@ -64,13 +64,13 @@ public class BackendController
     }
     
     @GetMapping(value = "/game/create/{p1id}/{p2id}")
-    public ResponseEntity createGame(@PathVariable long p1id,@PathVariable long p2id)
+    public ResponseEntity createGame(@PathVariable Long p1id,@PathVariable Long p2id)
     {
         return ResponseEntity.accepted().body(gameService.createGame(p1id,p2id));
     }
     
     @GetMapping(value = "/game/list/{userId}")
-    public ResponseEntity<List<Game>> listGamesById(@PathVariable long userId){
+    public ResponseEntity<List<Game>> listGamesById(@PathVariable Long userId){
         return ResponseEntity.accepted().body(gameService.findGamesByPlayerId(userId));
     }
     
@@ -136,22 +136,22 @@ public class BackendController
     public ResponseEntity createUser(@RequestBody User user) {
         return ResponseEntity.accepted().body(userService.createUser(user));
     }
-    
+
     @GetMapping(value = "/user/{userId}", produces = "application/Json")
-    public ResponseEntity<User> getUserById(@PathVariable long userId){
+    public ResponseEntity<User> getUserById(@PathVariable Long userId){
         return ResponseEntity.accepted().body(userService.findById(userId));
     }
-    
+
     @GetMapping(value = "/user/byUsername/{username}", produces = "application/Json")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username){
         return ResponseEntity.accepted().body(userService.findByUsername(username));
     }
-    
+
     @GetMapping(value = "/user/list")
     public ResponseEntity getAllUsers(){
         return ResponseEntity.accepted().body(userService.listAllUsers());
     }
-    
+
     @GetMapping(value = "/user/{userId}/delete", produces = "application/Json")
     public ResponseEntity deleteUserById(@PathVariable Long userId){
 
@@ -159,12 +159,12 @@ public class BackendController
         gameService.deleteGameByUserId(userId);
         return ResponseEntity.accepted().body("User Corresponding To Id: "+userId+" Has Been Deleted.");
     }
-    
+
     @PostMapping(value = "/user/edit", consumes = "application/Json", produces = "application/Json")
-    public ResponseEntity updateUser(@RequestBody User user){
-        return ResponseEntity.accepted().body(userService.updateUser(user));
+    public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
     }
-    
+
 
     @RequestMapping(value="*")
     public ResponseEntity fallbackPage() {

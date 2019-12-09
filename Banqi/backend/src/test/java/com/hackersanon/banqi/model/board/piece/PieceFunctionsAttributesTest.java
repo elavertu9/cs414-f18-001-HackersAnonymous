@@ -1,6 +1,7 @@
-package com.hackersanon.banqi.model.piece;
+package com.hackersanon.banqi.model.board.piece;
 
 import com.hackersanon.banqi.model.board.Coordinate;
+import com.hackersanon.banqi.model.board.PieceAttributes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
