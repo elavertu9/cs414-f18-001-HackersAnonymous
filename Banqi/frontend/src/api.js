@@ -74,5 +74,9 @@ export default {
 
   getMoveHistory(id) {
     return AXIOS.get(`/game/${id}/moveHistory`);
+  },
+
+  forfeitGameOver(gameId, userId) {
+    return AXIOS.get(`/game/${gameId}/${userId}/forfeit`);
   }
 }

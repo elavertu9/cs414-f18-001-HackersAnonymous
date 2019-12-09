@@ -3,11 +3,18 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center"><h1>Banqi Game: {{gameId}}</h1></b-col>
-      <b-col><h3 v-if="gameOver">GAME OVER</h3></b-col>
+      <b-col></b-col>
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col class="center">
+      <b-col class="center" v-if="gameOver && !forfeit">
+        <h3>Won</h3>
+      </b-col>
+      <b-col class="center" v-else-if="gameOver && forfeit">
+        <h3>GAME OVER</h3>
+        <h3>{{quitter}} Forfeited</h3>
+      </b-col>
+      <b-col v-else class="center">
         <h5>Turn: {{turn === false ? player1.username : player2.username}}</h5>
       </b-col>
       <b-col></b-col>
@@ -24,7 +31,8 @@
             <b-dropdown-item @click="$bvModal.show('rules-modal')">Rules</b-dropdown-item>
           </b-dropdown>
           <b-dropdown id="dropdown-1" class="help" variant="primary" text="Actions">
-            <b-dropdown-item @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item v-if="!gameOver" @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item v-if="!gameOver" @click="$bvModal.show('areYouSure')">Forfeit</b-dropdown-item>
             <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
           </b-dropdown>
 
@@ -38,6 +46,7 @@
       <b-col class="center">
         <h3>Move Preview: </h3>
         <b-alert v-if="showTurnError" show variant="danger">{{turnError}}</b-alert>
+        <b-alert v-if="showGameError" show variant="danger">{{gameOverError}}</b-alert>
       </b-col>
     </b-row>
     <b-row>
@@ -444,6 +453,15 @@
     <br/>
     <br/>
 
+    <!-- ARE YOU SURE MODAL -->
+    <div>
+      <b-modal id="areYouSure" ref="areYouSure" hide-footer>
+        <template v-slot:modal-title>Are you sure?</template>
+        <p>If you forfeit the game you will take a loss as a result. Are you sure you want to forfeit?</p>
+        <b-button class="mt-3" variant="primary" block @click="forfeitGame()">Forfeit</b-button>
+      </b-modal>
+    </div>
+
     <!-- LEGEND MODAL -->
     <div>
       <b-modal id="legend-modal" hide-footer>
@@ -495,11 +513,15 @@
       data() {
         return {
           gameId: '',
-          callHomeEvery: 3000,
+          callHomeEvery: 5000,
           turn: false,
           gameOver: false,
-          turnError: 'Please wait your turn',
+          forfeit: false,
+          quitter: '',
+          turnError: 'Please wait for your turn',
           showTurnError: false,
+          gameOverError: 'Game is over, no more moves can be played',
+          showGameError: false,
           board: [
             {
               piece: {
@@ -611,9 +633,43 @@
                  this.player2.userID = response.data.playerTwoId;
                  this.turn = response.data.turn;
                  this.gameOver = response.data.gameOver;
+                 this.forfeit = response.data.forfeit;
+                 this.quitter = response.data.quitter;
                  this.getPlayerInfo();
                  this.loading = false;
               });
+          }
+        },
+
+        forfeitGame() {
+          if (!this.turn) {
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
+              API.forfeitGameOver(this.gameId, this.player1.userID).then(response => {
+                this.$refs['areYouSure'].hide();
+                this.getGame();
+                this.getHistory();
+              });
+            } else {
+              this.$refs['areYouSure'].hide();
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
+            }
+          } else {
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
+              API.forfeitGameOver(this.gameId, this.player2.userID).then(response => {
+                this.$refs['areYouSure'].hide();
+                this.getGame();
+                this.getHistory();
+              });
+            } else {
+              this.$refs['areYouSure'].hide();
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
+            }
           }
         },
 
@@ -979,16 +1035,17 @@
 
         // handle board clicks
         clicked(row, col) {
-          if (!this.turn) {
-            let numSelected = this.selectedSquare.length;
-            let pieceDetails = this.getPiece(row, col);
-            let selected = {
-              row: row,
-              col: col,
-              faceUp: pieceDetails.faceUp,
-              type: pieceDetails.type
-            };
-            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
+          if (!this.gameOver) {
+            if (!this.turn) {
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
+              if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
 
                 if (numSelected < 1) {
                   if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
@@ -997,7 +1054,7 @@
                     this.addSelection(selected);
                     this.getMovePreview();
                   } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player1.color) {
-                     this.addSelection(selected);
+                    this.addSelection(selected);
                     this.getValidMoves();
                   } else {
                     console.log("INVALID");
@@ -1042,24 +1099,24 @@
                   // numSelected > 2
                   console.log("overflow! ", numSelected);
                 }
+              } else {
+                // p1 disabled
+                // p2 goes
+                this.showTurnError = true;
+                setTimeout(() => {
+                  this.showTurnError = false;
+                }, 5000);
+              }
             } else {
-              // p1 disabled
-              // p2 goes
-              this.showTurnError = true;
-              setTimeout(() => {
-                this.showTurnError = false;
-              }, 5000);
-            }
-          } else {
-            let numSelected = this.selectedSquare.length;
-            let pieceDetails = this.getPiece(row, col);
-            let selected = {
-              row: row,
-              col: col,
-              faceUp: pieceDetails.faceUp,
-              type: pieceDetails.type
-            };
-            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
+              if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
                 if (numSelected < 1) {
                   if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                     this.clearSelected();
@@ -1112,14 +1169,19 @@
                   // numSelected > 2
                   console.log("overflow! ", numSelected);
                 }
-            } else {
-              this.showTurnError = true;
-              setTimeout(() => {
-                this.showTurnError = false;
-              }, 5000);
+              } else {
+                this.showTurnError = true;
+                setTimeout(() => {
+                  this.showTurnError = false;
+                }, 5000);
+              }
             }
+          } else {
+            this.showGameError = true;
+            setTimeout(() => {
+              this.showGameError = false;
+            }, 5000);
           }
-
         },
 
         clearSelected() {
