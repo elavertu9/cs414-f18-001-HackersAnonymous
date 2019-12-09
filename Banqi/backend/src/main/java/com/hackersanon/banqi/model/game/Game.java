@@ -2,7 +2,7 @@ package com.hackersanon.banqi.model.game;
 
 import com.hackersanon.banqi.model.ModelBase;
 import com.hackersanon.banqi.model.board.Board;
-import com.hackersanon.banqi.model.piece.TeamColor;
+import com.hackersanon.banqi.model.board.TeamColor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -61,6 +61,11 @@ public class Game extends ModelBase
 	}
 	
 	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+	
+	public void calculateGameOver(){
+		
 		List<TeamColor> teamOnBoard = new ArrayList<>();
 		board.getBoard().forEach(square -> {
 			if (square.getPiece().getTeamColor() == TeamColor.RED) {

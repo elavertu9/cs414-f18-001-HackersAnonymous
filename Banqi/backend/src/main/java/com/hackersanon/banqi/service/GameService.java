@@ -7,8 +7,8 @@ import com.hackersanon.banqi.exception.InvalidMoveException;
 import com.hackersanon.banqi.dao.GameDAO;
 import com.hackersanon.banqi.model.game.Game;
 import com.hackersanon.banqi.model.game.Move;
-import com.hackersanon.banqi.model.piece.Piece;
-import com.hackersanon.banqi.model.piece.PieceAttributes;
+import com.hackersanon.banqi.model.board.Piece;
+import com.hackersanon.banqi.model.board.PieceAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +57,7 @@ public class GameService implements IGameService
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
 			game.setTurn(!game.isTurn());
-			game.setGameOver(true);
+			game.calculateGameOver();
 		}
 		return attemptedMove;
 	}
