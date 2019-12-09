@@ -2,7 +2,7 @@
 
 if [[ $# -ne 1 ]]; then
     echo "Usage: host_backend.sh <Version>"
-    echo "Example: host_backend.sh 0.1"
+    echo "Example: host_backend.sh 3.0"
 else
     jarFile="backend-"$1".jar"
   output=$(ls backend/target | grep "$jarFile"  | wc -l)
