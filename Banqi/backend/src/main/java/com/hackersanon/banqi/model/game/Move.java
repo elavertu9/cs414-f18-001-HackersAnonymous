@@ -3,7 +3,7 @@ package com.hackersanon.banqi.model.game;
 import com.hackersanon.banqi.exception.InvalidCoordinateException;
 import com.hackersanon.banqi.exception.InvalidMoveException;
 import com.hackersanon.banqi.model.board.*;
-import com.hackersanon.banqi.model.piece.Piece;
+import com.hackersanon.banqi.model.board.Piece;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;

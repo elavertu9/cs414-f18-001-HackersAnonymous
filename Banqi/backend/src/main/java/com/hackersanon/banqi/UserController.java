@@ -1,50 +1,72 @@
 //package com.hackersanon.banqi;
 //
-//import com.hackersanon.banqi.database.entity.UserEntity;
-//import com.hackersanon.banqi.services.UserServiceInterface;
+//import com.hackersanon.banqi.model.user.User;
+//import com.hackersanon.banqi.service.GameService;
+//import com.hackersanon.banqi.service.IGameService;
+//import com.hackersanon.banqi.service.IUserService;
+//import com.hackersanon.banqi.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.ui.Model;
+//import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.*;
 //
-//import java.util.List;
-//
 //@RestController
-//@RequestMapping("/api/user")
+//@RequestMapping("api/user")
 //@CrossOrigin(origins = {"http://localhost:8081"})
 //public class UserController
 //{
+//	private IGameService gameService;
+//
+//	private IUserService userService;
+//
 //	@Autowired
-//	private UserServiceInterface userService;
-//
-//
-//	// /api/user/list
-//	@GetMapping(value = "list", produces = "application/json")
-//	public List listUsers(){
-//		return this.userService.getAllUsers();
+//	public void setGameService(GameService gameService){
+//		this.gameService = gameService;
 //	}
 //
-//	// /api/user/add
-//	@PostMapping(value = "add", consumes = "application/json", produces = "application/json")
-//	public UserEntity addUser(@RequestBody()UserEntity userEntity){
-//		this.userService.saveUser(userEntity);
-//		return userEntity;
+//	@Autowired
+//	public void setUserService(UserService userService){
+//		this.userService = userService;
 //	}
 //
-//	@ModelAttribute("user")
-//	public UserEntity formBackingObject(){
-//		return new UserEntity();
+//
+//
+//	@RequestMapping(value = "/add", consumes = "application/Json", produces = "application/Json")
+//	public ResponseEntity createUser(@RequestBody User user) {
+//		return ResponseEntity.accepted().body(userService.createUser(user));
 //	}
 //
-//	@RequestMapping("/api/remove/{id}")
-//	public String removeUser(@PathVariable("id") int id){
-//		this.userService.removeUser(id);
-//		return "redirect:/users";
+//	@GetMapping(value = "/{userId}", produces = "application/Json")
+//	public ResponseEntity<User> getUserById(@PathVariable long userId){
+//		return ResponseEntity.accepted().body(userService.findById(userId));
 //	}
 //
-//	@RequestMapping(value = "/api/edit/{id}", produces = "application/json")
-//	public String editUser(@PathVariable("id") int id, Model model){
-//		model.addAttribute("user", this.userService.getUser(id));
-//		model.addAttribute("listUsers", this.userService.getAllUsers());
-//		return "user";
+//	@GetMapping(value = "/byUsername/{username}", produces = "application/Json")
+//	public ResponseEntity<User> getUserByUsername(@PathVariable String username){
+//		return ResponseEntity.accepted().body(userService.findByUsername(username));
+//	}
+//
+//	@GetMapping(value = "/list")
+//	public ResponseEntity getAllUsers(){
+//		return ResponseEntity.accepted().body(userService.listAllUsers());
+//	}
+//
+//	@GetMapping(value = "/{userId}/delete", produces = "application/Json")
+//	public ResponseEntity deleteUserById(@PathVariable Long userId){
+//
+//		userService.deleteUserById(userId);
+//		gameService.deleteGameByUserId(userId);
+//		return ResponseEntity.accepted().body("User Corresponding To Id: "+userId+" Has Been Deleted.");
+//	}
+//
+//	@PostMapping(value = "/edit", consumes = "application/Json", produces = "application/Json")
+//	public ResponseEntity<User> updateUser(@RequestBody User user){
+//		System.out.println(user.getEmail()+"\n\n\n\n");
+//		return ResponseEntity.accepted().body(userService.updateUser(user));
+//	}
+//
+//
+//	@RequestMapping(value="*")
+//	public ResponseEntity fallbackPage() {
+//		return ResponseEntity.badRequest().body("Couldn't find the page you are looking for.");
 //	}
 //}

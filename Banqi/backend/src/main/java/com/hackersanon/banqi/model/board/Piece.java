@@ -1,6 +1,4 @@
-package com.hackersanon.banqi.model.piece;
-
-import com.hackersanon.banqi.model.board.Coordinate;
+package com.hackersanon.banqi.model.board;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;

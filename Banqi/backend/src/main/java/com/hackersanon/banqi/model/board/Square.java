@@ -1,13 +1,10 @@
 package com.hackersanon.banqi.model.board;
 
 
-import com.hackersanon.banqi.model.piece.Piece;
-import com.hackersanon.banqi.model.piece.PieceAttributes;
-
 import javax.persistence.*;
 
-import static com.hackersanon.banqi.model.piece.PieceAttributes.EMPTY;
-import static com.hackersanon.banqi.model.piece.TeamColor.NEUTRAL;
+import static com.hackersanon.banqi.model.board.PieceAttributes.EMPTY;
+import static com.hackersanon.banqi.model.board.TeamColor.NEUTRAL;
 
 @Embeddable
 public class Square

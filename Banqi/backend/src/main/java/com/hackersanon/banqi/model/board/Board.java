@@ -2,14 +2,12 @@ package com.hackersanon.banqi.model.board;
 
 
 import com.hackersanon.banqi.exception.InvalidCoordinateException;
-import com.hackersanon.banqi.model.piece.Piece;
-import com.hackersanon.banqi.model.piece.TeamColor;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import java.util.*;
 
-import static com.hackersanon.banqi.model.piece.PieceAttributes.*;
+import static com.hackersanon.banqi.model.board.PieceAttributes.*;
 
 
 @Embeddable
