@@ -24,7 +24,10 @@ public class GameService implements IGameService
 
 	private GameDAO gameDAO;
 	
-	
+	public GameService(GameDAO gameDAO){
+		this.gameDAO = gameDAO;
+	}
+
 	@Override
 	public Game findById(Long id)
 	{
