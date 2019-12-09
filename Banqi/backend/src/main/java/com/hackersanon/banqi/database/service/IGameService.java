@@ -14,9 +14,10 @@ public interface IGameService extends IService<Game>
 {
     Game createGame(Long p1id, Long p2id);
     Game createGame();
-    Move executeMoveOnGame(Long gameId, Move move) throws InvalidMoveException;
-
-    ArrayList<Coordinate> validMoves(Long gameId, Coordinate coordinate) throws InvalidCoordinateException;
+	
+	Move executeMoveOnGame(Long gameId, Long userId, Move move) throws InvalidMoveException;
+	
+	ArrayList<Coordinate> validMoves(Long gameId, Coordinate coordinate) throws InvalidCoordinateException;
 
     List<Game> findGamesByPlayerId(Long id);
 

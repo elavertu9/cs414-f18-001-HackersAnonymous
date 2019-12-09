@@ -4,7 +4,6 @@ import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.database.dao.GameDAO;
 import com.hackersanon.banqi.database.model.*;
-import com.hackersanon.banqi.game.MoveFunctions;
 import com.hackersanon.banqi.piece.PieceAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,11 +45,11 @@ public class GameService implements IGameService
 	}
 
 	@Override
-	public Move executeMoveOnGame(Long gameId, Move move) throws InvalidMoveException {
+	public Move executeMoveOnGame(Long gameId, Long userId, Move move) throws InvalidMoveException {
 		assert gameDAO.findById(gameId).isPresent();
 		Game game = gameDAO.findById(gameId).get();
 		Board board = game.getBoard();
-		Move attemptedMove =  MoveFunctions.makeMove(board,move);
+		Move attemptedMove =  move.attemptMove(board, userId);
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
 			game.setTurn(!game.isTurn());

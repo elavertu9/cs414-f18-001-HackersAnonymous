@@ -69,10 +69,10 @@ public class BackendController
         return "Game Associated with GameId: " + gameId + "Has Been Deleted.";
     }
 
-    @PostMapping(value = "/game/{gameId}/executeMove")
-    public Move executeMove(@PathVariable Long gameId,@RequestBody Move move){
+    @PostMapping(value = "/game/{gameId}/executeMove/{userId}")
+    public Move executeMove(@PathVariable Long gameId,@PathVariable Long userId,@RequestBody Move move){
         try {
-            move = gameService.executeMoveOnGame(gameId,move);
+            move = gameService.executeMoveOnGame(gameId, userId, move);
         } catch (InvalidMoveException e) {
             e.printStackTrace();
         }
