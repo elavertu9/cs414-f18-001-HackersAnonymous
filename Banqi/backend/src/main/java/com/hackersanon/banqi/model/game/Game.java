@@ -2,7 +2,7 @@ package com.hackersanon.banqi.model.game;
 
 import com.hackersanon.banqi.model.ModelBase;
 import com.hackersanon.banqi.model.board.Board;
-import com.hackersanon.banqi.model.piece.TeamColor;
+import com.hackersanon.banqi.model.board.TeamColor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
