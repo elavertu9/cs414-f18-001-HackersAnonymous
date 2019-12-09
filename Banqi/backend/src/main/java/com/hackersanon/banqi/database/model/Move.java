@@ -121,7 +121,7 @@ public class Move {
         return this;
     }
 
-    public Move executeFlip(Board board) throws InvalidMoveException {
+    private Move executeFlip(Board board) throws InvalidMoveException {
         try {
             board.getSquare(getOrigin()).getPiece().setFaceUp(true);
             this.setExecuted();
