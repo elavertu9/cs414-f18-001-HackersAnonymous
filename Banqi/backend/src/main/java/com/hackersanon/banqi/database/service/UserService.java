@@ -48,7 +48,14 @@ public class UserService implements IUserService
 	public User updateUser(User updatedUser) {
 		return userDAO.save(updatedUser);
 	}
-
+	
+	@Override
+	public String getUsername(Long userId)
+	{
+		User user = findById(userId);
+		return user.getUsername();
+	}
+	
 	@Autowired
 	public void setUserDAO(final UserDAO userDAO){
 		this.userDAO = userDAO;

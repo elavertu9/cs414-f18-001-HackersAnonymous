@@ -57,6 +57,14 @@ public class GameService implements IGameService
 		}
 		return attemptedMove;
 	}
+	
+	@Override
+	public void forfeitGame(Long gameId, String username)
+	{
+		Game game = findById(gameId);
+		game.setQuitter(username);
+		game.setForfeit(true);
+	}
 
 	@Override
 	public ArrayList<Coordinate> validMoves(Long gameId, Coordinate coordinate) throws InvalidCoordinateException {

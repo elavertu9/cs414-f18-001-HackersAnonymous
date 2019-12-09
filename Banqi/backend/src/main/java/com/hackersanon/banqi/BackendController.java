@@ -2,7 +2,10 @@ package com.hackersanon.banqi;
 
 import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
-import com.hackersanon.banqi.database.model.*;
+import com.hackersanon.banqi.database.model.Coordinate;
+import com.hackersanon.banqi.database.model.Game;
+import com.hackersanon.banqi.database.model.Move;
+import com.hackersanon.banqi.database.model.User;
 import com.hackersanon.banqi.database.service.GameService;
 import com.hackersanon.banqi.database.service.IGameService;
 import com.hackersanon.banqi.database.service.IUserService;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,66 +25,79 @@ import java.util.List;
 public class BackendController
 {
     private IGameService gameService;
-
+    
     private IUserService userService;
-
+    
+    @Autowired
+    public void setGameService(GameService gameService){
+        this.gameService = gameService;
+    }
+    
+    @Autowired
+    public void setUserService(UserService userService){
+        this.userService = userService;
+    }
+    
+    
+    
     @GetMapping(value = "/game/hello")
-    public String sayHello()
+    public ResponseEntity sayHello()
     {
-        return "Hello from the backend!";
+        return ResponseEntity.accepted().body("Hello from the backend!");
     }
-
+    
     @GetMapping(value = "/game/{gameId}")
-    public Game getGame(@PathVariable Long gameId){
-        return gameService.findById(gameId);
+    public ResponseEntity<Game> getGame(@PathVariable Long gameId){
+        return ResponseEntity.accepted().body(gameService.findById(gameId));
     }
-
+    
     @GetMapping(value = "/game/{gameId}/board")
-    public Board getBoard(@PathVariable Long gameId)
+    public ResponseEntity getBoard(@PathVariable Long gameId)
     {
         Game game = gameService.findById(gameId);
-        return game.getBoard();
+        return ResponseEntity.accepted().body(game.getBoard());
     }
-
+    
     @GetMapping(value = "/game/create")
-    public Game createGame(){
-        return gameService.createGame();
+    public ResponseEntity createGame(){
+        return ResponseEntity.accepted().body(gameService.createGame());
     }
-
+    
     @GetMapping(value = "/game/create/{p1id}/{p2id}")
-    public Game createGame(@PathVariable long p1id,@PathVariable long p2id)
+    public ResponseEntity createGame(@PathVariable long p1id,@PathVariable long p2id)
     {
-        return gameService.createGame(p1id,p2id);
+        return ResponseEntity.accepted().body(gameService.createGame(p1id,p2id));
     }
-
+    
     @GetMapping(value = "/game/list/{userId}")
-    public List listGamesById(@PathVariable long userId){
-        return gameService.findGamesByPlayerId(userId);
+    public ResponseEntity<List<Game>> listGamesById(@PathVariable long userId){
+        return ResponseEntity.accepted().body(gameService.findGamesByPlayerId(userId));
     }
-
+    
     @GetMapping(value = "/admin/game/list/all")
-    public List listAllExistingGames(){
-        return gameService.findAllExistingGames();
+    public ResponseEntity<List<Game>> listAllExistingGames(){
+        return ResponseEntity.accepted().body(gameService.findAllExistingGames());
     }
-
+    
     @GetMapping(value = "/game/{gameId}/delete")
-    public String deleteGameById(@PathVariable Long gameId){
+    public ResponseEntity deleteGameById(@PathVariable Long gameId){
         gameService.deleteGameById(gameId);
-        return "Game Associated with GameId: " + gameId + "Has Been Deleted.";
+        return ResponseEntity.accepted().body("Game Associated with GameId: " + gameId + "Has Been Deleted.");
     }
-
+    
     @PostMapping(value = "/game/{gameId}/executeMove/{userId}")
-    public Move executeMove(@PathVariable Long gameId,@PathVariable Long userId,@RequestBody Move move){
+    public ResponseEntity executeMove(@PathVariable Long gameId,@PathVariable Long userId,@RequestBody Move move){
         try {
             move = gameService.executeMoveOnGame(gameId, userId, move);
         } catch (InvalidMoveException e) {
             e.printStackTrace();
+            return ResponseEntity.badRequest().body("Invalid Move Exception");
         }
-        return move;
+        return ResponseEntity.accepted().body(move);
     }
-
+    
     @PostMapping(value = "/game/{gameId}/validMoves")
-    public ResponseEntity getValidMoves(@PathVariable Long gameId, @RequestBody Coordinate coordinate){
+    public ResponseEntity<? extends Serializable> getValidMoves(@PathVariable Long gameId, @RequestBody Coordinate coordinate){
         ArrayList<Coordinate> moves;
         try {
             moves = gameService.validMoves(gameId, coordinate);
@@ -94,10 +111,10 @@ public class BackendController
             return ResponseEntity.accepted().body(moves);
         }
     }
-
+    
     @GetMapping(value = "/game/{gameId}/moveHistory")
     public ResponseEntity getMoveHistory(@PathVariable Long gameId){
-        Game game = getGame(gameId);
+        Game game = getGame(gameId).getBody();
         Collection moves = game.getMoveHistory();
         if(moves.isEmpty()){
             return ResponseEntity.accepted().body("No Move History Yet");
@@ -105,56 +122,52 @@ public class BackendController
             return ResponseEntity.accepted().body(moves);
         }
     }
-
-    @Autowired
-    public void setGameService(GameService gameService){
-        this.gameService = gameService;
+    
+    @GetMapping(value = "/game/{gameId}/{userId}/forfeit")
+    public ResponseEntity forfeitGame(@PathVariable Long gameId, @PathVariable Long userId)
+    {
+        String username = userService.getUsername(userId);
+        gameService.forfeitGame(gameId,username);
+        return ResponseEntity.accepted().body(username+" FORFEITS");
     }
-
-
-    @RequestMapping(value = "/user/add", consumes = "application/Json")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    
+    
+    @RequestMapping(value = "/user/add", consumes = "application/Json", produces = "application/Json")
+    public ResponseEntity createUser(@RequestBody User user) {
+        return ResponseEntity.accepted().body(userService.createUser(user));
     }
-
-    @GetMapping(value = "/user/{userId}")
-    public User getUserById(@PathVariable long userId){
-        return userService.findById(userId);
+    
+    @GetMapping(value = "/user/{userId}", produces = "application/Json")
+    public ResponseEntity<User> getUserById(@PathVariable long userId){
+        return ResponseEntity.accepted().body(userService.findById(userId));
     }
-
-    @GetMapping(value = "/user/byUsername/{username}")
-    public User getUserByUsername(@PathVariable String username){
-        return userService.findByUsername(username);
+    
+    @GetMapping(value = "/user/byUsername/{username}", produces = "application/Json")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username){
+        return ResponseEntity.accepted().body(userService.findByUsername(username));
     }
-
+    
     @GetMapping(value = "/user/list")
-    public List getAllUsers(){
-        return userService.listAllUsers();
+    public ResponseEntity getAllUsers(){
+        return ResponseEntity.accepted().body(userService.listAllUsers());
     }
-
-    @GetMapping(value = "/user/{userId}/delete")
-    public String deleteUserById(@PathVariable Long userId){
+    
+    @GetMapping(value = "/user/{userId}/delete", produces = "application/Json")
+    public ResponseEntity deleteUserById(@PathVariable Long userId){
 
         userService.deleteUserById(userId);
         gameService.deleteGameByUserId(userId);
-        return "User Corresponding To Id: "+userId+" Has Been Deleted.";
+        return ResponseEntity.accepted().body("User Corresponding To Id: "+userId+" Has Been Deleted.");
     }
-
-    @PostMapping(value = "/user/edit", consumes = "application/Json")
-    public User updateUser(@RequestBody User user){
-        return userService.updateUser(user);
+    
+    @PostMapping(value = "/user/edit", consumes = "application/Json", produces = "application/Json")
+    public ResponseEntity updateUser(@RequestBody User user){
+        return ResponseEntity.accepted().body(userService.updateUser(user));
     }
-
-
-    @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
-    }
-
-
+    
 
     @RequestMapping(value="*")
-    public String fallbackPage() {
-        return "Couldn't find the page you are looking for.";
+    public ResponseEntity fallbackPage() {
+        return ResponseEntity.badRequest().body("Couldn't find the page you are looking for.");
     }
 }
