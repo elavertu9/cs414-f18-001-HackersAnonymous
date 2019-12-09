@@ -29,6 +29,7 @@
           </b-card>
         </b-col>
         <b-col class="center">
+          <b-button @click="resumeGame(198)">Resume</b-button>
           <b-card title="Games in Progress" class="shadow">
             <table class="table">
               <thead>
