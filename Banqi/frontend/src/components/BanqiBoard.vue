@@ -947,7 +947,7 @@
               column: this.selectedSquare[1].col
             }
           };
-          console.log(flip);
+
           API.executeMove(flip, this.gameId, executedBy).then((response) => {
             this.getGame();
             this.getHistory();
