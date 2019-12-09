@@ -75,7 +75,7 @@
           API.getUser(this.userID).then(response => {
             this.username = response.data.username;
             // Add other admin account checks here
-            if (this.username == "elavertu" || this.username == "crcolema" || this.username == "jack" || this.username == "pkeleher" || this.username == "kareem21") {
+            if (parseInt(this.userID) === 114 || parseInt(this.username) === 127 || parseInt(this.username) === 126 || parseInt(this.username) === 139 || parseInt(this.username) === 144) {
               this.authenticated = true;
             } else {
               this.authenticated = false;
