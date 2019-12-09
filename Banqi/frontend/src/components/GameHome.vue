@@ -17,7 +17,7 @@
               <th>Result</th>
               </thead>
               <tbody>
-              <tr v-for="game in gamesInProgress" v-if="game.gameOver">
+              <tr v-for="game in gamesInProgress" v-if="game.gameOver || game.forfeit">
                 <td>{{game.id}}</td>
                 <td>{{game.player1.username}}</td>
                 <td>{{game.player2.username}}</td>
@@ -29,7 +29,6 @@
           </b-card>
         </b-col>
         <b-col class="center">
-          <b-button @click="resumeGame(198)">Resume</b-button>
           <b-card title="Games in Progress" class="shadow">
             <table class="table">
               <thead>
@@ -235,6 +234,7 @@
                   },
                   turn: response.data[i].turn,
                   gameOver: response.data[i].gameOver,
+                  forfeit: response.data[i].forfeit,
                   currentTurn: currTurn,
                   moveHistory: response.data[i].moveHistory
                 };
