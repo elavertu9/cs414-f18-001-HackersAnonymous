@@ -142,17 +142,16 @@ public class Move {
         }
     }
     
-    public Move makeMove(Board boardObject, Square origin, Square destination) throws InvalidMoveException {
-        Move newMove = new Move();
+    private Move makeMove(Board boardObject, Square origin, Square destination) throws InvalidMoveException {
         this.setMoveType(MoveType.translateToMoveType(origin, destination));
-        newMove.setAttacker(origin.getPiece());
-        newMove.setCaptured(destination.getPiece());
-        if (newMove.getMoveType() == TRAVEL || newMove.getMoveType() == CAPTURE) {
-            return newMove.executeMove(boardObject);
-        } else if (newMove.getMoveType() == FLIP) {
-            return newMove.executeFlip(boardObject);
+        this.setAttacker(origin.getPiece());
+        this.setCaptured(destination.getPiece());
+        if (this.getMoveType() == TRAVEL || this.getMoveType() == CAPTURE) {
+            return this.executeMove(boardObject);
+        } else if (this.getMoveType() == FLIP) {
+            return this.executeFlip(boardObject);
         }
-        return newMove;
+        return this;
     }
 
 }
