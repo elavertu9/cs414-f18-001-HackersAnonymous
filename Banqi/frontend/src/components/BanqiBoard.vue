@@ -8,7 +8,8 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center" v-if="gameOver && !forfeit">
-        <h3>Won</h3>
+        <h3>GAME OVER</h3>
+        <h3>{{lastMove}} Won</h3>
       </b-col>
       <b-col class="center" v-else-if="gameOver && forfeit">
         <h3>GAME OVER</h3>
@@ -30,11 +31,12 @@
             <b-dropdown-item @click="$bvModal.show('legend-modal')">Legend</b-dropdown-item>
             <b-dropdown-item @click="$bvModal.show('rules-modal')">Rules</b-dropdown-item>
           </b-dropdown>
-          <b-dropdown id="dropdown-1" class="help" variant="primary" text="Actions">
-            <b-dropdown-item v-if="!gameOver" @click="clear()">Clear</b-dropdown-item>
-            <b-dropdown-item v-if="!gameOver" @click="$bvModal.show('areYouSure')">Forfeit</b-dropdown-item>
+          <b-dropdown v-if="!gameOver" id="dropdown-1" class="help" variant="primary" text="Actions">
+            <b-dropdown-item @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item @click="$bvModal.show('areYouSure')">Forfeit</b-dropdown-item>
             <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
           </b-dropdown>
+          <b-button v-else class="toolbar" variant="primary" @click="backToGameHome()">Change Game</b-button>
 
           <b-button @click="moveSubmit()" :disabled="selectedSquare.length < 2" variant="success" class="toolbar">Submit Move</b-button>
         </b-button-group>
@@ -513,6 +515,7 @@
       data() {
         return {
           gameId: '',
+          lastMove: '',
           callHomeEvery: 5000,
           turn: false,
           gameOver: false,
@@ -1263,6 +1266,10 @@
             sorted[i] = temp[temp.length - 1 - i];
             moveUsername[i] = temp[temp.length - 1 - i].activeUser;
           }
+          let tempID = this.moveHistory[this.moveHistory.length - 1].activeUser;
+          API.getUser(tempID).then(response => {
+            this.lastMove = response.data.username;
+          });
           this.moveHistory = sorted;
           this.moveHistoryUsernames = moveUsername;
           this.historyUsernames();

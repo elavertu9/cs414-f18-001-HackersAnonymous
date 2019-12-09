@@ -17,7 +17,7 @@
               <th>Result</th>
               </thead>
               <tbody>
-              <tr v-for="game in gamesInProgress" v-if="game.gameOver || game.forfeit">
+              <tr v-for="game in gamesInProgress" v-if="game.forfeit || game.gameOver">
                 <td>{{game.id}}</td>
                 <td>{{game.player1.username}}</td>
                 <td>{{game.player2.username}}</td>
