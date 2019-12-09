@@ -46,16 +46,16 @@ public class Move {
     private boolean executed;
     
     @NotNull
-    private Long executedById;
+    private Long activeUser;
     
-    public Long getExecutedById()
+    public Long getActiveUser()
     {
-        return executedById;
+        return activeUser;
     }
     
-    public void setExecutedById(Long executedById)
+    public void setActiveUser(Long activeUser)
     {
-        this.executedById = executedById;
+        this.activeUser = activeUser;
     }
     
     public void setExecuted(boolean executed)
@@ -131,6 +131,28 @@ public class Move {
             throw new InvalidMoveException();
         }
         return this;
+    }
+    
+    
+    public Move attemptMove(Board boardObject) throws InvalidMoveException {
+        try {
+            return makeMove(boardObject, boardObject.getSquare(this.getOrigin()), boardObject.getSquare(this.getDestination()));
+        } catch (InvalidCoordinateException e) {
+            throw new InvalidMoveException();
+        }
+    }
+    
+    public Move makeMove(Board boardObject, Square origin, Square destination) throws InvalidMoveException {
+        Move newMove = new Move();
+        this.setMoveType(MoveType.translateToMoveType(origin, destination));
+        newMove.setAttacker(origin.getPiece());
+        newMove.setCaptured(destination.getPiece());
+        if (newMove.getMoveType() == TRAVEL || newMove.getMoveType() == CAPTURE) {
+            return newMove.executeMove(boardObject);
+        } else if (newMove.getMoveType() == FLIP) {
+            return newMove.executeFlip(boardObject);
+        }
+        return newMove;
     }
 
 }
