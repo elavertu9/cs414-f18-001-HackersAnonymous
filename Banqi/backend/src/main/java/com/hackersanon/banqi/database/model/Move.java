@@ -110,7 +110,7 @@ public class Move {
         this.executed = true;
     }
 
-    public Move executeMove(Board board) throws InvalidMoveException {
+    private Move executeMove(Board board) throws InvalidMoveException {
         try {
             board.getSquare(getOrigin()).vacateSquare();
             this.setExecuted();
