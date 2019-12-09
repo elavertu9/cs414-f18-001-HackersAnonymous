@@ -482,14 +482,13 @@
         BanqiRules
       },
 
-      created() {
-        console.log("Getting game board instance from backend");
-      },
-
       mounted() {
         this.selectedSquare = [];
         this.getGame();
         this.getHistory();
+        window.setInterval(() => {
+          this.phoneHome();
+        }, this.callHomeEvery);
       },
 
       name: "BanqiBoard",
@@ -497,6 +496,7 @@
       data() {
         return {
           gameId: '',
+          callHomeEvery: 3000,
           turn: false,
           gameOver: false,
           turnError: 'Please wait your turn',
@@ -585,6 +585,7 @@
             }
           ],
             movePreview: {
+            executedById: '',
               src: {
                   type: '',
                   teamColor: '',
@@ -615,6 +616,15 @@
                  this.loading = false;
               });
           }
+        },
+
+        phoneHome() {
+          API.getExistingGame(this.gameId).then(response => {
+            console.log(response.data.turn);
+            if (response.data.turn !== this.turn) {
+              this.refresh();
+            }
+          });
         },
 
         refresh() {
@@ -870,8 +880,10 @@
               }
             };
           } else {
+            let executedBy = this.turn === false ? this.player1.userID : this.player2.userID;
             let execute = {
               gameId: this.gameId,
+              executedById: executedBy,
               origin: {
                 row: this.selectedSquare[0].row,
                 column: this.selectedSquare[0].col
@@ -886,6 +898,7 @@
               this.getHistory();
               this.selectedSquare = [];
               this.movePreview = {
+                executedById: '',
                 src: {
                   type: '',
                   teamColor: '',
