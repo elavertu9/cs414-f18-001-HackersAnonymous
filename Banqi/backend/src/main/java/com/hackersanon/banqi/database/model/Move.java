@@ -7,6 +7,8 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
+import static com.hackersanon.banqi.game.MoveType.*;
+
 @Embeddable
 public class Move {
 
@@ -45,6 +47,16 @@ public class Move {
     
     @NotNull
     private long executedById;
+    
+    public long getExecutedById()
+    {
+        return executedById;
+    }
+    
+    public void setExecutedById(long executedById)
+    {
+        this.executedById = executedById;
+    }
     
     public void setExecuted(boolean executed)
     {
