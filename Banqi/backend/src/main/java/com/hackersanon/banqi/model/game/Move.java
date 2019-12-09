@@ -13,6 +13,8 @@ import static com.hackersanon.banqi.model.game.MoveType.*;
 @Embeddable
 public class Move {
 
+    public Move(){}
+
     @NotNull
     @Embedded
     @AttributeOverrides({
