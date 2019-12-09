@@ -112,7 +112,7 @@ public class Move {
 
     private Move executeMove(Board board) throws InvalidMoveException {
         try {
-            board.getSquare(getOrigin()).vacateSquare();
+            board.getSquare(getDestination()).occupySquare(board.getSquare(getOrigin()).vacateSquare());
             this.setExecuted();
         } catch (InvalidCoordinateException e) {
             e.printStackTrace();
