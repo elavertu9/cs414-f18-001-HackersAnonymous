@@ -68,6 +68,7 @@ public class GameService implements IGameService
 		Game game = findById(gameId);
 		game.setQuitter(username);
 		game.setForfeit(true);
+		game.setGameOver(true);
 	}
 
 	@Override
