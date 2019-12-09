@@ -21,7 +21,7 @@
                 <td>{{game.id}}</td>
                 <td>{{game.player1.username}}</td>
                 <td>{{game.player2.username}}</td>
-                <td v-if="game.currentTurn === currentPlayer.username">Win</td>
+                <td v-if="game.currentTurn !== currentPlayer.username">Win</td>
                 <td v-else>Loss</td>
               </tr>
               </tbody>
