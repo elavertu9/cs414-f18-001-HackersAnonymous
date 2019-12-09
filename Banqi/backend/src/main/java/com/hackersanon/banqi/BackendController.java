@@ -70,7 +70,7 @@ public class BackendController
     }
 
     @PostMapping(value = "/game/{gameId}/executeMove")
-    public Move executeMove(@PathVariable Long gameId, @RequestBody Move move){
+    public Move executeMove(@PathVariable Long gameId,@RequestBody Move move){
         try {
             move = gameService.executeMoveOnGame(gameId,move);
         } catch (InvalidMoveException e) {

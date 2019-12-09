@@ -3,14 +3,13 @@ package com.hackersanon.banqi.database.model;
 import com.hackersanon.banqi.board.InvalidCoordinateException;
 import com.hackersanon.banqi.board.InvalidMoveException;
 import com.hackersanon.banqi.game.MoveType;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
 @Embeddable
 public class Move {
 
-    @Column
-    private long gameId;
 
     @Embedded
     @AttributeOverrides({
@@ -43,21 +42,21 @@ public class Move {
     private Piece captured;
     private MoveType moveType;
     private boolean executed;
-
+    
+    @NotNull
+    private long executedById;
+    
+    public void setExecuted(boolean executed)
+    {
+        this.executed = executed;
+    }
+    
     public Coordinate getOrigin() {
         return origin;
     }
 
     public void setOrigin(Coordinate origin) {
         this.origin = origin;
-    }
-
-    public long getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(long gameId) {
-        this.gameId = gameId;
     }
 
     public Coordinate getDestination() {
