@@ -117,7 +117,7 @@
       <!-- PLAYER 1 CARD -->
       <b-col>
         <b-card class="player-cards">
-          <b-card-title class="center">{{this.player1.username}}</b-card-title>
+          <b-card-title class="center nameBorder">{{this.player1.username}}</b-card-title>
           <b-card-text>
             <b-row class="center">
               <b-col class="center">
@@ -298,7 +298,7 @@
       <!-- PLAYER 2 CARD -->
       <b-col>
         <b-card class="player-cards">
-          <b-card-title class="center">{{this.player2.username}}</b-card-title>
+          <b-card-title class="center nameBorder">{{this.player2.username}}</b-card-title>
           <b-card-text>
             <b-row class="center">
               <b-col class="center">
@@ -370,7 +370,7 @@
             </td>
 
             <td>
-              <p>{{moveHistoryUsernames[index]}}</p>
+              <p>{{moveHistoryUsernames[moveHistoryUsernames.length - 1 - index]}}</p>
             </td>
 
             <!-- ATTACKER -->
@@ -750,13 +750,10 @@
         },
 
         historyUsernames() {
-          this.moveHistoryUsernames = [];
           let usernames = [];
-          for (let i in this.moveHistory) {
-            let user = this.moveHistory[i].activeUser;
-            API.getUser(user).then(response => {
-              let name = response.data.username;
-              usernames.push(name);
+          for (let i in this.moveHistoryUsernames) {
+            API.getUser(this.moveHistoryUsernames[this.moveHistoryUsernames.length - 1 - i]).then(response => {
+              usernames[i] = response.data.username;
             });
           }
           this.moveHistoryUsernames = usernames;
@@ -1197,11 +1194,15 @@
 
         reverseArray() {
           let temp = this.moveHistory;
+          this.moveHistoryUsernames = [];
+          let moveUsername = [];
           let sorted = [];
           for (let i in temp) {
             sorted[i] = temp[temp.length - 1 - i];
+            moveUsername[i] = temp[temp.length - 1 - i].activeUser;
           }
           this.moveHistory = sorted;
+          this.moveHistoryUsernames = moveUsername;
           this.historyUsernames();
         },
 
@@ -1349,9 +1350,17 @@
   .overflow {
     height: 175px;
     overflow: scroll;
-    border: 3px solid black;
+    border: 3px solid white;
+    border-radius: 10px;
     background-color: #A8A8A8;
     color: black;
+  }
+
+  .nameBorder {
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    border-radius: 10px;
   }
 
 </style>
