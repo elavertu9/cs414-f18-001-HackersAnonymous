@@ -158,6 +158,7 @@
           phoneHome() {
             API.getUsersGames(this.currentPlayer.id).then(response => {
               if (response.data.length !== this.gamesInProgress.length) {
+                this.gamesInProgress = [];
                 this.getGameList();
               }
             });
