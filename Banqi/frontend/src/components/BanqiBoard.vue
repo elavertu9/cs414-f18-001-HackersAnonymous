@@ -370,8 +370,7 @@
             </td>
 
             <td>
-              <p v-if="move.attacker.teamColor === 'BLACK'">{{player2.username}}</p>
-              <p v-else>{{player1.username}}</p>
+              <p>{{moveHistoryUsernames[index]}}</p>
             </td>
 
             <!-- ATTACKER -->
@@ -482,14 +481,13 @@
         BanqiRules
       },
 
-      created() {
-        console.log("Getting game board instance from backend");
-      },
-
       mounted() {
         this.selectedSquare = [];
         this.getGame();
         this.getHistory();
+        window.setInterval(() => {
+          this.phoneHome();
+        }, this.callHomeEvery);
       },
 
       name: "BanqiBoard",
@@ -497,6 +495,7 @@
       data() {
         return {
           gameId: '',
+          callHomeEvery: 3000,
           turn: false,
           gameOver: false,
           turnError: 'Please wait your turn',
@@ -580,11 +579,13 @@
                 faceUp: false
               },
               moveType: "",
+              activeUser: '',
               executed: false,
               validMove: false
             }
           ],
             movePreview: {
+            activeUser: '',
               src: {
                   type: '',
                   teamColor: '',
@@ -595,7 +596,8 @@
                   teamColor: '',
                   faceUp: false
               }
-            }
+            },
+          moveHistoryUsernames: []
         }
       },
 
@@ -607,14 +609,20 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
-                 console.log(this.player1.userID);
-                 console.log(this.player2.userID);
                  this.turn = response.data.turn;
                  this.gameOver = response.data.gameOver;
                  this.getPlayerInfo();
                  this.loading = false;
               });
           }
+        },
+
+        phoneHome() {
+          API.getExistingGame(this.gameId).then(response => {
+            if (response.data.turn !== this.turn) {
+              this.refresh();
+            }
+          });
         },
 
         refresh() {
@@ -739,6 +747,19 @@
               this.noHistory = true;
             }
           });
+        },
+
+        historyUsernames() {
+          this.moveHistoryUsernames = [];
+          let usernames = [];
+          for (let i in this.moveHistory) {
+            let user = this.moveHistory[i].activeUser;
+            API.getUser(user).then(response => {
+              let name = response.data.username;
+              usernames.push(name);
+            });
+          }
+          this.moveHistoryUsernames = usernames;
         },
 
         getPlayerInfo() {
@@ -870,8 +891,13 @@
               }
             };
           } else {
+            let executedBy = "";
+            if (this.turn === false) {
+              executedBy = this.player1.userID;
+            } else {
+              executedBy = this.player2.userID;
+            }
             let execute = {
-              gameId: this.gameId,
               origin: {
                 row: this.selectedSquare[0].row,
                 column: this.selectedSquare[0].col
@@ -881,11 +907,12 @@
                 column: this.selectedSquare[1].col
               }
             };
-            API.executeMove(execute, this.gameId).then(response => {
+            API.executeMove(execute, this.gameId, executedBy).then(response => {
               this.getGame();
               this.getHistory();
               this.selectedSquare = [];
               this.movePreview = {
+                activeUser: '',
                 src: {
                   type: '',
                   teamColor: '',
@@ -903,8 +930,13 @@
         },
 
         flipPiece() {
+          let executedBy = "";
+          if (this.turn === false) {
+            executedBy = this.player1.userID;
+          } else {
+            executedBy = this.player2.userID;
+          }
           let flip = {
-            gameId: this.gameId,
             origin: {
               row: this.selectedSquare[0].row,
               column: this.selectedSquare[0].col
@@ -914,7 +946,8 @@
               column: this.selectedSquare[1].col
             }
           };
-          API.executeMove(flip, this.gameId).then((response) => {
+
+          API.executeMove(flip, this.gameId, executedBy).then((response) => {
             this.getGame();
             this.getHistory();
           });
@@ -966,8 +999,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
-                  } else if (pieceDetails.type !== 'EMPTY') {
-                    this.addSelection(selected);
+                  } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player1.color) {
+                     this.addSelection(selected);
                     this.getValidMoves();
                   } else {
                     console.log("INVALID");
@@ -980,6 +1013,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
+                  } else if (!pieceDetails.teamColor !== this.player1.color && !isValidMove) {
+                    this.clearSelected();
                   } else if (pieceDetails.type === "EMPTY") {
                     this.addSelection(selected);
                     this.getMovePreview();
@@ -1034,7 +1069,7 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
-                  } else if (pieceDetails.type !== 'EMPTY') {
+                  } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player2.color) {
                     this.addSelection(selected);
                     this.getValidMoves();
                   } else {
@@ -1048,6 +1083,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
+                  } else if (!pieceDetails.teamColor !== this.player2.color && !isValidMove) {
+                    this.clearSelected();
                   } else if (pieceDetails.type === "EMPTY") {
                     this.addSelection(selected);
                     this.getMovePreview();
@@ -1165,6 +1202,7 @@
             sorted[i] = temp[temp.length - 1 - i];
           }
           this.moveHistory = sorted;
+          this.historyUsernames();
         },
 
         clear() {

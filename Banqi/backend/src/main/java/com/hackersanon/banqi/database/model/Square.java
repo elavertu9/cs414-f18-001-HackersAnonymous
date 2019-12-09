@@ -57,7 +57,7 @@ public class Square
         return captured;
     }
 
-    void vacateSquare(){
-        this.setPiece(new Piece(EMPTY, NEUTRAL));
+    Piece vacateSquare(){
+        return occupySquare(new Piece(EMPTY, NEUTRAL));
     }
 }
