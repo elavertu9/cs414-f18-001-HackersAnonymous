@@ -5,6 +5,7 @@ import com.hackersanon.banqi.model.ModelBase;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "user")
 public class User extends ModelBase
@@ -72,5 +73,10 @@ public class User extends ModelBase
 		this.password = password;
 	}
 
-
+	public boolean equals(User user){
+		return (this.getEmail().equals(user.getEmail()))
+				&& (this.getUsername().equals(user.getUsername()))
+				&& (this.getFirstName().equals(user.getFirstName()))
+				&& (this.getLastName().equals(user.getLastName()));
+	}
 }

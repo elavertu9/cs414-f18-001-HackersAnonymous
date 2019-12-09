@@ -15,6 +15,10 @@ import java.util.List;
 public class UserService implements IUserService
 {
 	private UserDAO userDAO;
+
+	public UserService(UserDAO userDAO){
+		this.userDAO = userDAO;
+	}
 	
 	@Override
 	public User findById(Long id)
@@ -46,7 +50,6 @@ public class UserService implements IUserService
 
 	@Override
 	public User updateUser(User updatedUser) {
-		System.out.printf("HERE");
 		return userDAO.save(updatedUser);
 	}
 	

@@ -60,6 +60,10 @@ public class Game extends ModelBase
 	}
 	
 	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	public void calculateGameOver(){
 		List<TeamColor> teamOnBoard = new ArrayList<>();
 		board.getBoard().forEach(square -> {
 			if (square.getPiece().getTeamColor() == TeamColor.RED) {

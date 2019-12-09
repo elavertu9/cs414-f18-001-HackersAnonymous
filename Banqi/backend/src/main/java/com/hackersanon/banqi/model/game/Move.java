@@ -13,6 +13,8 @@ import static com.hackersanon.banqi.model.game.MoveType.*;
 @Embeddable
 public class Move {
 
+    public Move(){}
+
     @NotNull
     @Embedded
     @AttributeOverrides({
@@ -123,7 +125,7 @@ public class Move {
         return this;
     }
 
-    public Move executeFlip(Board board) throws InvalidMoveException {
+    private Move executeFlip(Board board) throws InvalidMoveException {
         try {
             board.getSquare(getOrigin()).getPiece().setFaceUp(true);
             this.setExecuted();

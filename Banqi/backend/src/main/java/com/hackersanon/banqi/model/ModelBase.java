@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 @MappedSuperclass
-public class ModelBase implements Serializable
+public abstract class ModelBase implements Serializable
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,4 +35,5 @@ public class ModelBase implements Serializable
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
+
 }

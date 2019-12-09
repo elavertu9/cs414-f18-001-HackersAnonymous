@@ -24,7 +24,10 @@ public class GameService implements IGameService
 
 	private GameDAO gameDAO;
 	
-	
+	public GameService(GameDAO gameDAO){
+		this.gameDAO = gameDAO;
+	}
+
 	@Override
 	public Game findById(Long id)
 	{
@@ -57,7 +60,7 @@ public class GameService implements IGameService
 		if(attemptedMove.isExecuted()) {
 			game.getMoveHistory().add(attemptedMove);
 			game.setTurn(!game.isTurn());
-			game.setGameOver(true);
+			game.calculateGameOver();
 		}
 		return attemptedMove;
 	}
