@@ -370,8 +370,7 @@
             </td>
 
             <td>
-              <p v-if="move.attacker.teamColor === 'BLACK'">{{player2.username}}</p>
-              <p v-else>{{player1.username}}</p>
+              <p>{{moveHistoryUsernames[index]}}</p>
             </td>
 
             <!-- ATTACKER -->
@@ -580,6 +579,7 @@
                 faceUp: false
               },
               moveType: "",
+              executedById: '',
               executed: false,
               validMove: false
             }
@@ -596,7 +596,8 @@
                   teamColor: '',
                   faceUp: false
               }
-            }
+            },
+          moveHistoryUsernames: []
         }
       },
 
@@ -608,8 +609,6 @@
                  this.board = response.data.board.board;
                  this.player1.userID = response.data.playerOneId;
                  this.player2.userID = response.data.playerTwoId;
-                 console.log(this.player1.userID);
-                 console.log(this.player2.userID);
                  this.turn = response.data.turn;
                  this.gameOver = response.data.gameOver;
                  this.getPlayerInfo();
@@ -620,7 +619,6 @@
 
         phoneHome() {
           API.getExistingGame(this.gameId).then(response => {
-            console.log(response.data.turn);
             if (response.data.turn !== this.turn) {
               this.refresh();
             }
@@ -749,6 +747,18 @@
               this.noHistory = true;
             }
           });
+        },
+
+        historyUsernames() {
+          let usernames = [];
+          for (let i in this.moveHistory) {
+            let user = this.moveHistory[i].executedById;
+            API.getUser(user).then(response => {
+              let name = response.data.username;
+              usernames.push(name);
+            });
+          }
+          this.moveHistoryUsernames = usernames;
         },
 
         getPlayerInfo() {
@@ -1182,6 +1192,7 @@
             sorted[i] = temp[temp.length - 1 - i];
           }
           this.moveHistory = sorted;
+          this.historyUsernames();
         },
 
         clear() {
