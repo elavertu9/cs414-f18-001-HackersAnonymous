@@ -2,7 +2,7 @@ package com.hackersanon.banqi.model.game;
 
 import com.hackersanon.banqi.model.ModelBase;
 import com.hackersanon.banqi.model.board.Board;
-import com.hackersanon.banqi.model.piece.TeamColor;
+import com.hackersanon.banqi.model.board.TeamColor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class Game extends ModelBase
 	private boolean turn = false;
 	
 	@ElementCollection
-	@AttributeOverride(name = "valid", column = @Column(name = "validCoord"))
 	private Collection<Move> moveHistory = new ArrayList<>();
 	
 	@Column
