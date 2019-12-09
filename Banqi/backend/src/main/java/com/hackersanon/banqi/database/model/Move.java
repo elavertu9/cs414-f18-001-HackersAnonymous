@@ -12,14 +12,14 @@ import static com.hackersanon.banqi.game.MoveType.*;
 @Embeddable
 public class Move {
 
-
+    @NotNull
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "row",column = @Column(name = "oRow")),
             @AttributeOverride(name = "column", column = @Column(name = "oColumn"))
     })
     private Coordinate origin;
-
+    @NotNull
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "row",column = @Column(name = "dRow")),
@@ -46,14 +46,14 @@ public class Move {
     private boolean executed;
     
     @NotNull
-    private long executedById;
+    private Long executedById;
     
-    public long getExecutedById()
+    public Long getExecutedById()
     {
         return executedById;
     }
     
-    public void setExecutedById(long executedById)
+    public void setExecutedById(Long executedById)
     {
         this.executedById = executedById;
     }
@@ -113,8 +113,6 @@ public class Move {
 
     public Move executeMove(Board board) throws InvalidMoveException {
         try {
-            setAttacker(board.getSquare(origin).getPiece());
-            setCaptured(board.getSquare(destination).occupySquare(attacker));
             board.getSquare(getOrigin()).vacateSquare();
             this.setExecuted();
         } catch (InvalidCoordinateException e) {
