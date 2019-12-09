@@ -78,7 +78,7 @@ public class HibernateConfig {
         em.setDataSource(getDataSource());
         em.setJpaProperties(getHibernateProperties());
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setPackagesToScan("com.hackersanon.banqi.database");
+        em.setPackagesToScan("com.hackersanon.banqi.model");
         return em;
     }
 
