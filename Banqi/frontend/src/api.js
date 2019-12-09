@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const AXIOS = axios.create({
   baseURL: `http://localhost:8080/api`,
-  timeout: 10000,
+  timeout: 100000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -74,5 +74,9 @@ export default {
 
   getMoveHistory(id) {
     return AXIOS.get(`/game/${id}/moveHistory`);
+  },
+
+  forfeitGameOver(gameId, userId) {
+    return AXIOS.get(`/game/${gameId}/${userId}/forfeit`);
   }
 }

@@ -16,24 +16,6 @@ import java.util.Properties;
 @ComponentScans(value = { @ComponentScan("com.hackersanon.banqi")})
 public class HibernateConfig {
     
-    
-//    @Bean
-//    public LocalSessionFactoryBean getSessionFactory()
-//    {
-//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-//        factoryBean.setHibernateProperties(getHibernateProperties());
-//        factoryBean.setDataSource(getDataSource());
-//        factoryBean.setPackagesToScan("com.hackersanon.banqi");
-//        return factoryBean;
-//    }
-
-//    @Bean("transactionManager")
-//    public HibernateTransactionManager getTransactionManager(){
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-//        transactionManager.setSessionFactory(getSessionFactory().getObject());
-//        return transactionManager;
-//    }
-
     @Bean
     public static DataSource getDataSource(){
         MysqlDataSource dataSource = new MysqlDataSource();
@@ -53,7 +35,7 @@ public class HibernateConfig {
     private static Properties getHibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.show_sql", "false");
         properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.c3p0.min_size","5");
@@ -78,7 +60,7 @@ public class HibernateConfig {
         em.setDataSource(getDataSource());
         em.setJpaProperties(getHibernateProperties());
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setPackagesToScan("com.hackersanon.banqi.database");
+        em.setPackagesToScan("com.hackersanon.banqi.model");
         return em;
     }
 

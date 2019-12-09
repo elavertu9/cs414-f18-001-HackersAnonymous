@@ -9,12 +9,15 @@
               <th>Game ID</th>
               <th>Player1</th>
               <th>Player2</th>
+              <th>Result</th>
               </thead>
               <tbody>
               <tr v-for="game in gamesInProgress" v-if="game.gameOver">
                 <td>{{game.id}}</td>
                 <td>{{game.player1.username}}</td>
                 <td>{{game.player2.username}}</td>
+                <td v-if="game.currentTurn !== userInfo.username">Win</td>
+                <td v-else>Loss</td>
               </tr>
               </tbody>
             </table>
@@ -215,6 +218,12 @@
         getGameList() {
           API.getUsersGames(this.userInfo.userID).then(response => {
             for (let i in response.data) {
+              let currTurn = '';
+              if (response.data[i].moveHistory.length % 2 === 0) {
+                currTurn = response.data[i].playerOneId;
+              } else {
+                currTurn = response.data[i].playerTwoId;
+              }
               let game = {
                 id: response.data[i].id,
                 player1: {
@@ -226,6 +235,7 @@
                   username: ''
                 },
                 turn: response.data[i].turn,
+                currentTurn: currTurn,
                 gameOver: response.data[i].gameOver
               };
               this.gamesInProgress.push(game);
@@ -242,6 +252,11 @@
 
             API.getUser(this.gamesInProgress[i].player2.id).then(response => {
               this.gamesInProgress[i].player2.username = response.data.username;
+            });
+
+            API.getUser(this.gamesInProgress[i].currentTurn).then(response => {
+              console.log(response.data.username);
+              this.gamesInProgress[i].currentTurn = response.data.username;
             });
           }
         }

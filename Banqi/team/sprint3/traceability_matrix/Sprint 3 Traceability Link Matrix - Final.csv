@@ -1,0 +1,50 @@
+,,,GameService,UserService,BackendController,,UserDAO,GameDAO,Board,User,Coordinate,Game,Move,Piece,Square
+"US-2: I would like to play more than one game
+at a time",,,,,,,,,,,,,,,
+US-3: I would like to leave games at any time,,,,,,,,,,,,,,,
+US-4: I would like to create a match,,,"X
+",,,,,,,,,,,,
+"US-5: I would like to be able to receive invitations
+to games",,,"X
+",,,,,,,,,,,,
+"US-6: I would like to be able to send more than
+one invitation",,,"X
+",,,,,,,,,,,,
+"US-7: I would like to be able to register to the
+platform",,,,X,,,,,,,,,,,
+"US-8: I would like to be able to unregister from
+the platform",,,,,,,,,,,,,,,
+"US-9: I would like pieces to disappear when they
+are captured",,,,,,,X,,,,,,,,
+US-10: I would like to be able to play Banqi online,,,,,,,,,,,,,,,
+"US-14: I would like to know if I won or lost the 
+game",,,,,,,,,,,,,,,
+US-15: I would like to know when a game is over,,,X,,,,,,,,,,,,
+"US-16: I would like to see a record of all the
+games I've played",,,,,,,,,,,,,,,
+"US-17: I would like to be able to save my current
+game state",,,"X
+","
+","X
+",,,,,,,,,,
+"US-18: I would like to be able to reload saved
+games",,,"X
+",,"X
+",,,,,,,,,,
+"US-26: I woud like to be able to flip a piece over
+for my turn",,,X,,X,,,,X,,X,X,X,X,X
+US-27: I would like to be able to move my pieces,,,X,,X,,,,X,,X,X,X,X,X
+"US-28: I would like to be able to capture enemy
+pieces",,,X,,X,,,,X,,X,X,X,X,X
+"US-36: I would like to be able to login to my 
+account that I registered with",,,,X,X,,X,,,X,,,,,
+"US-40: I would like to be able to view my profile 
+for the account I created ",,,,X,"X
+",,,,,X,,,,,
+"US-42: I would like to be able to play Banqi with 
+friends.",,,X,,"X
+",,,,,,,,,,
+"US-43: I would like to be able to come back to 
+my game",,,X,,X,,,,,,,,,,
+"US-44: I would like to be able to view my game 
+statistics on my profile page",,,X,,X,,,,,,,,,,

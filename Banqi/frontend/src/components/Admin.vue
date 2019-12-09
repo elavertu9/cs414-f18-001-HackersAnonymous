@@ -63,7 +63,7 @@
               <td>{{game.id}}</td>
               <td>{{usernameList[index].p1Username}}</td>
               <td>{{usernameList[index].p2Username}}</td>
-              <td>{{game.board.gameOver ? "Completed" : "In Progress"}}</td>
+              <td>{{game.gameOver || game.forfeit ? "Completed" : "In Progress"}}</td>
               <td><b-button variant="danger" @click="deleteGame(game.id)">Delete</b-button></td>
             </tr>
             </tbody>
@@ -152,9 +152,8 @@
                 id: '',
                 playerOneId: '',
                 playerTwoId: '',
-                board: {
-                  gameOver: false
-                }
+                gameOver: false,
+                forfeit: false
               }
             ],
             selectedUser: {

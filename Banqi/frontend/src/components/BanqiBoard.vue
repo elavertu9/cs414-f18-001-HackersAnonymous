@@ -3,11 +3,18 @@
     <b-row>
       <b-col></b-col>
       <b-col class="center"><h1>Banqi Game: {{gameId}}</h1></b-col>
-      <b-col><h3 v-if="gameOver">GAME OVER</h3></b-col>
+      <b-col></b-col>
     </b-row>
     <b-row>
       <b-col></b-col>
-      <b-col class="center">
+      <b-col class="center" v-if="gameOver && !forfeit">
+        <h3>Won</h3>
+      </b-col>
+      <b-col class="center" v-else-if="gameOver && forfeit">
+        <h3>GAME OVER</h3>
+        <h3>{{quitter}} Forfeited</h3>
+      </b-col>
+      <b-col v-else class="center">
         <h5>Turn: {{turn === false ? player1.username : player2.username}}</h5>
       </b-col>
       <b-col></b-col>
@@ -24,7 +31,8 @@
             <b-dropdown-item @click="$bvModal.show('rules-modal')">Rules</b-dropdown-item>
           </b-dropdown>
           <b-dropdown id="dropdown-1" class="help" variant="primary" text="Actions">
-            <b-dropdown-item @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item v-if="!gameOver" @click="clear()">Clear</b-dropdown-item>
+            <b-dropdown-item v-if="!gameOver" @click="$bvModal.show('areYouSure')">Forfeit</b-dropdown-item>
             <b-dropdown-item @click="backToGameHome()">Change Game</b-dropdown-item>
           </b-dropdown>
 
@@ -38,6 +46,7 @@
       <b-col class="center">
         <h3>Move Preview: </h3>
         <b-alert v-if="showTurnError" show variant="danger">{{turnError}}</b-alert>
+        <b-alert v-if="showGameError" show variant="danger">{{gameOverError}}</b-alert>
       </b-col>
     </b-row>
     <b-row>
@@ -117,7 +126,7 @@
       <!-- PLAYER 1 CARD -->
       <b-col>
         <b-card class="player-cards">
-          <b-card-title class="center">{{this.player1.username}}</b-card-title>
+          <b-card-title class="center nameBorder">{{this.player1.username}}</b-card-title>
           <b-card-text>
             <b-row class="center">
               <b-col class="center">
@@ -298,7 +307,7 @@
       <!-- PLAYER 2 CARD -->
       <b-col>
         <b-card class="player-cards">
-          <b-card-title class="center">{{this.player2.username}}</b-card-title>
+          <b-card-title class="center nameBorder">{{this.player2.username}}</b-card-title>
           <b-card-text>
             <b-row class="center">
               <b-col class="center">
@@ -370,7 +379,7 @@
             </td>
 
             <td>
-              <p>{{moveHistoryUsernames[index]}}</p>
+              <p>{{moveHistoryUsernames[moveHistoryUsernames.length - 1 - index]}}</p>
             </td>
 
             <!-- ATTACKER -->
@@ -444,6 +453,15 @@
     <br/>
     <br/>
 
+    <!-- ARE YOU SURE MODAL -->
+    <div>
+      <b-modal id="areYouSure" ref="areYouSure" hide-footer>
+        <template v-slot:modal-title>Are you sure?</template>
+        <p>If you forfeit the game you will take a loss as a result. Are you sure you want to forfeit?</p>
+        <b-button class="mt-3" variant="primary" block @click="forfeitGame()">Forfeit</b-button>
+      </b-modal>
+    </div>
+
     <!-- LEGEND MODAL -->
     <div>
       <b-modal id="legend-modal" hide-footer>
@@ -495,11 +513,15 @@
       data() {
         return {
           gameId: '',
-          callHomeEvery: 3000,
+          callHomeEvery: 5000,
           turn: false,
           gameOver: false,
-          turnError: 'Please wait your turn',
+          forfeit: false,
+          quitter: '',
+          turnError: 'Please wait for your turn',
           showTurnError: false,
+          gameOverError: 'Game is over, no more moves can be played',
+          showGameError: false,
           board: [
             {
               piece: {
@@ -611,9 +633,43 @@
                  this.player2.userID = response.data.playerTwoId;
                  this.turn = response.data.turn;
                  this.gameOver = response.data.gameOver;
+                 this.forfeit = response.data.forfeit;
+                 this.quitter = response.data.quitter;
                  this.getPlayerInfo();
                  this.loading = false;
               });
+          }
+        },
+
+        forfeitGame() {
+          if (!this.turn) {
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
+              API.forfeitGameOver(this.gameId, this.player1.userID).then(response => {
+                this.$refs['areYouSure'].hide();
+                this.getGame();
+                this.getHistory();
+              });
+            } else {
+              this.$refs['areYouSure'].hide();
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
+            }
+          } else {
+            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
+              API.forfeitGameOver(this.gameId, this.player2.userID).then(response => {
+                this.$refs['areYouSure'].hide();
+                this.getGame();
+                this.getHistory();
+              });
+            } else {
+              this.$refs['areYouSure'].hide();
+              this.showTurnError = true;
+              setTimeout(() => {
+                this.showTurnError = false;
+              }, 5000);
+            }
           }
         },
 
@@ -750,13 +806,10 @@
         },
 
         historyUsernames() {
-          this.moveHistoryUsernames = [];
           let usernames = [];
-          for (let i in this.moveHistory) {
-            let user = this.moveHistory[i].activeUser;
-            API.getUser(user).then(response => {
-              let name = response.data.username;
-              usernames.push(name);
+          for (let i in this.moveHistoryUsernames) {
+            API.getUser(this.moveHistoryUsernames[this.moveHistoryUsernames.length - 1 - i]).then(response => {
+              usernames[i] = response.data.username;
             });
           }
           this.moveHistoryUsernames = usernames;
@@ -982,16 +1035,17 @@
 
         // handle board clicks
         clicked(row, col) {
-          if (!this.turn) {
-            let numSelected = this.selectedSquare.length;
-            let pieceDetails = this.getPiece(row, col);
-            let selected = {
-              row: row,
-              col: col,
-              faceUp: pieceDetails.faceUp,
-              type: pieceDetails.type
-            };
-            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
+          if (!this.gameOver) {
+            if (!this.turn) {
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
+              if (parseInt(localStorage.getItem('userID')) === parseInt(this.player1.userID)) {
 
                 if (numSelected < 1) {
                   if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
@@ -1000,7 +1054,7 @@
                     this.addSelection(selected);
                     this.getMovePreview();
                   } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player1.color) {
-                     this.addSelection(selected);
+                    this.addSelection(selected);
                     this.getValidMoves();
                   } else {
                     console.log("INVALID");
@@ -1045,24 +1099,24 @@
                   // numSelected > 2
                   console.log("overflow! ", numSelected);
                 }
+              } else {
+                // p1 disabled
+                // p2 goes
+                this.showTurnError = true;
+                setTimeout(() => {
+                  this.showTurnError = false;
+                }, 5000);
+              }
             } else {
-              // p1 disabled
-              // p2 goes
-              this.showTurnError = true;
-              setTimeout(() => {
-                this.showTurnError = false;
-              }, 5000);
-            }
-          } else {
-            let numSelected = this.selectedSquare.length;
-            let pieceDetails = this.getPiece(row, col);
-            let selected = {
-              row: row,
-              col: col,
-              faceUp: pieceDetails.faceUp,
-              type: pieceDetails.type
-            };
-            if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
+              let numSelected = this.selectedSquare.length;
+              let pieceDetails = this.getPiece(row, col);
+              let selected = {
+                row: row,
+                col: col,
+                faceUp: pieceDetails.faceUp,
+                type: pieceDetails.type
+              };
+              if (parseInt(localStorage.getItem('userID')) === parseInt(this.player2.userID)) {
                 if (numSelected < 1) {
                   if (!pieceDetails.faceUp && pieceDetails.type !== 'EMPTY') {
                     this.clearSelected();
@@ -1115,14 +1169,19 @@
                   // numSelected > 2
                   console.log("overflow! ", numSelected);
                 }
-            } else {
-              this.showTurnError = true;
-              setTimeout(() => {
-                this.showTurnError = false;
-              }, 5000);
+              } else {
+                this.showTurnError = true;
+                setTimeout(() => {
+                  this.showTurnError = false;
+                }, 5000);
+              }
             }
+          } else {
+            this.showGameError = true;
+            setTimeout(() => {
+              this.showGameError = false;
+            }, 5000);
           }
-
         },
 
         clearSelected() {
@@ -1197,11 +1256,15 @@
 
         reverseArray() {
           let temp = this.moveHistory;
+          this.moveHistoryUsernames = [];
+          let moveUsername = [];
           let sorted = [];
           for (let i in temp) {
             sorted[i] = temp[temp.length - 1 - i];
+            moveUsername[i] = temp[temp.length - 1 - i].activeUser;
           }
           this.moveHistory = sorted;
+          this.moveHistoryUsernames = moveUsername;
           this.historyUsernames();
         },
 
@@ -1349,9 +1412,17 @@
   .overflow {
     height: 175px;
     overflow: scroll;
-    border: 3px solid black;
+    border: 3px solid white;
+    border-radius: 10px;
     background-color: #A8A8A8;
     color: black;
+  }
+
+  .nameBorder {
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    border-radius: 10px;
   }
 
 </style>

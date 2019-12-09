@@ -14,12 +14,15 @@
               <th>Game ID</th>
               <th>Player1</th>
               <th>Player2</th>
+              <th>Result</th>
               </thead>
               <tbody>
-              <tr v-for="game in gamesInProgress" v-if="game.gameOver">
+              <tr v-for="game in gamesInProgress" v-if="game.gameOver || game.forfeit">
                 <td>{{game.id}}</td>
                 <td>{{game.player1.username}}</td>
                 <td>{{game.player2.username}}</td>
+                <td v-if="game.currentTurn !== currentPlayer.username">Win</td>
+                <td v-else>Loss</td>
               </tr>
               </tbody>
             </table>
@@ -32,6 +35,7 @@
                 <th>Game ID</th>
                 <th>Player1</th>
                 <th>Player2</th>
+                <th>Turn</th>
                 <th></th>
               </thead>
               <tbody>
@@ -39,6 +43,7 @@
                   <td>{{game.id}}</td>
                   <td>{{game.player1.username}}</td>
                   <td>{{game.player2.username}}</td>
+                  <td>{{game.currentTurn}}</td>
                   <td><b-button variant="success" @click="resumeGame(game.id)">Resume</b-button></td>
                 </tr>
               </tbody>
@@ -210,6 +215,13 @@
           getGameList() {
             API.getUsersGames(this.currentPlayer.id).then(response => {
               for (let i in response.data) {
+                let currTurn = '';
+                if (response.data[i].moveHistory.length % 2 === 0) {
+                  currTurn = response.data[i].playerOneId;
+                } else {
+                  currTurn = response.data[i].playerTwoId;
+                }
+
                 let game = {
                   id: response.data[i].id,
                   player1: {
@@ -221,7 +233,10 @@
                     username: ''
                   },
                   turn: response.data[i].turn,
-                  gameOver: response.data[i].gameOver
+                  gameOver: response.data[i].gameOver,
+                  forfeit: response.data[i].forfeit,
+                  currentTurn: currTurn,
+                  moveHistory: response.data[i].moveHistory
                 };
                 this.gamesInProgress.push(game);
               }
@@ -237,6 +252,10 @@
 
               API.getUser(this.gamesInProgress[i].player2.id).then(response => {
                 this.gamesInProgress[i].player2.username = response.data.username;
+              });
+
+              API.getUser(this.gamesInProgress[i].currentTurn).then(response => {
+                this.gamesInProgress[i].currentTurn = response.data.username;
               });
             }
           },
