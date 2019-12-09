@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 @MappedSuperclass
-public abstract class ModelBase implements Serializable
+public class ModelBase implements Serializable
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
