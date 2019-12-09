@@ -753,6 +753,7 @@
           let usernames = [];
           for (let i in this.moveHistory) {
             let user = this.moveHistory[i].executedById;
+            console.log(user);
             API.getUser(user).then(response => {
               let name = response.data.username;
               usernames.push(name);
@@ -878,6 +879,7 @@
             this.flipPiece();
             this.selectedSquare = [];
             this.movePreview = {
+              executedById: '',
               src: {
                 type: '',
                 teamColor: '',
@@ -890,9 +892,13 @@
               }
             };
           } else {
-            let executedBy = this.turn === false ? this.player1.userID : this.player2.userID;
+            let executedBy = "";
+            if (this.turn === false) {
+              executedBy = this.player1.userID;
+            } else {
+              executedBy = this.player2.userID;
+            }
             let execute = {
-              gameId: this.gameId,
               executedById: executedBy,
               origin: {
                 row: this.selectedSquare[0].row,
@@ -926,8 +932,14 @@
         },
 
         flipPiece() {
+          let executedBy = "";
+          if (this.turn === false) {
+            executedBy = this.player1.userID;
+          } else {
+            executedBy = this.player2.userID;
+          }
           let flip = {
-            gameId: this.gameId,
+            executedById: executedBy,
             origin: {
               row: this.selectedSquare[0].row,
               column: this.selectedSquare[0].col
@@ -937,6 +949,7 @@
               column: this.selectedSquare[1].col
             }
           };
+          console.log(flip);
           API.executeMove(flip, this.gameId).then((response) => {
             this.getGame();
             this.getHistory();
