@@ -111,6 +111,9 @@
 
           this.getUserInfo();
           this.getGameList();
+          window.setInterval(() => {
+            this.phoneHome();
+          }, this.callHomeEvery);
         },
 
         data() {
@@ -141,7 +144,8 @@
             showError: false,
             gamesInProgress: [],
             turn: false,
-            gameOver: false
+            gameOver: false,
+            callHomeEvery: 3000
           }
         },
 
@@ -149,6 +153,15 @@
           resumeGame(gameID) {
               localStorage.setItem('gameId', gameID);
               window.location.pathname = "/game";
+          },
+
+          phoneHome() {
+            API.getUsersGames(this.currentPlayer.id).then(response => {
+              if (response.data.length !== this.gamesInProgress.length) {
+                this.gamesInProgress = [];
+                this.getGameList();
+              }
+            });
           },
 
           createGame() {
