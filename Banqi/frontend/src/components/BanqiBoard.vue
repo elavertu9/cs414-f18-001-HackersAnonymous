@@ -966,8 +966,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
-                  } else if (pieceDetails.type !== 'EMPTY') {
-                    this.addSelection(selected);
+                  } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player1.color) {
+                     this.addSelection(selected);
                     this.getValidMoves();
                   } else {
                     console.log("INVALID");
@@ -980,6 +980,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
+                  } else if (!pieceDetails.teamColor !== this.player1.color && !isValidMove) {
+                    this.clearSelected();
                   } else if (pieceDetails.type === "EMPTY") {
                     this.addSelection(selected);
                     this.getMovePreview();
@@ -1034,7 +1036,7 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
-                  } else if (pieceDetails.type !== 'EMPTY') {
+                  } else if (pieceDetails.type !== 'EMPTY' && pieceDetails.teamColor === this.player2.color) {
                     this.addSelection(selected);
                     this.getValidMoves();
                   } else {
@@ -1048,6 +1050,8 @@
                     this.addSelection(selected);
                     this.addSelection(selected);
                     this.getMovePreview();
+                  } else if (!pieceDetails.teamColor !== this.player2.color && !isValidMove) {
+                    this.clearSelected();
                   } else if (pieceDetails.type === "EMPTY") {
                     this.addSelection(selected);
                     this.getMovePreview();
