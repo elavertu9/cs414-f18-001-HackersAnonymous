@@ -19,8 +19,10 @@ public class Game extends ModelBase
 	private Board board;
 
 	private boolean gameOver = false;
-	private boolean forfeit;
+	private boolean forfeit = false;
 	private String quitter;
+	private boolean turn = false;
+	
 	
 	public String getQuitter()
 	{
@@ -36,12 +38,12 @@ public class Game extends ModelBase
 	{
 		return forfeit;
 	}
-
+	
 	public void setForfeit(boolean forfeit)
 	{
 		this.forfeit = forfeit;
 	}
-
+	
 	public boolean isGameOver() {
 		return this.gameOver;
 	}
@@ -60,8 +62,6 @@ public class Game extends ModelBase
 			this.gameOver = true;
 		}
 	}
-
-	private boolean turn = false;
 
 	@ElementCollection
 	@AttributeOverride(name = "valid", column = @Column(name = "validCoord"))
