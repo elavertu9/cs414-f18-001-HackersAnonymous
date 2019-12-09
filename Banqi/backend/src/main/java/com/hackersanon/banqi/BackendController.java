@@ -1,15 +1,15 @@
 package com.hackersanon.banqi;
 
-import com.hackersanon.banqi.board.InvalidCoordinateException;
-import com.hackersanon.banqi.board.InvalidMoveException;
-import com.hackersanon.banqi.database.model.Coordinate;
-import com.hackersanon.banqi.database.model.Game;
-import com.hackersanon.banqi.database.model.Move;
-import com.hackersanon.banqi.database.model.User;
-import com.hackersanon.banqi.database.service.GameService;
-import com.hackersanon.banqi.database.service.IGameService;
-import com.hackersanon.banqi.database.service.IUserService;
-import com.hackersanon.banqi.database.service.UserService;
+import com.hackersanon.banqi.exception.InvalidCoordinateException;
+import com.hackersanon.banqi.exception.InvalidMoveException;
+import com.hackersanon.banqi.model.board.Coordinate;
+import com.hackersanon.banqi.model.game.Game;
+import com.hackersanon.banqi.model.game.Move;
+import com.hackersanon.banqi.model.user.User;
+import com.hackersanon.banqi.service.GameService;
+import com.hackersanon.banqi.service.IGameService;
+import com.hackersanon.banqi.service.IUserService;
+import com.hackersanon.banqi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
