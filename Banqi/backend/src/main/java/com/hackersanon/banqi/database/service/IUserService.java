@@ -11,4 +11,6 @@ public interface IUserService extends IService<User>
     User findByUsername(String username);
     void deleteUserById(Long id);
     User updateUser(User user);
+	
+	String getUsername(Long userId);
 }

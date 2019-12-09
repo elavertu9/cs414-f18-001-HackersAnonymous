@@ -19,6 +19,28 @@ public class Game extends ModelBase
 	private Board board;
 
 	private boolean gameOver = false;
+	private boolean forfeit;
+	private String quitter;
+	
+	public String getQuitter()
+	{
+		return quitter;
+	}
+	
+	public void setQuitter(String quitter)
+	{
+		this.quitter = quitter;
+	}
+	
+	public boolean getForfeit()
+	{
+		return forfeit;
+	}
+
+	public void setForfeit(boolean forfeit)
+	{
+		this.forfeit = forfeit;
+	}
 
 	public boolean isGameOver() {
 		return this.gameOver;
