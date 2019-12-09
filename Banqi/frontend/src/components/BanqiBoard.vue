@@ -750,11 +750,10 @@
         },
 
         historyUsernames() {
+          this.moveHistoryUsernames = [];
           let usernames = [];
           for (let i in this.moveHistory) {
             let user = this.moveHistory[i].activeUser;
-            console.log(user);
-            console.log(user);
             API.getUser(user).then(response => {
               let name = response.data.username;
               usernames.push(name);
