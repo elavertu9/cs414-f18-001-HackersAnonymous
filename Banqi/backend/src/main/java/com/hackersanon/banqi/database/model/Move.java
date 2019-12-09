@@ -45,7 +45,6 @@ public class Move {
     private MoveType moveType;
     private boolean executed;
     
-    @NotNull
     private Long activeUser;
     
     public Long getActiveUser()
@@ -134,8 +133,9 @@ public class Move {
     }
     
     
-    public Move attemptMove(Board boardObject) throws InvalidMoveException {
+    public Move attemptMove(Board boardObject, Long userId) throws InvalidMoveException {
         try {
+            this.activeUser = userId;
             return makeMove(boardObject, boardObject.getSquare(this.getOrigin()), boardObject.getSquare(this.getDestination()));
         } catch (InvalidCoordinateException e) {
             throw new InvalidMoveException();
