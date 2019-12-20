@@ -2,6 +2,7 @@ package com.hackersanon.banqi.service;
 
 import com.hackersanon.banqi.dao.GameDAO;
 import com.hackersanon.banqi.model.game.Game;
+import com.hackersanon.banqi.model.game.GameBuilder;
 import org.assertj.core.util.Lists;
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +24,9 @@ public class GameServiceTest
 
     @Mock
     private Game game;
+    
+    @Mock
+    private GameBuilder gameBuilder;
 
     private IGameService gameService;
     private Long id = 1L;

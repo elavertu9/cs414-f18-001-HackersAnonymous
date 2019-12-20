@@ -3,11 +3,9 @@ package com.hackersanon.banqi.service;
 import com.hackersanon.banqi.dao.GameDAO;
 import com.hackersanon.banqi.exception.InvalidCoordinateException;
 import com.hackersanon.banqi.exception.InvalidMoveException;
-import com.hackersanon.banqi.model.board.Board;
-import com.hackersanon.banqi.model.board.Coordinate;
-import com.hackersanon.banqi.model.board.Piece;
-import com.hackersanon.banqi.model.board.PieceAttributes;
+import com.hackersanon.banqi.model.board.*;
 import com.hackersanon.banqi.model.game.Game;
+import com.hackersanon.banqi.model.game.GameBuilder;
 import com.hackersanon.banqi.model.game.Move;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +21,11 @@ public class GameService implements IGameService
 {
 
 	private GameDAO gameDAO;
+	private GameBuilder gameBuilder;
 	
 	public GameService(GameDAO gameDAO){
 		this.gameDAO = gameDAO;
+		gameBuilder = new GameBuilder();
 	}
 
 	@Override
@@ -36,18 +36,14 @@ public class GameService implements IGameService
 
 	@Override
 	public Game createGame() {
-		Game game = new Game();
-		game.setBoard(new Board());
+		Game game = gameBuilder.createBanqiGame();
 		return gameDAO.save(game);
 	}
 
 	@Override
 	public Game createGame(Long p1id, Long p2id)
 	{
-		Game game = new Game();
-		game.setPlayerOneId(p1id);
-		game.setPlayerTwoId(p2id);
-		game.setBoard(new Board());
+		Game game = gameBuilder.createBanqiGame(p1id, p2id);
 		return gameDAO.save(game);
 	}
 

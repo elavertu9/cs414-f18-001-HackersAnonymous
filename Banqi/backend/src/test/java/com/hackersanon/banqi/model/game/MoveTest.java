@@ -27,7 +27,8 @@ public class MoveTest
         farDestination = new Coordinate(6,3);
 
         invalCoord = new Coordinate(9,0);
-        board = new Board();
+        
+        board = new GameBuilder().createBanqiGame().getBoard();
         move = new Move();
         userId = 1234L;
         friendly = new Piece(PieceAttributes.GENERAL, TeamColor.BLACK);

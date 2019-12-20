@@ -51,13 +51,6 @@ public class GameTest
     }
 
     @Test
-    public void testCalculateGameOver(){
-        game.setBoard(board);
-        game.calculateGameOver();
-        Assertions.assertFalse(game.isGameOver());
-    }
-
-    @Test
     public void testSetForfeit(){
         game.setForfeit(true);
         Assertions.assertTrue(game.isForfeit());

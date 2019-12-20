@@ -5,9 +5,8 @@ import com.hackersanon.banqi.exception.InvalidCoordinateException;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
-import java.util.*;
-
-import static com.hackersanon.banqi.model.board.PieceAttributes.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Embeddable
@@ -16,13 +15,15 @@ public class Board
     @ElementCollection
 	private Collection<Square> board = new ArrayList<>();
 
-	private int colDimension = 8;
+	private int colDimension;
 
-	private int rowDimension = 4;
+	private int rowDimension;
 
-
-	public Board(){
-		initialize();
+	public Board(){}
+	
+	public Board(int x, int y){
+		this.colDimension = x;
+		this.rowDimension = y;
 	}
 
 
@@ -62,33 +63,5 @@ public class Board
 		}
 	}
 
-	private void initialize(){
-		ArrayList<Piece> allPiece = initAllPieces();
-		for (int i = 0; i<rowDimension;++i){
-			for(int j = 0; j<colDimension;++j){
-				this.board.add(new Square(allPiece.remove(0), new Coordinate(i, j) ));
-			}
-		}
-	}
-
-	private static ArrayList<Piece> initAllPieces(){
-		ArrayList<Piece> allPiece = new ArrayList<>(initTeamPieces(TeamColor.RED));
-		allPiece.addAll(initTeamPieces(TeamColor.BLACK));
-		for(int i=0;i<5;++i){
-			Collections.shuffle(allPiece);
-		}
-		return allPiece;
-	}
-
-	private static ArrayList<Piece> initTeamPieces(TeamColor color){
-		return new ArrayList<>(Arrays.asList( new Piece(GENERAL, color),
-				new Piece(CHARIOT, color), new Piece(CHARIOT, color),
-				new Piece(HORSE, color), new Piece(HORSE, color),
-				new Piece(CANNON, color), new Piece(CANNON, color),
-				new Piece(ADVISOR, color), new Piece(ADVISOR, color),
-				new Piece(MINSTER, color), new Piece(MINSTER, color),
-				new Piece(SOLDIER, color), new Piece(SOLDIER, color),
-				new Piece(SOLDIER, color), new Piece(SOLDIER, color),new Piece(SOLDIER, color)));
-	}
 
 }
