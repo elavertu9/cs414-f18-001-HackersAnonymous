@@ -45,7 +45,6 @@ public class GameBuilder
 	}
 	
 	private static ArrayList<Piece> initTeamPieces(TeamColor color){
-		
 		return new ArrayList<>(Arrays.asList(PieceFactory.getPiece(GENERAL, color),
 											 PieceFactory.getPiece(CHARIOT, color), PieceFactory.getPiece(CHARIOT, color),
 											 PieceFactory.getPiece(HORSE, color), PieceFactory.getPiece(HORSE, color),

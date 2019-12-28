@@ -7,10 +7,11 @@ public class BoardBuilder
 {
 	public Board buildBoard(int row, int column, ArrayList<Piece> orderedPieceList){
 		Board board = new Board();
+		board.setColDimension(column);
+		board.setRowDimension(row);
 		board.setBoard(prepareBoard(row, column, orderedPieceList));
 		return board;
 	}
-	
 	
 	private Collection<Square> prepareBoard(int row, int column, ArrayList<Piece> orderedPieceList){
 		Collection<Square> board = new ArrayList<>();
@@ -21,5 +22,4 @@ public class BoardBuilder
 		}
 		return board;
 	}
-
 }

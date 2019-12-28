@@ -151,9 +151,11 @@ public class Move {
         this.setAttacker(origin.getPiece());
         this.setCaptured(destination.getPiece());
         if (this.getMoveType() == TRAVEL || this.getMoveType() == CAPTURE) {
-            return this.executeMove(boardObject);
+            destination.occupySquare(origin.vacateSquare());
+            this.setExecuted();
         } else if (this.getMoveType() == FLIP) {
-            return this.executeFlip(boardObject);
+            origin.getPiece().setFaceUp(true);
+            this.setExecuted();
         }
         return this;
     }
